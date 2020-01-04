@@ -12,7 +12,6 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.source.StylishRepository
-import app.appworks.school.stylish.detail.chatbot.ChatbotItem
 import app.appworks.school.stylish.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +28,7 @@ class DetailViewModel(
 ) : ViewModel() {
 
     enum class ChatbotStatus {
-        SHOWN, HIDE, DONE
+        SHOWING, HIDING, DONESHOWING, DONEHIDING
     }
 
     // Detail has product data from arguments
@@ -139,16 +138,20 @@ class DetailViewModel(
     fun showChatbot(isShown: Boolean?) {
 
         if (isShown == null || isShown == false) {
-            _chatbotStatus.value = ChatbotStatus.SHOWN
-            isChatbotShown.value = true
+            _chatbotStatus.value = ChatbotStatus.SHOWING
         } else {
-            _chatbotStatus.value = ChatbotStatus.HIDE
-            isChatbotShown.value = false
+            _chatbotStatus.value = ChatbotStatus.HIDING
         }
     }
 
     fun resetChatbotStatus() {
-        _chatbotStatus.value = ChatbotStatus.DONE
+        if (_chatbotStatus.value == ChatbotStatus.SHOWING) {
+            _chatbotStatus.value = ChatbotStatus.DONESHOWING
+            isChatbotShown.value = true
+        } else {
+            _chatbotStatus.value = ChatbotStatus.DONEHIDING
+            isChatbotShown.value = false
+        }
     }
 
 }

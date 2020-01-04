@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.detail
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,15 +79,19 @@ class DetailFragment : Fragment() {
         viewModel.chatbotStatus.observe(this, Observer {
             it?.let { chatbotStatus ->
                 when (chatbotStatus){
-                    DetailViewModel.ChatbotStatus.SHOWN -> {
+                    DetailViewModel.ChatbotStatus.SHOWING -> {
                         binding.layoutDetailChatbot.chatbotExpand()
-                        viewModel.resetChatbotStatus()
+                        Handler().postDelayed({
+                            viewModel.resetChatbotStatus()
+                        }, 600)
                     }
 
-                    DetailViewModel.ChatbotStatus.HIDE -> {
+                    DetailViewModel.ChatbotStatus.HIDING -> {
                         binding.layoutDetailChatbot.chatbotCollapse()
                         viewModel.resetChatbotStatus()
                     }
+
+                    else -> {}
                 }
             }
         })
@@ -100,7 +105,8 @@ class DetailFragment : Fragment() {
 
         when(childFragment) {
             is ChatbotMainFragment -> {
-                childFragment.viewModel = viewModel
+                childFragment.detailViewModel = viewModel
+                childFragment.product = DetailFragmentArgs.fromBundle(arguments!!).productKey
             }
         }
     }

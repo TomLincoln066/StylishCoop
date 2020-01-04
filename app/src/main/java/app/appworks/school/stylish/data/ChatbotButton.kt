@@ -1,5 +1,9 @@
 package app.appworks.school.stylish.data
 
-data class ChatRobotButton(
+//enum class ChatbotButtonAPIs(api: String) {
+//
+//}
+
+data class ChatbotButton(
     val title: String,
     val api: String)
