@@ -12,6 +12,7 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.detail.chatbot.ChatbotItem
 import app.appworks.school.stylish.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,10 @@ class DetailViewModel(
     private val stylishRepository: StylishRepository,
     private val arguments: Product
 ) : ViewModel() {
+
+    enum class ChatbotStatus {
+        SHOWN, HIDE, DONE
+    }
 
     // Detail has product data from arguments
     private val _product = MutableLiveData<Product>().apply {
@@ -60,6 +65,8 @@ class DetailViewModel(
 
     val leaveDetail: LiveData<Boolean>
         get() = _leaveDetail
+
+
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -120,4 +127,28 @@ class DetailViewModel(
     fun leaveDetail() {
         _leaveDetail.value = true
     }
+
+
+    private val _chatbotStatus = MutableLiveData<ChatbotStatus>()
+
+    val chatbotStatus: LiveData<ChatbotStatus>
+        get() = _chatbotStatus
+
+    val isChatbotShown = MutableLiveData<Boolean>()
+
+    fun showChatbot(isShown: Boolean?) {
+
+        if (isShown == null || isShown == false) {
+            _chatbotStatus.value = ChatbotStatus.SHOWN
+            isChatbotShown.value = true
+        } else {
+            _chatbotStatus.value = ChatbotStatus.HIDE
+            isChatbotShown.value = false
+        }
+    }
+
+    fun resetChatbotStatus() {
+        _chatbotStatus.value = ChatbotStatus.DONE
+    }
+
 }

@@ -110,4 +110,5 @@
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
     <string name="anytime">anytime</string>
+    <string name="chatbot_name">Chatbot</string>
 </resources>

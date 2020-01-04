@@ -11,6 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import app.appworks.school.stylish.NavigationDirections
 import app.appworks.school.stylish.databinding.FragmentDetailBinding
+import app.appworks.school.stylish.detail.chatbot.ChatbotMainFragment
+import app.appworks.school.stylish.ext.chatbotCollapse
+import app.appworks.school.stylish.ext.chatbotExpand
 import app.appworks.school.stylish.ext.getVmFactory
 
 /**
@@ -47,6 +50,7 @@ class DetailFragment : Fragment() {
                 )
         }
 
+
         // set the initial position to the center of infinite gallery
         viewModel.product.value?.let { product ->
             binding.recyclerDetailGallery
@@ -70,7 +74,35 @@ class DetailFragment : Fragment() {
             }
         })
 
+
+        viewModel.chatbotStatus.observe(this, Observer {
+            it?.let { chatbotStatus ->
+                when (chatbotStatus){
+                    DetailViewModel.ChatbotStatus.SHOWN -> {
+                        binding.layoutDetailChatbot.chatbotExpand()
+                        viewModel.resetChatbotStatus()
+                    }
+
+                    DetailViewModel.ChatbotStatus.HIDE -> {
+                        binding.layoutDetailChatbot.chatbotCollapse()
+                        viewModel.resetChatbotStatus()
+                    }
+                }
+            }
+        })
+
+
         return binding.root
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+
+        when(childFragment) {
+            is ChatbotMainFragment -> {
+                childFragment.viewModel = viewModel
+            }
+        }
     }
 
 

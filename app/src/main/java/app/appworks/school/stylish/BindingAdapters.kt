@@ -25,6 +25,7 @@ import app.appworks.school.stylish.data.Variant
 import app.appworks.school.stylish.detail.DetailCircleAdapter
 import app.appworks.school.stylish.detail.DetailColorAdapter
 import app.appworks.school.stylish.detail.DetailGalleryAdapter
+import app.appworks.school.stylish.detail.chatbot.ChatbotItem
 import app.appworks.school.stylish.home.HomeAdapter
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.payment.PaymentAdapter
@@ -109,6 +110,11 @@ fun bindAdd2cartSizesRecyclerView(recyclerView: RecyclerView, variants: List<Var
             submitList(it)
         }
     }
+}
+
+@BindingAdapter("chatbotItems")
+fun bindChatbotItemRecyclerView(recyclerView: RecyclerView, chatbotItems: List<ChatbotItem>?) {
+
 }
 
 // Draw Square
