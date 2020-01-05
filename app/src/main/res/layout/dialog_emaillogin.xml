@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+            android:id="@+id/textview_emaillogin_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:fontFamily="@font/noto_sans"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            tools:text="WELCOME"/>
+    <LinearLayout
+            android:id="@+id/layout_emaillogin_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginTop="20dp">
+        <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="10dp"
+                />
+        <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+
+    </LinearLayout>
+</LinearLayout>
