@@ -329,7 +329,7 @@ fun bindDecoration(recyclerView: RecyclerView, decoration: RecyclerView.ItemDeco
 //TODO: TAKE
 @BindingAdapter("price")
 fun bindPrice(textView: TextView, price: Float?) {
-    price?.let { textView.text = StylishApplication.instance.getString(R.string.nt_dollars_, it) }
+    price?.let { textView.text = StylishApplication.instance.getString(R.string.other_dollars_, it) }
 }
 
 /**
@@ -337,17 +337,7 @@ fun bindPrice(textView: TextView, price: Float?) {
  */
 @BindingAdapter("price")
 fun bindPrice(textView: TextView, price: Long?) {
-
-    UserManager.userCurrency?.let {abbreviate ->
-        when(abbreviate.toUpperCase()) {
-            Currency.TWD.abbreviate -> {
-                price?.let { textView.text = StylishApplication.instance.getString(R.string.nt_dollars_, it.toInt()) }
-            }
-            else -> {
-                price?.let { textView.text = StylishApplication.instance.getString(R.string.other_dollars_, it) }
-            }
-        }
-    }
+    price?.let { textView.text = StylishApplication.instance.getString(R.string.nt_dollars_, it) }
 }
 
 /**

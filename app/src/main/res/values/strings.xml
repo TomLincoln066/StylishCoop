@@ -93,7 +93,7 @@
 
     <!-- General -->
     <string name="nt_dollars_">NT$%d</string>
-    <string name="other_dollars_">US$%f</string>
+    <string name="other_dollars_">US$%.2f</string>
     <string name="_dash_">%s - %s</string>
     <string name="catalog">型錄</string>
     <string name="cart">購物車</string>
