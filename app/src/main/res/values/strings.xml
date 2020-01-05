@@ -112,6 +112,7 @@
     <string name="anytime">anytime</string>
 
     <!-- filter spinner-->
+
     <string-array name="popularity">
         <item>從低到高</item>
         <item>從高到低</item>
