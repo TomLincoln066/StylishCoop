@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!--     If you set app:showAsAction="ifRoom" (as in the example code's favorite action),
+    the action is displayed as a button if there is room in the app bar for it;
+     if there is not enough room, excess actions are sent to the overflow menu.-->
 
     <item
             android:id="@+id/popularity"
-            android:title="@string/textView_popularity"/>
+            android:title="@string/textView_popularity"
+            app:showAsAction="ifRoom" />
 
     <item
             android:id="@+id/price"
-            android:title="@string/textView_price"/>
+            android:title="@string/textView_price"
+            app:showAsAction="ifRoom" />
 
 </menu>
