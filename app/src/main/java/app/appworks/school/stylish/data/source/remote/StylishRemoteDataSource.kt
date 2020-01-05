@@ -17,12 +17,35 @@ import app.appworks.school.stylish.util.Util.isInternetConnected
  */
 object StylishRemoteDataSource : StylishDataSource {
 
+    override suspend fun getProductDetail(token: String, productId: String): Result<ProductDetailResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService
+            .getProductDetail("token=${token}", productId)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
     override suspend fun userSignUp(name: String,  email: String, password: String
     ): Result<UserSignUpResult> {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
 
+        //TODO : SIGNIN API : can later change to StylishApiV2 to connect to Stuarrt api
         // Get the Deferred object for Retrofit_V2 request
         val getResultDeferred = StylishApi.retrofitService.userSignUp(name, email, password)
 
@@ -44,8 +67,9 @@ object StylishRemoteDataSource : StylishDataSource {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
 
+        //TODO : SIGNIN API : can later change to StylishApiV2 to connect to Stuarrt api
         // Get the Deferred object for Retrofit_V2 request
-        val getResultDeferred = StylishApi.retrofitService
+        val getResultDeferred = StylishApiV2.retrofitService
             .userSignIn(email = email, password = password)
 
         return try {

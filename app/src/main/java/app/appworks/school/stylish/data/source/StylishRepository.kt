@@ -28,6 +28,8 @@ interface StylishRepository {
 
     fun getProductsInCart(): LiveData<List<Product>>
 
+    suspend fun getProductDetail(token: String, productId: String): Result<ProductDetailResult>
+
     suspend fun isProductInCart(id: Long, colorCode: String, size: String): Boolean
 
     suspend fun insertProductInCart(product: Product)

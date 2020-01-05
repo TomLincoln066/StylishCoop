@@ -26,6 +26,8 @@ import app.appworks.school.stylish.detail.DetailCircleAdapter
 import app.appworks.school.stylish.detail.DetailColorAdapter
 import app.appworks.school.stylish.detail.DetailGalleryAdapter
 import app.appworks.school.stylish.home.HomeAdapter
+import app.appworks.school.stylish.login.Currency
+import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.payment.PaymentAdapter
 import app.appworks.school.stylish.util.Util.getColor
@@ -324,8 +326,9 @@ fun bindDecoration(recyclerView: RecyclerView, decoration: RecyclerView.ItemDeco
 /**
  * Displays currency price to [TextView] by [Int]
  */
+//TODO: TAKE
 @BindingAdapter("price")
-fun bindPrice(textView: TextView, price: Int?) {
+fun bindPrice(textView: TextView, price: Float?) {
     price?.let { textView.text = StylishApplication.instance.getString(R.string.nt_dollars_, it) }
 }
 
@@ -334,7 +337,17 @@ fun bindPrice(textView: TextView, price: Int?) {
  */
 @BindingAdapter("price")
 fun bindPrice(textView: TextView, price: Long?) {
-    price?.let { textView.text = StylishApplication.instance.getString(R.string.nt_dollars_, it) }
+
+    UserManager.userCurrency?.let {abbreviate ->
+        when(abbreviate.toUpperCase()) {
+            Currency.TWD.abbreviate -> {
+                price?.let { textView.text = StylishApplication.instance.getString(R.string.nt_dollars_, it.toInt()) }
+            }
+            else -> {
+                price?.let { textView.text = StylishApplication.instance.getString(R.string.other_dollars_, it) }
+            }
+        }
+    }
 }
 
 /**

@@ -148,6 +148,12 @@ interface StylishApiServiceV2 {
         @Field("password") password: String):
             Deferred<UserSignInResult>
 
+    /**
+     * Returns a Coroutine [Deferred] [UserSignUpResult] which can be fetched with await() if in a Coroutine scope.
+     * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
+     * The @Field annotation indicates that it will be added "provider", "access_token" key-pairs to the body of
+     * the POST HTTP method, and it have to use @FormUrlEncoded to support @Field
+     */
     @FormUrlEncoded
     @POST("user/signup")
     fun userSignUp(
@@ -157,7 +163,7 @@ interface StylishApiServiceV2 {
             Deferred<UserSignUpResult>
 
     /**
-     * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
+     * Returns a Coroutine [Deferred] [UserRefreshTokenResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
      * The @Field annotation indicates that it will be added "provider", "email", "password" key-pairs to the
      * body of the POST HTTP method, and it have to use @FormUrlEncoded to support @Field
@@ -171,13 +177,24 @@ interface StylishApiServiceV2 {
 
     /**
      * Returns a Coroutine [Deferred] [CheckoutOrderResult] which can be fetched with await() if in a Coroutine scope.
-     * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
+     * The @POST annotation indicates that the "order/checkout" endpoint will be requested with the POST HTTP method
      * The @Header annotation indicates that it will be added "Authorization" header
      * The @Body annotation indicates that it will be added [OrderDetail] to the body of the POST HTTP method
      */
     @POST("order/checkout")
     fun checkoutOrder(@Header("Authorization") token: String, @Body orderDetail: OrderDetail):
             Deferred<CheckoutOrderResult>
+
+    /**
+     * Returns a Coroutine [Deferred] [ProductDetailResult] which can be fetched with await() if in a Coroutine scops.
+     * The @GET annoation indicates that the "products/details" endpoint will be requested with the GET HTTP method
+     * The @Header annotation indicates that it will be added "Cookie" header with values token={user token}
+     * The @Body annotation indicates that an id [String] to the body of the GET HTTP METHOD
+     */
+    @GET("products/details")
+    fun getProductDetail(@Header("Cookie") token: String, @Query("id") id: String):
+            Deferred<ProductDetailResult>
+
 }
 
 /**

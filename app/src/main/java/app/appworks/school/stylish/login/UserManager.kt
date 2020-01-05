@@ -12,10 +12,23 @@ import app.appworks.school.stylish.util.Util.getString
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
+
+enum class Currency(val abbreviate: String) {
+    TWD("TWD"),
+    JPY("JPY"),
+    USD("USD"),
+    GBP("GBP"),
+    CNY("CNY"),
+    EUR("EUR"),
+    KRW("KRW"),
+    AUD("AUD")
+}
+
 object UserManager {
 
     private const val USER_DATA = "user_data"
     private const val USER_TOKEN = "user_token"
+    private const val USER_CURRENCY = "user_currency"
 
     private val _user = MutableLiveData<User>()
 
@@ -39,6 +52,30 @@ object UserManager {
                     StylishApplication.instance
                         .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE).edit()
                         .putString(USER_TOKEN, value)
+                        .apply()
+                    value
+                }
+            }
+        }
+
+    var userCurrency: String? = "TWD"
+        get() = StylishApplication.instance.getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+            .getString(USER_CURRENCY, "TWD")
+        set(value) {
+            field = when (value) {
+                null -> {
+                    StylishApplication.instance
+                        .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+                        .edit()
+                        .remove(USER_CURRENCY)
+                        .apply()
+                    null
+                }
+                else -> {
+                    StylishApplication.instance
+                        .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+                        .edit()
+                        .putString(USER_CURRENCY, value)
                         .apply()
                     value
                 }

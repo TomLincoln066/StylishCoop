@@ -36,7 +36,7 @@ data class Recipient(
 data class OrderProduct(
     val id: Long,
     val name: String,
-    val price: Int,
+    val price: Float,
     val color: Color,
     val size: String,
     val qty: Long

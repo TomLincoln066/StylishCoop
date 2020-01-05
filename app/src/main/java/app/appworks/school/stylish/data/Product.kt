@@ -23,7 +23,7 @@ data class Product(
     @ColumnInfo(name = "product_description")
     val description: String,
     @ColumnInfo(name = "product_price")
-    val price: Int,
+    val price: Float,
     @ColumnInfo(name = "product_texture")
     val texture: String,
     @ColumnInfo(name = "product_wash")
