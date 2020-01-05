@@ -34,8 +34,8 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-private val client //= OkHttpClient.Builder()
-        = MyOkHTTPClientBuilder.unSafeOkHttpClient()
+private val client = OkHttpClient.Builder()
+//        = MyOkHTTPClientBuilder.unSafeOkHttpClient()
     .addInterceptor(HttpLoggingInterceptor().apply {
         level = when (BuildConfig.LOGGER_VISIABLE) {
             true -> HttpLoggingInterceptor.Level.BODY
