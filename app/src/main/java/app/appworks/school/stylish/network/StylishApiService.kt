@@ -13,7 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 import okhttp3.OkHttpClient
-import android.R
+
 
 
 /**
@@ -64,6 +64,7 @@ interface StylishApiService {
     fun getMarketingHots():
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<MarketingHotsResult>
+
     /**
      * Returns a Coroutine [Deferred] [ProductListResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "products/{catalogType}" endpoint will be requested with the GET
@@ -72,13 +73,13 @@ interface StylishApiService {
      */
 
     @GET("products/{catalogType}")
-    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null ):
+    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null):
             Deferred<ProductListResult>
 
 
     //filter-getProductListFilter
     @GET("products/{catalogType}")
-    fun getProductListFilter(@Query("filter") type:String):
+    fun getProductListFilter(@Query("filter") type: String):
             Deferred<ProductListResult>
 
 
@@ -90,6 +91,7 @@ interface StylishApiService {
     @GET("user/profile")
     fun getUserProfile(@Header("Authorization") token: String):
             Deferred<UserProfileResult>
+
     /**
      * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
@@ -100,8 +102,10 @@ interface StylishApiService {
     @POST("user/signin")
     fun userSignIn(
         @Field("provider") provider: String = "facebook",
-        @Field("access_token") fbToken: String):
+        @Field("access_token") fbToken: String
+    ):
             Deferred<UserSignInResult>
+
     /**
      * Returns a Coroutine [Deferred] [CheckoutOrderResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
@@ -117,10 +121,16 @@ interface StylishApiService {
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object StylishApi {
-    val retrofitService : StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
+    val retrofitService: StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
 }
 
 
-
 //filter-enum class
-enum class StylishApiFilter(val valueFilter: String){SHOW_POPULARITY("popularity"),SHOW_PRICERANGE("price_range"),SHOW_ALL("all")}
+enum class StylishApiFilter(val valueFilter: String) {
+    SHOW_POPULARITY_ASCENDING("popularity_ascending"),
+    SHOW_POPULARITY_DESCENDING("popularity_descending"),
+    SHOW_PRICE_ASCENDING("price_ascending"),
+    SHOW_PRICE_DESCENDING("price_descending"),
+    SHOW_PRICE_RANGE("price_range"),
+    SHOW_ALL("all")
+}
