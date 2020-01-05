@@ -2,6 +2,7 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.network.StylishApiFilter
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -20,7 +21,7 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
     }
 
     override suspend fun getProductList(type: String, paging: String?): Result<ProductListResult> {
-        return stylishRemoteDataSource.getProductList(type = type, paging = paging)
+        return stylishRemoteDataSource.getProductList(type = type, paging = paging )
     }
 
     override suspend fun getUserProfile(token: String): Result<User> {

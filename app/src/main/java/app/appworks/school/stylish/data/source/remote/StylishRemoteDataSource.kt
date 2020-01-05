@@ -5,6 +5,7 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
 import app.appworks.school.stylish.network.StylishApi
+import app.appworks.school.stylish.network.StylishApiFilter
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import app.appworks.school.stylish.util.Util.isInternetConnected
@@ -40,11 +41,14 @@ object StylishRemoteDataSource : StylishDataSource {
 
     override suspend fun getProductList(type: String, paging: String?): Result<ProductListResult> {
 
+
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
         // Get the Deferred object for our Retrofit request
         val getResultDeferred = StylishApi.retrofitService.getProductList(type = type, paging = paging)
+
+        //filter
 
         return try {
             // this will run on a thread managed by Retrofit

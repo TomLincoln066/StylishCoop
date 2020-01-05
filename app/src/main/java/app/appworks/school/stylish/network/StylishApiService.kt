@@ -6,11 +6,15 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
-import okhttp3.OkHttpClient
+
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
+
+import okhttp3.OkHttpClient
+import android.R
+
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -66,9 +70,18 @@ interface StylishApiService {
      * HTTP method (catalogType: men, women, accessories)
      * The @Query annotation indicates that it will be added "?paging={pagingKey}" after endpoint
      */
+
     @GET("products/{catalogType}")
-    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null):
+    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null ):
             Deferred<ProductListResult>
+
+
+    //filter-getProductListFilter
+    @GET("products/{catalogType}")
+    fun getProductListFilter(@Query("filter") type:String):
+            Deferred<ProductListResult>
+
+
     /**
      * Returns a Coroutine [Deferred] [UserProfileResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "user/profile" endpoint will be requested with the GET HTTP method
@@ -106,3 +119,8 @@ interface StylishApiService {
 object StylishApi {
     val retrofitService : StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
 }
+
+
+
+//filter-enum class
+enum class StylishApiFilter(val valueFilter: String){SHOW_POPULARITY("popularity"),SHOW_PRICERANGE("price_range"),SHOW_ALL("all")}
