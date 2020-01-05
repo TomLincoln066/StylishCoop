@@ -157,6 +157,7 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
                             _status.value = LoadApiStatus.DONE
                             UserManager.userToken = result.data.userSignUp?.accessToken
                             _user.value = result.data.userSignUp?.user
+                            _navigateToLoginSuccess.value = user.value
                         }
 
                         is Result.Fail -> {
