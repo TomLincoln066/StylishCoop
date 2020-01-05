@@ -75,7 +75,7 @@ class MainActivity : BaseActivity() {
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToProfileFragment(viewModel.user.value))
                     }
                     false -> {
-                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())//.navigateToLoginDialog())
                         return@OnNavigationItemSelectedListener false
                     }
                 }
@@ -266,7 +266,7 @@ class MainActivity : BaseActivity() {
                         viewModel.checkUser()
                     }
                     else -> {
-                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())//.navigateToLoginDialog())
                         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                             binding.drawerLayout.closeDrawer(GravityCompat.START)
                         }

@@ -2,6 +2,7 @@ package app.appworks.school.stylish.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.Result
@@ -27,17 +28,80 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
     val user: LiveData<User>
         get() = _user
 
+    val username = MutableLiveData<String>()
+    val userEmail = MutableLiveData<String>()
+    val emailErrorMessage = MutableLiveData<String>()
+    val password = MutableLiveData<String>()
+    val passwordErrorMessage = MutableLiveData<String>()
+
+    val isSignUp = MutableLiveData<Boolean>()
+
+    val confirmationMessage = MutableLiveData<String>()
+
+    init {
+        confirmationMessage.value = "登入"
+        isSignUp.value = false
+    }
+
+    fun setSignIn() {
+        isSignUp.value = false
+        confirmationMessage.value = "登入"
+    }
+
+    fun setSignUp() {
+        isSignUp.value = true
+        confirmationMessage.value = "申請"
+    }
+
+    fun signInOrSignUp() {
+        if (userEmail.value == null) {
+            emailErrorMessage.value = "請輸入電子信箱"
+            return
+        }
+
+        if (password.value == null) {
+            passwordErrorMessage.value = "請輸入密碼"
+            return
+        }
+
+        passwordErrorMessage.value = null
+
+        emailErrorMessage.value?.let {email ->
+            if (email.isEmpty()) {
+                emailErrorMessage.value = "請輸入電子信箱"
+                return
+            }
+
+            if (!validateEmail(email)) {
+                emailErrorMessage.value = "電子信箱格式有誤"
+                return
+            }
+            emailErrorMessage.value = null
+        }
+
+        emailErrorMessage.value = null
+
+        signInOrUp(userEmail.value!!, password.value!!)
+
+    }
+
+    private fun validateEmail(email: String): Boolean {
+        val reg = Regex("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                "\\@" +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                "(" +
+                "\\." +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                ")+")//"(?:[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
+        return  email.matches(reg)
+    }
+
+
     // Handle navigation to login success
     private val _navigateToLoginSuccess = MutableLiveData<User>()
 
     val navigateToLoginSuccess: LiveData<User>
         get() = _navigateToLoginSuccess
-
-    // Handle leave login
-    private val _loginEmailPassword = MutableLiveData<Boolean>()
-
-    val loginEmailPassword: LiveData<Boolean>
-        get() = _loginEmailPassword
 
     // Handle leave login
     private val _leave = MutableLiveData<Boolean>()
@@ -63,8 +127,6 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    lateinit var fbCallbackManager: CallbackManager
-
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
      * Retrofit service to stop.
@@ -82,90 +144,64 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
 
     /**
      * track [StylishRepository.userSignIn]: -> [DefaultStylishRepository] : [StylishRepository] -> [StylishRemoteDataSource] : [StylishDataSource]
-     * @param fbToken: Facebook token
+     * @param
      */
-    private fun loginStylish(fbToken: String) {
+    private fun signInOrUp(email: String, password: String) {
+        isSignUp.value?.let {signUp ->
+            if (signUp) {
+                coroutineScope.launch {
+                    _status.value = LoadApiStatus.LOADING
+                    when(val result = stylishRepository.userSignUp("name", email, password)) {
+                        is Result.Success -> {
+                            _error.value = null
+                            _status.value = LoadApiStatus.DONE
+                            UserManager.userToken = result.data.userSignUp?.accessToken
+                            _user.value = result.data.userSignUp?.user
+                        }
 
-        coroutineScope.launch {
+                        is Result.Fail -> {
+                            _error.value = result.error
+                            _status.value = LoadApiStatus.ERROR
+                        }
 
-            _status.value = LoadApiStatus.LOADING
-            // It will return Result object after Deferred flow
-            when (val result = stylishRepository.userSignIn(fbToken)) {
-                is Result.Success -> {
-                    _error.value = null
-                    _status.value = LoadApiStatus.DONE
-                    UserManager.userToken = result.data.userSignIn?.accessToken
-                    _user.value = result.data.userSignIn?.user
-                    _navigateToLoginSuccess.value = user.value
+                        is Result.Error -> {
+                            _error.value = result.exception.toString()
+                            _status.value = LoadApiStatus.ERROR
+                        }
+                        else -> {
+                            _error.value = Util.getString(R.string.you_know_nothing)
+                            _status.value = LoadApiStatus.ERROR
+                        }
+                    }
                 }
-                is Result.Fail -> {
-                    _error.value = result.error
-                    _status.value = LoadApiStatus.ERROR
-                }
-                is Result.Error -> {
-                    _error.value = result.exception.toString()
-                    _status.value = LoadApiStatus.ERROR
-                }
-                else -> {
-                    _error.value = Util.getString(R.string.you_know_nothing)
-                    _status.value = LoadApiStatus.ERROR
+            } else {
+                coroutineScope.launch {
+                    _status.value = LoadApiStatus.LOADING
+                    when(val result = stylishRepository.userSignIn(email, password)) {
+                        is Result.Success -> {
+                            _error.value = null
+                            _status.value = LoadApiStatus.DONE
+                            UserManager.userToken = result.data.userSignIn?.accessToken
+                            _user.value = result.data.userSignIn?.user
+                            _navigateToLoginSuccess.value = user.value
+                        }
+
+                        is Result.Fail -> {
+                            _error.value = result.error
+                            _status.value = LoadApiStatus.ERROR
+                        }
+
+                        is Result.Error -> {
+                            _error.value = result.exception.toString()
+                            _status.value = LoadApiStatus.ERROR
+                        }
+                        else -> {
+                            _error.value = Util.getString(R.string.you_know_nothing)
+                            _status.value = LoadApiStatus.ERROR
+                        }
+                    }
                 }
             }
         }
     }
-
-    /**
-     * Login Stylish by Facebook: Step 1. Register FB Login Callback
-     */
-    fun login() {
-        _status.value = LoadApiStatus.LOADING
-
-        fbCallbackManager = CallbackManager.Factory.create()
-        LoginManager.getInstance().registerCallback(fbCallbackManager, object :
-            FacebookCallback<LoginResult> {
-            override fun onSuccess(loginResult: LoginResult) {
-
-                loginStylish(loginResult.accessToken.token)
-            }
-
-            override fun onCancel() { _status.value = LoadApiStatus.ERROR }
-
-            override fun onError(exception: FacebookException) {
-                Logger.w("[${this::class.simpleName}] exception=${exception.message}")
-
-                exception.message?.let {
-                    _error.value = if (it.contains("ERR_INTERNET_DISCONNECTED")) {
-                        Util.getString(R.string.internet_not_connected)
-                    } else {
-                        it
-                    }
-                }
-                _status.value = LoadApiStatus.ERROR
-            }
-        })
-
-        loginFacebook()
-    }
-
-    /**
-     * Login Stylish by Facebook: Step 2. Login Facebook
-     */
-    private fun loginFacebook() {
-        _loginEmailPassword.value = true
-    }
-
-    fun leave() {
-        _leave.value = true
-    }
-
-    fun onLeaveCompleted() {
-        _leave.value = null
-    }
-
-    fun nothing() {}
-
-    fun onLoginFacebookCompleted() {
-        _loginEmailPassword.value = null
-    }
-
 }

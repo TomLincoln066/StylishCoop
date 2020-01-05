@@ -112,4 +112,10 @@
     <string name="afternoon">afternoon</string>
     <string name="anytime">anytime</string>
     <string name="chatbot_name">Chatbot</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="hint_password_required">請輸入密碼</string>
+    <string name="hint_email_required">請輸入電子郵箱</string>
+    <string name="confirmation_text">登入</string>
+    <string name="cancel_text">取消</string>
 </resources>
