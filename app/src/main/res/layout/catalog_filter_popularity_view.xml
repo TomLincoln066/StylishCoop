@@ -14,21 +14,20 @@
                 android:id="@+id/textView_popularity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
                 android:text="@string/textView_popularity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-                android:id="@+id/textView_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="@string/textView_price"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_popularity" />
+<!--        <TextView-->
+<!--                android:id="@+id/textView_price"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:text="@string/textView_price"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/spinner_popularity" />-->
 
         <Spinner
                 android:id="@+id/spinner_popularity"
@@ -36,22 +35,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:entries="@array/popularity"
-                app:layout_constraintBottom_toTopOf="@+id/textView_price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_popularity" />
+                app:layout_constraintTop_toBottomOf="@id/textView_popularity" />
 
-        <Spinner
-                android:id="@+id/spinner_price"
-                android:layout_width="409dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="1dp"
-                android:entries="@array/price_range"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_price" />
+<!--        <Spinner-->
+<!--                android:id="@+id/spinner_price"-->
+<!--                android:layout_width="409dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="1dp"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:layout_marginEnd="1dp"-->
+<!--                android:entries="@array/price_range"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/textView_price" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
