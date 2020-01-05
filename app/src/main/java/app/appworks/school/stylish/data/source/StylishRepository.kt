@@ -18,6 +18,10 @@ interface StylishRepository {
 
     suspend fun userSignIn(fbToken: String): Result<UserSignInResult>
 
+    suspend fun userSignIn(email: String, password: String): Result<UserSignInResult>
+
+    suspend fun userUpdate(token: String): Result<UserSignInResult>
+
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>
