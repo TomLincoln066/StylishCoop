@@ -17,6 +17,29 @@ import app.appworks.school.stylish.util.Util.isInternetConnected
  */
 object StylishRemoteDataSource : StylishDataSource {
 
+    override suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService
+            .getUserRecord("token=${token}")
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getProductDetail(token: String, productId: String): Result<ProductDetailResult> {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))

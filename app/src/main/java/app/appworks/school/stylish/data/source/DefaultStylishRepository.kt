@@ -15,6 +15,10 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
                                private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StylishRepository {
 
+    override suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult> {
+        return stylishRemoteDataSource.getUserViewingRecord(token)
+    }
+
     override suspend fun getProductDetail(token: String, productId: String): Result<ProductDetailResult> {
         return stylishRemoteDataSource.getProductDetail(token, productId)
     }

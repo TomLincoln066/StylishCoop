@@ -195,6 +195,8 @@ interface StylishApiServiceV2 {
     fun getProductDetail(@Header("Cookie") token: String, @Query("id") id: String):
             Deferred<ProductDetailResult>
 
+    @GET("userrecord/products")
+    fun getUserRecord(@Header("Cookie") token: String): Deferred<UserRecordsResult>
 }
 
 /**

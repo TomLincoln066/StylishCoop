@@ -14,6 +14,10 @@ import kotlinx.coroutines.withContext
  */
 class StylishLocalDataSource(val context: Context) : StylishDataSource {
 
+    override suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun getProductDetail(token: String, productId: String
     ): Result<ProductDetailResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
