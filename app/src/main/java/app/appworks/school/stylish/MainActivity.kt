@@ -145,6 +145,56 @@ class MainActivity : BaseActivity() {
         setupDrawer()
         setupNavController()
 
+        CoroutineScope(Dispatchers.Main).launch {
+            val tag = "RECORD VIEW"
+            val result = StylishRemoteDataSource.userSignIn("abc@gmail.com", "name")
+            when (result) {
+                is Result.Success -> {
+                    if (result.data.error != null) {
+                        Log.i(tag, "ERROR : ${result.data.error}")
+                    } else {
+                        Log.i(tag, "RESULT : ${result.data.userSignIn}")
+
+
+                    }
+                }
+
+                is Result.Error -> {
+                    Log.i(tag, "ERROR : ${result.exception.message}")
+                }
+
+                is Result.Fail -> {
+                    Log.i(tag, "FAIL : ${result.error}")
+                }
+            }
+
+        }
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "RECORD VIEW"
+//            val result = StylishRemoteDataSource.userSignUp("name", "abc@gmail.com", "name")
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.userSignUp}")
+//
+//
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
 //        CoroutineScope(Dispatchers.Main).launch {
 //            val tag = "RECORD VIEW"
 //            val result = StylishRemoteDataSource.getUserViewingRecord("2f7c7900c565ae05f9e8cae6b87828778d98b494b36b8db2f361e041c243a72a")
