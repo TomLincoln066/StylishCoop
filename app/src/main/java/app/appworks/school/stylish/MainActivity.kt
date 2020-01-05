@@ -314,7 +314,7 @@ class MainActivity : BaseActivity() {
     }
 
 
-    
+
     // setup what happens when filter selected
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
