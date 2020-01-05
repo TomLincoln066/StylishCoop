@@ -18,6 +18,12 @@ interface StylishDataSource {
 
     suspend fun userSignIn(fbToken: String): Result<UserSignInResult>
 
+    suspend fun userSignIn(email: String, password: String): Result<UserSignInResult>
+
+    suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult>
+
+    suspend fun userRefreshToken(token: String): Result<UserRefreshTokenResult>
+
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>

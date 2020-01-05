@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import app.appworks.school.stylish.data.Result
+import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 import app.appworks.school.stylish.databinding.ActivityMainBinding
 import app.appworks.school.stylish.databinding.BadgeBottomBinding
 import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
@@ -30,6 +33,8 @@ import app.appworks.school.stylish.util.Logger
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -139,6 +144,10 @@ class MainActivity : BaseActivity() {
         setupBottomNav()
         setupDrawer()
         setupNavController()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            
+        }
     }
 
     /**

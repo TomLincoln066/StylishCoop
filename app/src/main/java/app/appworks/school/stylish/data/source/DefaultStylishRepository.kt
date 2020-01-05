@@ -15,6 +15,19 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
                                private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StylishRepository {
 
+    override suspend fun userSignUp(name: String, email: String, password: String
+    ): Result<UserSignUpResult> {
+        return stylishRemoteDataSource.userSignUp(name, email, password)
+    }
+
+    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
+        return stylishRemoteDataSource.userSignIn(email, password)
+    }
+
+    override suspend fun userRefreshToken(token: String): Result<UserSignInResult> {
+        return stylishRemoteDataSource.userSignIn(token)
+    }
+
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
         return stylishRemoteDataSource.getMarketingHots()
     }
