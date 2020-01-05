@@ -56,6 +56,8 @@
                         android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.HOME ? View.VISIBLE : View.GONE}"
                         tools:visibility="gone"/>
 
+
+
             </androidx.appcompat.widget.Toolbar>
 
             <fragment
@@ -93,5 +95,9 @@
                 android:layout_gravity="start"
                 android:fitsSystemWindows="true"
                 app:menu="@menu/navdrawer_menu"/>
+
+
+
+
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
