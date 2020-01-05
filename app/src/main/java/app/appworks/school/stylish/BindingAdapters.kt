@@ -26,6 +26,8 @@ import app.appworks.school.stylish.detail.chatbot.ChatbotAdapter
 import app.appworks.school.stylish.detail.chatbot.ChatbotButtonAdapter
 import app.appworks.school.stylish.detail.chatbot.ChatbotItem
 import app.appworks.school.stylish.home.HomeAdapter
+import app.appworks.school.stylish.login.Currency
+import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.payment.PaymentAdapter
 import app.appworks.school.stylish.util.Util.getColor
@@ -353,9 +355,10 @@ fun bindDecoration(recyclerView: RecyclerView, decoration: RecyclerView.ItemDeco
 /**
  * Displays currency price to [TextView] by [Int]
  */
+//TODO: TAKE
 @BindingAdapter("price")
-fun bindPrice(textView: TextView, price: Int?) {
-    price?.let { textView.text = StylishApplication.instance.getString(R.string.nt_dollars_, it) }
+fun bindPrice(textView: TextView, price: Float?) {
+    price?.let { textView.text = StylishApplication.instance.getString(R.string.other_dollars_, it) }
 }
 
 /**
