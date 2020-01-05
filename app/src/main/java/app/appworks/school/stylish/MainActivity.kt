@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -25,6 +23,7 @@ import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.login.UserManager
+import app.appworks.school.stylish.network.StylishApiFilter
 import app.appworks.school.stylish.util.CurrentFragmentType
 import app.appworks.school.stylish.util.DrawerToggleType
 import app.appworks.school.stylish.util.Logger
@@ -47,39 +46,44 @@ class MainActivity : BaseActivity() {
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
+    private val onNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
 
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToHomeFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_catalog -> {
-
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_cart -> {
-
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCartFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_profile -> {
-
-                when (viewModel.isLoggedIn) {
-                    true -> {
-                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToProfileFragment(viewModel.user.value))
-                    }
-                    false -> {
-                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
-                        return@OnNavigationItemSelectedListener false
-                    }
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToHomeFragment())
+                    return@OnNavigationItemSelectedListener true
                 }
-                return@OnNavigationItemSelectedListener true
+                R.id.navigation_catalog -> {
+
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_cart -> {
+
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCartFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_profile -> {
+
+                    when (viewModel.isLoggedIn) {
+                        true -> {
+                            findNavController(R.id.myNavHostFragment).navigate(
+                                NavigationDirections.navigateToProfileFragment(
+                                    viewModel.user.value
+                                )
+                            )
+                        }
+                        false -> {
+                            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
+                            return@OnNavigationItemSelectedListener false
+                        }
+                    }
+                    return@OnNavigationItemSelectedListener true
+                }
             }
+            false
         }
-        false
-    }
 
     // get the height of status bar from system
     private val statusBarHeight: Int
@@ -116,7 +120,8 @@ class MainActivity : BaseActivity() {
 
                 // navigate to profile after login success
                 when (viewModel.currentFragmentType.value) {
-                    CurrentFragmentType.PAYMENT -> {}
+                    CurrentFragmentType.PAYMENT -> {
+                    }
                     else -> viewModel.navigateToProfileByBottomNav(it)
                 }
             }
@@ -197,10 +202,14 @@ class MainActivity : BaseActivity() {
                 cutoutHeight > 0 -> {
                     Logger.i("cutoutHeight: ${cutoutHeight}px/${cutoutHeight / dpiMultiple}dp")
 
-                    val oriStatusBarHeight = resources.getDimensionPixelSize(R.dimen.height_status_bar_origin)
+                    val oriStatusBarHeight =
+                        resources.getDimensionPixelSize(R.dimen.height_status_bar_origin)
 
                     binding.toolbar.setPadding(0, oriStatusBarHeight, 0, 0)
-                    val layoutParams = Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT)
+                    val layoutParams = Toolbar.LayoutParams(
+                        Toolbar.LayoutParams.WRAP_CONTENT,
+                        Toolbar.LayoutParams.WRAP_CONTENT
+                    )
                     layoutParams.gravity = Gravity.CENTER
                     layoutParams.topMargin = statusBarHeight - oriStatusBarHeight
                     binding.imageToolbarLogo.layoutParams = layoutParams
@@ -219,7 +228,9 @@ class MainActivity : BaseActivity() {
         //FilterNavView swipe lock
 //        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, binding.CatalogFilterNavView)
 
-
+//        binding.drawerLayout.onInterceptTouchEvent({
+//            MotionEvent()
+//        })
 
         // set up toolbar
         val navController = this.findNavController(R.id.myNavHostFragment)
@@ -233,7 +244,12 @@ class MainActivity : BaseActivity() {
         binding.drawerLayout.clipToPadding = false
 
         actionBarDrawerToggle = object : ActionBarDrawerToggle(
-            this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        ) {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
 
@@ -257,7 +273,8 @@ class MainActivity : BaseActivity() {
 
         // Set up header of drawer ui using data binding
         val bindingNavHeader = NavHeaderDrawerBinding.inflate(
-            LayoutInflater.from(this), binding.drawerNavView, false)
+            LayoutInflater.from(this), binding.drawerNavView, false
+        )
 
         bindingNavHeader.lifecycleOwner = this
         bindingNavHeader.viewModel = viewModel
@@ -277,7 +294,8 @@ class MainActivity : BaseActivity() {
             actionBarDrawerToggle?.setToolbarNavigationClickListener {
                 when (type) {
                     DrawerToggleType.BACK -> onBackPressed()
-                    else -> {}
+                    else -> {
+                    }
                 }
             }
         })
@@ -294,4 +312,23 @@ class MainActivity : BaseActivity() {
             super.onBackPressed()
         }
     }
+
+
+    
+    // setup what happens when filter selected
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.popularity_ascending -> StylishApiFilter.SHOW_POPULARITY_ASCENDING
+            R.id.popularity_descending -> StylishApiFilter.SHOW_POPULARITY_DESCENDING
+            R.id.price_ascending -> StylishApiFilter.SHOW_PRICE_ASCENDING
+            R.id.price_descending -> StylishApiFilter.SHOW_PRICE_DESCENDING
+            R.id.price_range -> StylishApiFilter.SHOW_PRICE_RANGE
+            else -> StylishApiFilter.SHOW_ALL
+        }
+        return true
+    }
+
+
+
 }
