@@ -9,8 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.NavigationDirections
+import app.appworks.school.stylish.data.Currency
+import app.appworks.school.stylish.data.CurrencyDropItem
 import app.appworks.school.stylish.databinding.FragmentHomeBinding
 import app.appworks.school.stylish.ext.getVmFactory
+
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -48,6 +51,9 @@ class HomeFragment : Fragment() {
                 viewModel.onDetailNavigated()
             }
         })
+
+//        val items = listOf(CurrencyDropItem(Currency.TWD), CurrencyDropItem(Currency.USD), CurrencyDropItem(Currency.JPY))
+//        binding.spinnerHomeCurrency.adapter = CustomDropDownAdapter(items)
 
         return binding.root
     }
