@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.AdapterView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -24,6 +25,7 @@ import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 import app.appworks.school.stylish.databinding.ActivityMainBinding
 import app.appworks.school.stylish.databinding.BadgeBottomBinding
+import app.appworks.school.stylish.databinding.FragmentCatalogBinding
 import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
@@ -37,6 +39,7 @@ import app.appworks.school.stylish.util.Logger
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.catalog_filter_view_test.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,6 +53,9 @@ class MainActivity : BaseActivity() {
      * Lazily initialize our [MainViewModel].
      */
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
+
+
+//    private lateinit var binding1:FragmentCatalogBinding
 
     private lateinit var binding: ActivityMainBinding
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
@@ -155,28 +161,60 @@ class MainActivity : BaseActivity() {
         setupDrawer()
         setupNavController()
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val tag = "FETCH PRODUCT LIST"
-            val result = StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.DESCEND)
 
-            when(result) {
-                is Result.Success -> {
-                    if (result.data.error != null) {
-                        Log.i(tag, "ERROR : ${result.data.error}")
-                    } else {
-                        Log.i(tag, "RESULT : ${result.data.products}")
-                    }
-                }
 
-                is Result.Error -> {
-                    Log.i(tag, "ERROR : ${result.exception.message}")
-                }
+//        binding1.fragmentCatalogFilterView.spinner_filter.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+//            override fun onItemSelected(
+//                parent: AdapterView<*>?,
+//                view: View?,
+//                position: Int,
+//                id: Long
+//            ) {
+//                when(view?.id){
+//                    0 -> StylishRemoteDataSource.getProductList("men", null, Sort.POPULARITY, Order.ASCEND)
+//                    1 -> StylishRemoteDataSource.getProductList("men", null, Sort.POPULARITY, Order.DESCEND)
+//                    2 -> StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.ASCEND)
+//                    3 -> StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.DESCEND)
+//                }
+//
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//
+//
+//            }
+//
+//        }
 
-                is Result.Fail -> {
-                    Log.i(tag, "FAIL : ${result.error}")
-                }
-            }
-        }
+
+
+//        //price des
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "FETCH PRODUCT LIST"
+//            val result = StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.DESCEND)
+//
+//            when(result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.products}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//        }
+
+
+
+
 
 //        CoroutineScope(Dispatchers.Main).launch {
 //            val tag = "RECORD VIEW"
