@@ -114,15 +114,14 @@
 
     <!-- filter spinner-->
 
-    <string-array name="popularity">
-        <item>從低到高</item>
-        <item>從高到低</item>
-    </string-array>
+    <string-array name="arrayFilter">
 
-    <string-array name="price_range">
-        <item>從低到高</item>
-        <item>從高到低</item>
+        <item>按人氣從低到高</item>
+        <item>按人氣從高到低</item>
+        <item>按價錢從低到高</item>
+        <item>按價錢從高到低</item>
         <item>設定價格範圍</item>
+
     </string-array>
 
     <string name ="textView_popularity">按照人氣高低排序</string>
