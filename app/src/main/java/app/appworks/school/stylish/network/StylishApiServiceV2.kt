@@ -21,7 +21,7 @@ import javax.net.ssl.X509TrustManager
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
-private const val HOST_NAME = "api.appworks-school.tw"
+private const val HOST_NAME = "stuarrrt.com"
 private const val API_VERSION = "1.0"
 private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
 
@@ -43,6 +43,57 @@ private val client = OkHttpClient.Builder()
     .build()
 
 /**
+ * API
+ */
+
+private class MyOkHTTPClientBuilder {
+    companion object {
+        fun unSafeOkHttpClient() :OkHttpClient.Builder {
+
+            val okHttpClient = OkHttpClient.Builder()
+            try {
+                // Create a trust manager that does not validate certificate chains
+                val trustAllCerts: Array<TrustManager> = arrayOf(object : X509TrustManager {
+                    override fun checkClientTrusted(
+                        chain: Array<out X509Certificate>?,
+                        authType: String?
+                    ) {
+                    }
+
+                    override fun checkServerTrusted(
+                        chain: Array<out X509Certificate>?,
+                        authType: String?
+                    ) {
+                    }
+
+                    override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
+                })
+
+                // Install the all-trusting trust manager
+                val sslContext = SSLContext.getInstance("SSL")
+                sslContext.init(null, trustAllCerts, SecureRandom())
+
+                // Create an ssl socket factory with our all-trusting manager
+                val sslSocketFactory = sslContext.socketFactory
+                if (trustAllCerts.isNotEmpty() && trustAllCerts.first() is X509TrustManager) {
+                    okHttpClient.sslSocketFactory(
+                        sslSocketFactory,
+                        trustAllCerts.first() as X509TrustManager
+                    )
+                    okHttpClient.hostnameVerifier(HostnameVerifier { hostname, session ->
+                        hostname == HOST_NAME
+                    })
+                }
+
+                return okHttpClient
+            } catch (e: Exception) {
+                return okHttpClient
+            }
+        }
+    }
+}
+
+/**
  * Use the Retrofit builder to build a retrofit object using a Moshi converter with our Moshi
  * object.
  */
@@ -53,11 +104,22 @@ private val retrofit = Retrofit.Builder()
     .client(client)
     .build()
 
+
+enum class Sort(val value: String) {
+    PRICE("price"),
+    POPULARITY("popularity")
+}
+
+enum class Order(val value: String) {
+    DESCEND("desc"),
+    ASCEND("asc")
+}
+
 /**
  * A public interface that exposes the [getMarketingHots], [getProductList], [getUserProfile],
  * [userSignIn], [checkoutOrder] methods
  */
-interface StylishApiService {
+interface StylishApiServiceV2 {
     /**
      * Returns a Coroutine [Deferred] [MarketingHotsResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "marketing/hots" endpoint will be requested with the GET HTTP method
@@ -73,7 +135,8 @@ interface StylishApiService {
      * The @Query annotation indicates that it will be added "?paging={pagingKey}" after endpoint
      */
     @GET("products/{catalogType}")
-    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null):
+    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null,
+                       @Query("sort") sort: String? = null, @Query("order") order: String? = null):
             Deferred<ProductListResult>
     /**
      * Returns a Coroutine [Deferred] [UserProfileResult] which can be fetched with await() if in a Coroutine scope.
@@ -92,27 +155,41 @@ interface StylishApiService {
     @FormUrlEncoded
     @POST("user/signin")
     fun userSignIn(
-        @Field("provider") provider: String = "facebook",
-        @Field("access_token") fbToken: String):
-            Deferred<UserSignInResult>
-
-    /**
-     * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
-     * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
-     * The @Field annotation indicates that it will be added "provider", "access_token" key-pairs to the body of
-     * the POST HTTP method, and it have to use @FormUrlEncoded to support @Field
-     */
-    @FormUrlEncoded
-    @POST("user/signin")
-    fun userSignIn(
         @Field("provider") provider: String = "native",
         @Field("email") email: String,
         @Field("password") password: String):
             Deferred<UserSignInResult>
 
     /**
-     * Returns a Coroutine [Deferred] [CheckoutOrderResult] which can be fetched with await() if in a Coroutine scope.
+     * Returns a Coroutine [Deferred] [UserSignUpResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
+     * The @Field annotation indicates that it will be added "provider", "access_token" key-pairs to the body of
+     * the POST HTTP method, and it have to use @FormUrlEncoded to support @Field
+     */
+    @FormUrlEncoded
+    @POST("user/signup")
+    fun userSignUp(
+        @Field("name") name: String = "",
+        @Field("email") email: String,
+        @Field("password") password: String):
+            Deferred<UserSignUpResult>
+
+    /**
+     * Returns a Coroutine [Deferred] [UserRefreshTokenResult] which can be fetched with await() if in a Coroutine scope.
+     * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
+     * The @Field annotation indicates that it will be added "provider", "email", "password" key-pairs to the
+     * body of the POST HTTP method, and it have to use @FormUrlEncoded to support @Field
+     */
+    @FormUrlEncoded
+    @POST("user/refresh")
+    fun userRefreshToken(
+        @Field("token") token: String
+    ):
+            Deferred<UserRefreshTokenResult>
+
+    /**
+     * Returns a Coroutine [Deferred] [CheckoutOrderResult] which can be fetched with await() if in a Coroutine scope.
+     * The @POST annotation indicates that the "order/checkout" endpoint will be requested with the POST HTTP method
      * The @Header annotation indicates that it will be added "Authorization" header
      * The @Body annotation indicates that it will be added [OrderDetail] to the body of the POST HTTP method
      */
@@ -120,28 +197,23 @@ interface StylishApiService {
     fun checkoutOrder(@Header("Authorization") token: String, @Body orderDetail: OrderDetail):
             Deferred<CheckoutOrderResult>
 
-    @FormUrlEncoded
-    @POST("user/signup")
-    fun userSignUp(
-        @Field("name") name: String = "",
-        @Field("email") email: String,
-        @Field("password") password: String?):
-            Deferred<UserSignUpResult>
+    /**
+     * Returns a Coroutine [Deferred] [ProductDetailResult] which can be fetched with await() if in a Coroutine scops.
+     * The @GET annoation indicates that the "products/details" endpoint will be requested with the GET HTTP method
+     * The @Header annotation indicates that it will be added "Cookie" header with values token={user token}
+     * The @Body annotation indicates that an id [String] to the body of the GET HTTP METHOD
+     */
+    @GET("products/details")
+    fun getProductDetail(@Header("Cookie") token: String, @Query("id") id: String):
+            Deferred<ProductDetailResult>
+
+    @GET("userrecord/products")
+    fun getUserRecord(@Header("Cookie") token: String): Deferred<UserRecordsResult>
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
-object StylishApi {
-    val retrofitService : StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
-}
-
-//filter-enum class
-enum class StylishApiFilter(val valueFilter: String) {
-    SHOW_POPULARITY_ASCENDING("popularity_ascending"),
-    SHOW_POPULARITY_DESCENDING("popularity_descending"),
-    SHOW_PRICE_ASCENDING("price_ascending"),
-    SHOW_PRICE_DESCENDING("price_descending"),
-    SHOW_PRICE_RANGE("price_range"),
-    SHOW_ALL("all")
+object StylishApiV2 {
+    val retrofitService by lazy { retrofit.create(StylishApiServiceV2::class.java) }
 }
