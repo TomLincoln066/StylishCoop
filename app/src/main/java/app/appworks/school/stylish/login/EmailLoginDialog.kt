@@ -37,6 +37,13 @@ class EmailLoginDialog : AppCompatDialogFragment() {
         binding.viewModel = viewModel
         binding.dialog = this
 
+        viewModel.isSignUp.observe(this, Observer {
+            it?.let {isSignUp ->
+                binding.textviewEmailloginSignup.isSelected = isSignUp
+                binding.textviewEmailloginSignin.isSelected = !isSignUp
+            }
+        })
+
         val mainViewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 
         viewModel.user.observe(this, Observer {

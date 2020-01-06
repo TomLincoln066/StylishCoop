@@ -23,10 +23,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="#fff"
+                android:background="@drawable/bg_login_corner"
                 android:orientation="vertical"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -39,7 +39,7 @@
                     android:textColor="@android:color/black"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
-                    tools:text="WELCOME" />
+                    android:text="WELCOME" />
 
             <LinearLayout
                     android:id="@+id/layout_emaillogin_buttons"
@@ -51,6 +51,7 @@
                     android:layout_marginTop="20dp">
 
                 <TextView
+                        android:id="@+id/textview_emaillogin_signin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -60,9 +61,11 @@
                         android:paddingBottom="10dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:onClick="@{() -> viewModel.setSignIn()}"/>
+                        android:onClick="@{() -> viewModel.setSignIn()}"
+                        android:textColor="@color/color_login_button_text"/>
 
                 <TextView
+                        android:id="@+id/textview_emaillogin_signup"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -72,7 +75,8 @@
                         android:paddingBottom="10dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:onClick="@{()->viewModel.setSignUp()}"/>
+                        android:onClick="@{()->viewModel.setSignUp()}"
+                        android:textColor="@color/color_login_button_text"/>
 
             </LinearLayout>
             <LinearLayout
@@ -93,7 +97,7 @@
                         android:layout_height="50dp"
                         android:hint="@string/hint_email_required"
                         android:layout_marginTop="10dp"
-                        android:text="@={viewModel.userEmail}"/>
+                        android:text="@={viewModel.userEmail}" />
                 <TextView
                         android:id="@+id/textview_emaillogin_email_error"
                         android:layout_width="wrap_content"
@@ -134,7 +138,8 @@
                     android:fontFamily="@font/noto_sans"
                     android:text="@{viewModel.confirmationMessage}"
                     android:layout_marginBottom="5dp"
-                    android:onClick="@{()->viewModel.signInOrSignUp()}"/>
+                    android:onClick="@{()->viewModel.signInOrSignUp()}"
+                    android:background="@drawable/bg_login_button"/>
             <Button
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
@@ -146,6 +151,7 @@
                     android:layout_marginBottom="20dp"
                     android:text="@string/cancel_text"
                     android:onClick="@{()->dialog.dismiss()}"
+                    android:background="@drawable/bg_login_button"
                     />
 
         </LinearLayout>

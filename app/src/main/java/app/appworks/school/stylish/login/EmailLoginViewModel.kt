@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.login
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -66,7 +67,7 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
 
         passwordErrorMessage.value = null
 
-        emailErrorMessage.value?.let {email ->
+        userEmail.value?.let {email ->
             if (email.isEmpty()) {
                 emailErrorMessage.value = "請輸入電子信箱"
                 return
