@@ -22,9 +22,9 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
         return stylishRemoteDataSource.getUserViewingRecord(token)
     }
 
-    override suspend fun getProductDetail( token: String, productId: String, currency: Currency):
+    override suspend fun getProductDetail( token: String, currency: Currency, productId: String):
             Result<ProductDetailResult> {
-        return stylishRemoteDataSource.getProductDetail(token, productId, currency)
+        return stylishRemoteDataSource.getProductDetail(token, currency, productId)
     }
 
     override suspend fun userSignUp(name: String, email: String, password: String
