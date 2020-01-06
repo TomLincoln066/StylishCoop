@@ -4,6 +4,18 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+                name="catalogFilterPrice"
+                type="app.appworks.school.stylish.catalog.filter.CatalogSortFilterDialog" />
+
+    </data>
+
+
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
