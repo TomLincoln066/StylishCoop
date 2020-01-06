@@ -155,28 +155,28 @@ class MainActivity : BaseActivity() {
         setupDrawer()
         setupNavController()
 
-//        CoroutineScope(Dispatchers.Main).launch {
-//            val tag = "FETCH PRODUCT LIST"
-//            val result = StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.DESCEND)
-//
-//            when(result) {
-//                is Result.Success -> {
-//                    if (result.data.error != null) {
-//                        Log.i(tag, "ERROR : ${result.data.error}")
-//                    } else {
-//                        Log.i(tag, "RESULT : ${result.data.products}")
-//                    }
-//                }
-//
-//                is Result.Error -> {
-//                    Log.i(tag, "ERROR : ${result.exception.message}")
-//                }
-//
-//                is Result.Fail -> {
-//                    Log.i(tag, "FAIL : ${result.error}")
-//                }
-//            }
-//        }
+        CoroutineScope(Dispatchers.Main).launch {
+            val tag = "FETCH PRODUCT LIST"
+            val result = StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.DESCEND)
+
+            when(result) {
+                is Result.Success -> {
+                    if (result.data.error != null) {
+                        Log.i(tag, "ERROR : ${result.data.error}")
+                    } else {
+                        Log.i(tag, "RESULT : ${result.data.products}")
+                    }
+                }
+
+                is Result.Error -> {
+                    Log.i(tag, "ERROR : ${result.exception.message}")
+                }
+
+                is Result.Fail -> {
+                    Log.i(tag, "FAIL : ${result.error}")
+                }
+            }
+        }
 
 //        CoroutineScope(Dispatchers.Main).launch {
 //            val tag = "RECORD VIEW"
