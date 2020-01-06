@@ -16,9 +16,6 @@ class CatalogSortFilterViewModel : ViewModel(){
         get() = _user
 
 
-
-
-
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 

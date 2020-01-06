@@ -40,10 +40,10 @@ class CatalogSortFilterDialog : AppCompatDialogFragment() {
 //    }
 
     //
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.MessageDialog)
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+////        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.MessageDialog)
+//    }
 
     //
     override fun onCreateView(
