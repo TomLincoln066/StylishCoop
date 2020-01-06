@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
+import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.network.StylishApi
@@ -25,7 +26,7 @@ object StylishRemoteDataSource : StylishDataSource {
         }
 
         val getResultDeferred = StylishApiV2.retrofitService
-            .getUserRecord("token=${token}")
+            .getUserRecord(token)
 
         return try {
             val result = getResultDeferred.await()
@@ -42,13 +43,13 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
-    override suspend fun getProductDetail(token: String, productId: String): Result<ProductDetailResult> {
+    override suspend fun getProductDetail(token: String, currency: Currency, productId: String): Result<ProductDetailResult> {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
 
         val getResultDeferred = StylishApiV2.retrofitService
-            .getProductDetail("token=${token}", productId)
+            .getProductDetail(token, currency.abbreviate, productId)
 
         return try {
             val result = getResultDeferred.await()

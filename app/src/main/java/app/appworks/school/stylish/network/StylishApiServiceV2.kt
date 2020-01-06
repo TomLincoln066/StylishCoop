@@ -13,6 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
+import java.util.*
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -204,11 +205,20 @@ interface StylishApiServiceV2 {
      * The @Body annotation indicates that an id [String] to the body of the GET HTTP METHOD
      */
     @GET("products/details")
-    fun getProductDetail(@Header("Cookie") token: String, @Query("id") id: String):
+    fun getProductDetail(@Header("token") token: String, @Header("currency") currency: String, @Query("id") id: String):
             Deferred<ProductDetailResult>
 
     @GET("userrecord/products")
-    fun getUserRecord(@Header("Cookie") token: String): Deferred<UserRecordsResult>
+    fun getUserRecord(@Header("token") token: String): Deferred<UserRecordsResult>
+
+    @GET("coupon")
+    fun getAvailableCoupons(@Header("token") token: String): Deferred<CouponResult>
+
+    @POST("admin/coupon")
+    fun addCoupon(@Header("token") token: String, @Body couponBody: CouponBody)
+
+//    @PUT("admin/coupon")
+//    fun updateCoupon(@Header("token") token: String, @Header("id") couponId: Int, )
 }
 
 /**

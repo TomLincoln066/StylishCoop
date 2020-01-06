@@ -2,6 +2,7 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,8 +22,9 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
         return stylishRemoteDataSource.getUserViewingRecord(token)
     }
 
-    override suspend fun getProductDetail(token: String, productId: String): Result<ProductDetailResult> {
-        return stylishRemoteDataSource.getProductDetail(token, productId)
+    override suspend fun getProductDetail( token: String, productId: String, currency: Currency):
+            Result<ProductDetailResult> {
+        return stylishRemoteDataSource.getProductDetail(token, productId, currency)
     }
 
     override suspend fun userSignUp(name: String, email: String, password: String

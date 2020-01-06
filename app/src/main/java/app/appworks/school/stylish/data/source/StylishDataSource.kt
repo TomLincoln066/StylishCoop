@@ -2,6 +2,7 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
 
@@ -30,9 +31,11 @@ interface StylishDataSource {
 
     fun getProductsInCart(): LiveData<List<Product>>
 
-    suspend fun getProductDetail(token: String, productId: String): Result<ProductDetailResult>
+    suspend fun getProductDetail(token: String, currency: Currency, productId: String): Result<ProductDetailResult>
 
     suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult>
+
+//    suspend fun getCoupons()
 
     suspend fun isProductInCart(id: Long, colorCode: String, size: String): Boolean
 
