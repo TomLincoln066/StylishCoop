@@ -27,6 +27,8 @@ import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.login.UserManager
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.util.CurrentFragmentType
 import app.appworks.school.stylish.util.DrawerToggleType
 import app.appworks.school.stylish.util.Logger
@@ -145,30 +147,53 @@ class MainActivity : BaseActivity() {
         setupDrawer()
         setupNavController()
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val tag = "RECORD VIEW"
-            val result = StylishRemoteDataSource.userSignIn("abc@gmail.com", "name")
-            when (result) {
-                is Result.Success -> {
-                    if (result.data.error != null) {
-                        Log.i(tag, "ERROR : ${result.data.error}")
-                    } else {
-                        Log.i(tag, "RESULT : ${result.data.userSignIn}")
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "FETCH PRODUCT LIST"
+//            val result = StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.DESCEND)
+//
+//            when(result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.products}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//        }
 
-
-                    }
-                }
-
-                is Result.Error -> {
-                    Log.i(tag, "ERROR : ${result.exception.message}")
-                }
-
-                is Result.Fail -> {
-                    Log.i(tag, "FAIL : ${result.error}")
-                }
-            }
-
-        }
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "RECORD VIEW"
+//            val result = StylishRemoteDataSource.userSignIn("abc@gmail.com", "name")
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.userSignIn}")
+//
+//
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
 
 //        CoroutineScope(Dispatchers.Main).launch {
 //            val tag = "RECORD VIEW"

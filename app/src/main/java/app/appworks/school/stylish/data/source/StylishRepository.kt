@@ -2,6 +2,8 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -12,7 +14,7 @@ interface StylishRepository {
 
     suspend fun getMarketingHots(): Result<List<HomeItem>>
 
-    suspend fun getProductList(type: String, paging: String? = null): Result<ProductListResult>
+    suspend fun getProductList(type: String, paging: String? = null, sort: Sort? = null, order: Order? = null): Result<ProductListResult>
 
     suspend fun getUserProfile(token: String): Result<User>
 

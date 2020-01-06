@@ -104,6 +104,17 @@ private val retrofit = Retrofit.Builder()
     .client(client)
     .build()
 
+
+enum class Sort(val value: String) {
+    PRICE("price"),
+    POPULARITY("popularity")
+}
+
+enum class Order(val value: String) {
+    DESCEND("desc"),
+    ASCEND("asc")
+}
+
 /**
  * A public interface that exposes the [getMarketingHots], [getProductList], [getUserProfile],
  * [userSignIn], [checkoutOrder] methods
@@ -124,7 +135,8 @@ interface StylishApiServiceV2 {
      * The @Query annotation indicates that it will be added "?paging={pagingKey}" after endpoint
      */
     @GET("products/{catalogType}")
-    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null):
+    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null,
+                       @Query("sort") sort: String? = null, @Query("order") order: String? = null):
             Deferred<ProductListResult>
     /**
      * Returns a Coroutine [Deferred] [UserProfileResult] which can be fetched with await() if in a Coroutine scope.

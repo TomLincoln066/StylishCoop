@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -13,6 +15,11 @@ import kotlinx.coroutines.withContext
  * Concrete implementation of a Stylish source as a db.
  */
 class StylishLocalDataSource(val context: Context) : StylishDataSource {
+
+    override suspend fun getProductList(type: String, paging: String?, sort: Sort?, order: Order?
+    ): Result<ProductListResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -36,10 +43,6 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
     }
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun getProductList(type: String, paging: String?): Result<ProductListResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
