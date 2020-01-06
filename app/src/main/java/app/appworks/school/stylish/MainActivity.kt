@@ -317,17 +317,17 @@ class MainActivity : BaseActivity() {
 
     // setup what happens when filter selected
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.popularity_ascending -> StylishApiFilter.SHOW_POPULARITY_ASCENDING
-            R.id.popularity_descending -> StylishApiFilter.SHOW_POPULARITY_DESCENDING
-            R.id.price_ascending -> StylishApiFilter.SHOW_PRICE_ASCENDING
-            R.id.price_descending -> StylishApiFilter.SHOW_PRICE_DESCENDING
-            R.id.price_range -> StylishApiFilter.SHOW_PRICE_RANGE
-            else -> StylishApiFilter.SHOW_ALL
-        }
-        return true
-    }
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        when(item?.itemId){
+//            R.id.popularity_ascending -> StylishApiFilter.SHOW_POPULARITY_ASCENDING
+//            R.id.popularity_descending -> StylishApiFilter.SHOW_POPULARITY_DESCENDING
+//            R.id.price_ascending -> StylishApiFilter.SHOW_PRICE_ASCENDING
+//            R.id.price_descending -> StylishApiFilter.SHOW_PRICE_DESCENDING
+//            R.id.price_range -> StylishApiFilter.SHOW_PRICE_RANGE
+//            else -> StylishApiFilter.SHOW_ALL
+//        }
+//        return true
+//    }
 
 
 

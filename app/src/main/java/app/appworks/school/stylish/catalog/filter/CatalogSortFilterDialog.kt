@@ -64,6 +64,11 @@ class CatalogSortFilterDialog : AppCompatDialogFragment() {
             dismiss()
         }
 
+        binding.buttonClearFilter.setOnClickListener {
+
+            dismiss()
+        }
+
 
         return binding.root
 

@@ -7,26 +7,26 @@
     the action is displayed as a button if there is room in the app bar for it;
      if there is not enough room, excess actions are sent to the overflow menu.-->
 
-    <item
-            android:id="@+id/popularity_ascending"
-            android:title="按人氣排序-從低到高"
-            app:showAsAction="ifRoom" />
-    <item
-            android:id="@+id/popularity_descending"
-            android:title="按人氣排序-從高到低"
-            app:showAsAction="ifRoom" />
-    <item
-            android:id="@+id/price_ascending"
-            android:title="按價錢排序-從低到高"
-            app:showAsAction="ifRoom" />
-    <item
-            android:id="@+id/price_descending"
-            android:title="按價錢排序-從高到低"
-            app:showAsAction="ifRoom" />
-    <item
-            android:id="@+id/price_range"
-            android:title="填寫價格區間"
-            app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--            android:id="@+id/popularity_ascending"-->
+<!--            android:title="按人氣排序-從低到高"-->
+<!--            app:showAsAction="ifRoom" />-->
+<!--    <item-->
+<!--            android:id="@+id/popularity_descending"-->
+<!--            android:title="按人氣排序-從高到低"-->
+<!--            app:showAsAction="ifRoom" />-->
+<!--    <item-->
+<!--            android:id="@+id/price_ascending"-->
+<!--            android:title="按價錢排序-從低到高"-->
+<!--            app:showAsAction="ifRoom" />-->
+<!--    <item-->
+<!--            android:id="@+id/price_descending"-->
+<!--            android:title="按價錢排序-從高到低"-->
+<!--            app:showAsAction="ifRoom" />-->
+<!--    <item-->
+<!--            android:id="@+id/price_range"-->
+<!--            android:title="填寫價格區間"-->
+<!--            app:showAsAction="ifRoom" />-->
 
 
 

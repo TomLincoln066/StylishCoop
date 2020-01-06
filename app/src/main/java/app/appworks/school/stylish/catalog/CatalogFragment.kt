@@ -27,11 +27,11 @@ class CatalogFragment : Fragment() {
 
             }
 
-            filterButton.setOnClickListener{
-
-                findNavController().navigate(R.id.action_global_catalogSortFilterDialog)
-
-            }
+//            filterButton.setOnClickListener{
+//
+//                findNavController().navigate(R.id.action_global_catalogSortFilterDialog)
+//
+//            }
 
             return@onCreateView root
         }
