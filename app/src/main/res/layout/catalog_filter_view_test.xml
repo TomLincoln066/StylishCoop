@@ -60,27 +60,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_price" />
 
-        <Button
-                android:id="@+id/button_go_sort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="確認"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_clear_filter"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_price" />
 
         <Button
                 android:id="@+id/button_clear_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="清除篩選"
                 app:layout_constraintEnd_toStartOf="@+id/button_cancel"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button_go_sort"
-                app:layout_constraintTop_toTopOf="@+id/button_go_sort" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_price" />
 
         <Button
                 android:id="@+id/button_cancel"

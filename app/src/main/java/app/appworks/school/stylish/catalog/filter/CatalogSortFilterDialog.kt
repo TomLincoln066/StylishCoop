@@ -59,7 +59,10 @@ class CatalogSortFilterDialog : AppCompatDialogFragment() {
 
         binding.lifecycleOwner = this
 
-
+        //close the Filter Dialog
+        binding.buttonCancel.setOnClickListener{
+            dismiss()
+        }
 
 
         return binding.root
