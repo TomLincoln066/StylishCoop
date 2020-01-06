@@ -5,6 +5,7 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
 import app.appworks.school.stylish.network.StylishApi
+import app.appworks.school.stylish.network.StylishApiV2
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import app.appworks.school.stylish.util.Util.isInternetConnected
@@ -15,6 +16,117 @@ import app.appworks.school.stylish.util.Util.isInternetConnected
  * Implementation of the Stylish source that from network.
  */
 object StylishRemoteDataSource : StylishDataSource {
+
+    override suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService
+            .getUserRecord("token=${token}")
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getProductDetail(token: String, productId: String): Result<ProductDetailResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService
+            .getProductDetail("token=${token}", productId)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun userSignUp(name: String,  email: String, password: String
+    ): Result<UserSignUpResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        //TODO : SIGNIN API : can later change to StylishApiV2 to connect to Stuarrt api
+        // Get the Deferred object for Retrofit_V2 request
+        val getResultDeferred = StylishApi.retrofitService.userSignUp(name, email, password)
+
+        return try {
+            val result = getResultDeferred.await()
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        //TODO : SIGNIN API : can later change to StylishApiV2 to connect to Stuarrt api
+        // Get the Deferred object for Retrofit_V2 request
+        val getResultDeferred = StylishApi.retrofitService
+            .userSignIn(email = email, password = password)
+
+        return try {
+            val result = getResultDeferred.await()
+            result.error?.let {
+                return  Result.Fail(it)
+            }
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun userRefreshToken(token: String): Result<UserRefreshTokenResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.userRefreshToken(token)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+            Result.Success(result)
+
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
 
