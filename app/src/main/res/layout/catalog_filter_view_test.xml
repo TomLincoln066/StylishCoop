@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
+
             android:orientation="vertical">
 
         <TextView
@@ -39,7 +40,7 @@
 
         <Spinner
                 android:id="@+id/spinner_popularity"
-                android:layout_width="411dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:entries="@array/popularity"
@@ -49,7 +50,7 @@
 
         <Spinner
                 android:id="@+id/spinner_price"
-                android:layout_width="409dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="30dp"
@@ -58,6 +59,38 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_price" />
+
+        <Button
+                android:id="@+id/button_go_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="確認"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_clear_filter"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_price" />
+
+        <Button
+                android:id="@+id/button_clear_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清除篩選"
+                app:layout_constraintEnd_toStartOf="@+id/button_cancel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/button_go_sort"
+                app:layout_constraintTop_toTopOf="@+id/button_go_sort" />
+
+        <Button
+                android:id="@+id/button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/button_clear_filter"
+                app:layout_constraintTop_toTopOf="@+id/button_clear_filter" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
