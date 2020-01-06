@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,8 +53,15 @@ class HomeFragment : Fragment() {
             }
         })
 
-//        val items = listOf(CurrencyDropItem(Currency.TWD), CurrencyDropItem(Currency.USD), CurrencyDropItem(Currency.JPY))
-//        binding.spinnerHomeCurrency.adapter = CustomDropDownAdapter(items)
+        val items = arrayOf(CurrencyDropItem(Currency.TWD), CurrencyDropItem(Currency.USD), CurrencyDropItem(Currency.JPY))
+        context?.let {
+            binding.spinnerHomeCurrency.adapter = CustomDropDownAdapter(items = items)
+        }
+
+
+//        binding.spinnerHomeCurrency.setOnItemClickListener { parent, view, position, id ->
+//            Log.i("CLICKED", "ITEM")
+//        }
 
         return binding.root
     }

@@ -13,6 +13,6 @@ enum class Currency(@StringRes val abbRes: Int, @DrawableRes val iconRes: Int) {
 
 data class CurrencyDropItem(
     val currency: Currency) {
-    val string = StylishApplication.instance.getString(currency.abbRes)
-    val image = StylishApplication.instance.getDrawable(currency.iconRes)
+    val string = StylishApplication.instance.applicationContext.getString(currency.abbRes)
+    val image = StylishApplication.instance.applicationContext.getDrawable(currency.iconRes)
 }

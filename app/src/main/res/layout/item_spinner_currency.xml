@@ -34,11 +34,12 @@
                 />
         <ImageView
                 android:id="@+id/image_spinner_item_flag"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
                 android:src="@{dropItem.image}"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="50dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
