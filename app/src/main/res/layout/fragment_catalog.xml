@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+                name="fragmentCatalogFilterView"
+                type="app.appworks.school.stylish.catalog.filter.CatalogSortFilterDialog" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <Button
+                android:id="@+id/filter_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="323dp"
+
+
+                android:text="Filter"
+                app:layout_constraintEnd_toEndOf="@+id/viewpager_catalog"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager_catalog"
@@ -24,6 +46,7 @@
                     app:tabTextColor="@color/gray_888888">
 
             </com.google.android.material.tabs.TabLayout>
+
 
         </androidx.viewpager.widget.ViewPager>
     </androidx.constraintlayout.widget.ConstraintLayout>

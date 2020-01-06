@@ -5,16 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
-import app.appworks.school.stylish.databinding.CatalogFilterPriceViewBinding
+import androidx.navigation.fragment.findNavController
+import app.appworks.school.stylish.MainActivity
+import app.appworks.school.stylish.R
+
+import app.appworks.school.stylish.databinding.CatalogFilterViewTestBinding
+import app.appworks.school.stylish.databinding.FragmentCatalogBinding
 import com.facebook.CallbackManager
 
-class CatalogSortFilterDialog : AppCompatDialogFragment(){
-
+class CatalogSortFilterDialog : AppCompatDialogFragment() {
 
 
     //
-    private val viewModel:CatalogSortFilterViewModel by lazy {
+    private val viewModel: CatalogSortFilterViewModel by lazy {
         ViewModelProviders.of(this).get(CatalogSortFilterViewModel::class.java)
     }
 
@@ -22,39 +27,46 @@ class CatalogSortFilterDialog : AppCompatDialogFragment(){
     //
 //    lateinit var callbackManager:CallbackManager
     //
-//    lateinit var binding: CatalogFilterPriceViewBinding
+    lateinit var binding: CatalogFilterViewTestBinding
 
 
     //
-    companion object {
-        fun newInstance():CatalogSortFilterDialog =
-            CatalogSortFilterDialog().apply {
+//    companion object {
+//        fun newInstance():FragmentCatalogBinding =
+//            FragmentCatalogBinding().apply {
+//
+//            }
+//
+//    }
 
-            }
-
+    //
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.MessageDialog)
     }
 
     //
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-
-        //
-//        binding = CatalogFilterPriceViewBinding.inflate(inflater)
-        //
-//        binding.catalogFilterPrice = this
-        //
-//        binding.lifecycleOwner = this
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
 
+        binding = CatalogFilterViewTestBinding.inflate(inflater)
+
+        binding.catalogFilterViewTest = this
+
+        binding.lifecycleOwner = this
 
 
 
 
-//        return binding.root
-//    }
+        return binding.root
+
+    }
+
+
 
 
 }
