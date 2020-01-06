@@ -72,7 +72,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         //TODO : SIGNIN API : can later change to StylishApiV2 to connect to Stuarrt api
         // Get the Deferred object for Retrofit_V2 request
-        val getResultDeferred = StylishApi.retrofitService.userSignUp(name, email, password)
+        val getResultDeferred = StylishApiV2.retrofitService.userSignUp(name, email, password)
 
         return try {
             val result = getResultDeferred.await()
@@ -94,7 +94,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         //TODO : SIGNIN API : can later change to StylishApiV2 to connect to Stuarrt api
         // Get the Deferred object for Retrofit_V2 request
-        val getResultDeferred = StylishApi.retrofitService
+        val getResultDeferred = StylishApiV2.retrofitService
             .userSignIn(email = email, password = password)
 
         return try {
