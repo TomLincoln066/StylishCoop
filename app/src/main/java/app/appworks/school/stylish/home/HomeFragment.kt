@@ -1,9 +1,11 @@
 package app.appworks.school.stylish.home
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -56,14 +58,25 @@ class HomeFragment : Fragment() {
         val items = arrayOf(CurrencyDropItem(Currency.TWD), CurrencyDropItem(Currency.USD), CurrencyDropItem(Currency.JPY))
         context?.let {
             binding.spinnerHomeCurrency.adapter = CustomDropDownAdapter(items = items)
-            viewModel.refresh()
         }
 
 
-        binding.spinnerHomeCurrency.setOnItemClickListener { parent, view, position, id ->
-            UserManager.userCurrency = getString(Currency.values()[position].abbRes)
+        binding.spinnerHomeCurrency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                UserManager.userCurrency = getString(Currency.values()[position].abbRes)
+            }
 
         }
+
         return binding.root
     }
 

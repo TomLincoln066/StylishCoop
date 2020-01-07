@@ -124,6 +124,14 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
     }
 
     fun navigateToDetail(product: Product) {
+        if (_status.value != LoadApiStatus.DONE) {return}
+        _status.value = LoadApiStatus.LOADING
+
+        coroutineScope.launch {
+            stylishRepository.getProductDetail(UserManager.userToken, UserManager.userCurrency)
+        }
+
+
         _navigateToDetail.value = product
     }
 
