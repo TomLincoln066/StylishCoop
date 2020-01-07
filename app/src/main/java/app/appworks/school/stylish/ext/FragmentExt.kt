@@ -35,5 +35,6 @@ fun Fragment.getVmFactory(product: Product): ProductViewModelFactory {
 //pass two more parameters (sort and order) to function getVmFactory
 fun Fragment.getVmFactory(catalogType: CatalogTypeFilter, sort: Sort, order: Order): CatalogItemViewModelFactory {
     val repository = (requireContext().applicationContext as StylishApplication).stylishRepository
+    //return two more arguments(sort and order) when returning CatalogItemViewModelFactory
     return CatalogItemViewModelFactory(repository, catalogType, sort, order)
 }

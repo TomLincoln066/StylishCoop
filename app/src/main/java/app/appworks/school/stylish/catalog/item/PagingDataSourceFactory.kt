@@ -19,6 +19,8 @@ class PagingDataSourceFactory(val type: CatalogTypeFilter, var sort: Sort? = nul
     override fun create(): DataSource<String, Product> {
         val source = PagingDataSource(type, sort, order)
         sourceLiveData.postValue(source)
+
+        // what's !! for?
         return source!!
     }
 

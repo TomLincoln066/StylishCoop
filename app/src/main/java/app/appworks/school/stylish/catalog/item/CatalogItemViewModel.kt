@@ -32,8 +32,10 @@ class CatalogItemViewModel(
     order: Order // add order property
 ) : ViewModel() {
 
+    // factory have three properties catalogType, sort and order.
     private val sourceFactory = PagingDataSourceFactory(catalogType, sort, order)
 
+    //
     fun refreshWithSortAndOrder(sort: Sort, order: Order) {
         sourceFactory.sort = sort
         sourceFactory.order = order
