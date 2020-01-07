@@ -12,10 +12,14 @@ import app.appworks.school.stylish.network.Sort
  */
 class CatalogAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
+
+    // declare two variables sort & order to be assigned enum class from StylishApiServiceV2
     var sort = Sort.POPULARITY
     var order = Order.DESCEND
 
     override fun getItem(position: Int): Fragment {
+
+        //have fun getItem returns a fragment companion object with more parameters
         return CatalogItemFragment(CatalogTypeFilter.values()[position], sort, order)
     }
     override fun getCount() = CatalogTypeFilter.values().size
@@ -24,6 +28,8 @@ class CatalogAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapt
         return CatalogTypeFilter.values()[position].value
     }
 
+
+    // use fun getItemPosition to get men's women's and accessories' fragments' positions and update their sort and order
     override fun getItemPosition(`object`: Any): Int {
 
         (`object` as? CatalogItemFragment)?.let {
