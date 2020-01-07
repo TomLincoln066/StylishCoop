@@ -1,13 +1,18 @@
 package app.appworks.school.stylish.catalog
 
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.BaseAdapter
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.R
+import app.appworks.school.stylish.StylishApplication
+import app.appworks.school.stylish.catalog.filter.FilterDropDownAdapter
 import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 import app.appworks.school.stylish.databinding.FragmentCatalogBinding
 import app.appworks.school.stylish.network.Order
@@ -45,6 +50,28 @@ class CatalogFragment : Fragment() {
                 it.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabsCatalog))
             }
 
+//
+//            filterSpinner.adapter = object : BaseAdapter() {
+//                override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+//                    val textView = TextView(parent!!.context)
+//                    textView.setTextColor(StylishApplication.instance.applicationContext.getColor(Col))
+//                }
+//
+//                override fun getItem(position: Int): Any {
+//                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                }
+//
+//                override fun getItemId(position: Int): Long {
+//                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                }
+//
+//                override fun getCount(): Int {
+//                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                }
+//
+//            }
+
+            filterSpinner.adapter = FilterDropDownAdapter(StylishApplication.instance.applicationContext.resources.getStringArray(R.array.arrayFilter))
 
             // why do all this in OnCreateView?
             // what's OnCreateView? difference from OnCreate?

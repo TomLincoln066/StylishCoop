@@ -20,10 +20,14 @@ class CatalogAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapt
     override fun getItem(position: Int): Fragment {
 
 
+
         //have fun getItem returns a fragment companion object with more parameters
+
         return CatalogItemFragment(CatalogTypeFilter.values()[position], sort, order)
     }
-    override fun getCount() = CatalogTypeFilter.values().size
+
+    override fun getCount() = (CatalogTypeFilter.values().size - 1)
+
 
     override fun getPageTitle(position: Int): CharSequence? {
         return CatalogTypeFilter.values()[position].value
@@ -36,6 +40,7 @@ class CatalogAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapt
         (`object` as? CatalogItemFragment)?.let {
             it.update(sort, order)
         }
+
         return super.getItemPosition(`object`)
     }
 }

@@ -5,14 +5,7 @@
 
 
     <data>
-
-        <variable
-                name="fragmentCatalogFilterView"
-                type="app.appworks.school.stylish.catalog.filter.CatalogSortFilterDialog" />
-
-
         <import type="android.view.View" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,10 +16,11 @@
                 android:id="@+id/filter_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-
-                android:entries="@array/arrayFilter"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:textAlignment="center"
+                android:background="@drawable/bg_spinner_currency"
+                />
 
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager_catalog"

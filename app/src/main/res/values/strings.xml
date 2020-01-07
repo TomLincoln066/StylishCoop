@@ -93,7 +93,8 @@
 
     <!-- General -->
     <string name="nt_dollars_">NT$%d</string>
-    <string name="other_dollars_">US$%.2f</string>
+    <string name="us_dollars_">US$%.2f</string>
+    <string name="jp_yen_">\u00A5%d</string>
     <string name="_dash_">%s - %s</string>
     <string name="catalog">型錄</string>
     <string name="cart">購物車</string>
@@ -112,6 +113,10 @@
     <string name="afternoon">afternoon</string>
     <string name="anytime">anytime</string>
 
+    <!-- CURRENCY -->
+    <string name="currency_twd">TWD</string>
+    <string name="currency_usd">USD</string>
+    <string name="currency_jpy">JPY</string>
 
     <!-- filter spinner-->
 
@@ -127,7 +132,6 @@
 
     <string name ="textView_popularity">按照人氣高低排序</string>
     <string name ="textView_price">按照價錢高低排序</string>
-
 
 
 </resources>
