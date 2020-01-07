@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
         val items = arrayOf(CurrencyDropItem(Currency.TWD), CurrencyDropItem(Currency.USD), CurrencyDropItem(Currency.JPY))
         context?.let {
             binding.spinnerHomeCurrency.adapter = CustomDropDownAdapter(items = items)
+            viewModel.refresh()
         }
 
 

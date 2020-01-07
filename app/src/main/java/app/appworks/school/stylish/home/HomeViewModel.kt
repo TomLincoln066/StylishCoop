@@ -79,43 +79,6 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
         getMarketingHotsResult(true)
     }
 
-
-    private fun getProductAll(isInitial: Boolean = false) {
-        coroutineScope.launch {
-            if(isInitial) _status.value = LoadApiStatus.LOADING
-
-            val result = stylishRepository.getProductList(CatalogTypeFilter.ALL.value)
-
-            _homeItems.value = when(result) {
-                is Result.Success -> {
-                    _error.value = null
-                    if (isInitial) _status.value = LoadApiStatus.DONE
-                    result.data.products
-                }
-
-                is Result.Fail -> {
-                    _error.value = result.error
-                    if (isInitial) _status.value = LoadApiStatus.ERROR
-                    null
-                }
-
-                is Result.Error -> {
-                    _error.value = result.exception.toString()
-                    if (isInitial) _status.value = LoadApiStatus.ERROR
-                    null
-                }
-
-                else -> {
-                    _error.value = getString(R.string.you_know_nothing)
-                    if (isInitial) _status.value = LoadApiStatus.ERROR
-                    null
-                }
-            }
-
-        }
-    }
-
-
     /**
      * track [StylishRepository.getMarketingHots]: -> [DefaultStylishRepository] : [StylishRepository] -> [StylishRemoteDataSource] : [StylishDataSource]
      */
