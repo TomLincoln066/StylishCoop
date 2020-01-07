@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Coupon (
-    @Json(name = "coupon_id") val couponID: Int? = null,
+    @Json(name = "couponid") val couponID: Int? = null,
     val ticket: String? = null,
     @Json(name = "user_id") val userID: Int? = null,
     val discount: Int? = null,

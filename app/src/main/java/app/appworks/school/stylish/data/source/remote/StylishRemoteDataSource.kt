@@ -196,6 +196,9 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
+    /***
+     * PRODUCT
+     */
     override suspend fun getProductList(type: String, paging: String?, sort: Sort?, order: Order?
     ): Result<ProductListResult> {
         if (!isInternetConnected()) {
