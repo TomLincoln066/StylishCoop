@@ -93,6 +93,7 @@
 
     <!-- General -->
     <string name="nt_dollars_">NT$%d</string>
+    <string name="other_dollars_">US$%.2f</string>
     <string name="_dash_">%s - %s</string>
     <string name="catalog">型錄</string>
     <string name="cart">購物車</string>
@@ -110,4 +111,23 @@
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
     <string name="anytime">anytime</string>
+
+
+    <!-- filter spinner-->
+
+    <string-array name="arrayFilter">
+
+        <item>按人氣從低到高</item>
+        <item>按人氣從高到低</item>
+        <item>按價錢從低到高</item>
+        <item>按價錢從高到低</item>
+
+
+    </string-array>
+
+    <string name ="textView_popularity">按照人氣高低排序</string>
+    <string name ="textView_price">按照價錢高低排序</string>
+
+
+
 </resources>

@@ -12,5 +12,5 @@ data class User(
     val provider: String,
     val name: String,
     val email: String,
-    val picture: String
+    val picture: String?
 ) : Parcelable

@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+                name="fragmentCatalogFilterView"
+                type="app.appworks.school.stylish.catalog.filter.CatalogSortFilterDialog" />
+
+
+        <import type="android.view.View" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <Spinner
+                android:id="@+id/filter_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                android:entries="@array/arrayFilter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager_catalog"
@@ -13,7 +35,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/filter_spinner">
 
             <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabs_catalog"
@@ -24,6 +46,7 @@
                     app:tabTextColor="@color/gray_888888">
 
             </com.google.android.material.tabs.TabLayout>
+
 
         </androidx.viewpager.widget.ViewPager>
     </androidx.constraintlayout.widget.ConstraintLayout>
