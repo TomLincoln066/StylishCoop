@@ -174,6 +174,27 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
+    override suspend fun getProductAll(): Result<List<HomeItem>> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.getAllProducts()
+
+        return try {
+            val listResult = getResultDeferred.await()
+
+            listResult.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(listResult.toHomeItems())
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
 
         if (!isInternetConnected()) {

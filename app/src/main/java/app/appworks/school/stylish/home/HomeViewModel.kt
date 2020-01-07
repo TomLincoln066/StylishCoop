@@ -87,7 +87,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
             if (isInitial) _status.value = LoadApiStatus.LOADING
             // It will return Result object after Deferred flow
-            val result = stylishRepository.getMarketingHots()
+            val result = stylishRepository.getProductAll()
 
             _homeItems.value = when (result) {
                 is Result.Success -> {
