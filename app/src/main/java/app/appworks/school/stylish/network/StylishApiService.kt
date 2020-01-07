@@ -135,3 +135,13 @@ interface StylishApiService {
 object StylishApi {
     val retrofitService : StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
 }
+
+//filter-enum class
+enum class StylishApiFilter(val valueFilter: String) {
+    SHOW_POPULARITY_ASCENDING("popularity_ascending"),
+    SHOW_POPULARITY_DESCENDING("popularity_descending"),
+    SHOW_PRICE_ASCENDING("price_ascending"),
+    SHOW_PRICE_DESCENDING("price_descending"),
+    SHOW_PRICE_RANGE("price_range"),
+    SHOW_ALL("all")
+}

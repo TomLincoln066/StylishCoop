@@ -9,6 +9,8 @@ import app.appworks.school.stylish.factory.CatalogItemViewModelFactory
 import app.appworks.school.stylish.factory.ProductViewModelFactory
 import app.appworks.school.stylish.factory.ProfileViewModelFactory
 import app.appworks.school.stylish.factory.ViewModelFactory
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -30,7 +32,9 @@ fun Fragment.getVmFactory(product: Product): ProductViewModelFactory {
     return ProductViewModelFactory(repository, product)
 }
 
-fun Fragment.getVmFactory(catalogType: CatalogTypeFilter): CatalogItemViewModelFactory {
+//pass two more parameters (sort and order) to function getVmFactory
+fun Fragment.getVmFactory(catalogType: CatalogTypeFilter, sort: Sort, order: Order): CatalogItemViewModelFactory {
     val repository = (requireContext().applicationContext as StylishApplication).stylishRepository
-    return CatalogItemViewModelFactory(repository, catalogType)
+    //return two more arguments(sort and order) when returning CatalogItemViewModelFactory
+    return CatalogItemViewModelFactory(repository, catalogType, sort, order)
 }

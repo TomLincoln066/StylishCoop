@@ -10,6 +10,8 @@ import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.util.Util.getString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +21,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
-class PagingDataSource(val type: CatalogTypeFilter) : PageKeyedDataSource<String, Product>() {
+class PagingDataSource(val type: CatalogTypeFilter, private val sort: Sort?, private val order: Order?) : PageKeyedDataSource<String, Product>() {
 
     // init load status for observe
 
@@ -49,6 +51,7 @@ class PagingDataSource(val type: CatalogTypeFilter) : PageKeyedDataSource<String
 
             val result = StylishApplication.instance.stylishRepository
                 .getProductList(token = UserManager.userToken ?: "", currency = UserManager.userCurrency ,type = type.value)
+
             when (result) {
                 is Result.Success -> {
                     _errorInitialLoad.value = null
@@ -82,6 +85,7 @@ class PagingDataSource(val type: CatalogTypeFilter) : PageKeyedDataSource<String
         coroutineScope.launch {
             val result = StylishApplication.instance.stylishRepository
                 .getProductList(token = UserManager.userToken ?: "", currency = UserManager.userCurrency,type = type.value, paging = params.key)
+
             when (result) {
                 is Result.Success -> {
 //                    Logger.d("[${type.value}] loadAfter.result=${result.data}") // open it if you want to observe status
