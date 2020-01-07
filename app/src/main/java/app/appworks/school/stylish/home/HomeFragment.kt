@@ -1,7 +1,6 @@
 package app.appworks.school.stylish.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import app.appworks.school.stylish.data.Currency
 import app.appworks.school.stylish.data.CurrencyDropItem
 import app.appworks.school.stylish.databinding.FragmentHomeBinding
 import app.appworks.school.stylish.ext.getVmFactory
+import app.appworks.school.stylish.login.UserManager
 
 
 /**
@@ -59,10 +59,9 @@ class HomeFragment : Fragment() {
         }
 
 
-//        binding.spinnerHomeCurrency.setOnItemClickListener { parent, view, position, id ->
-//            Log.i("CLICKED", "ITEM")
-//        }
-
+        binding.spinnerHomeCurrency.setOnItemClickListener { parent, view, position, id ->
+            UserManager.userCurrency = getString(Currency.values()[position].abbRes)
+        }
         return binding.root
     }
 

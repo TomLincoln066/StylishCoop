@@ -78,6 +78,16 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
         getMarketingHotsResult(true)
     }
 
+
+    private fun getProductAll(isInitial: Boolean = false) {
+        coroutineScope.launch {
+            if(isInitial) _status.value = LoadApiStatus.LOADING
+
+            val result = stylishRepository.getProductList()
+        }
+    }
+
+
     /**
      * track [StylishRepository.getMarketingHots]: -> [DefaultStylishRepository] : [StylishRepository] -> [StylishRemoteDataSource] : [StylishDataSource]
      */
