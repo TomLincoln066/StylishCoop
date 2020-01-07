@@ -86,13 +86,13 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
-    override suspend fun getProductDetail(token: String, currency: Currency, productId: String): Result<ProductDetailResult> {
+    override suspend fun getProductDetail(token: String, currency: String, productId: String): Result<ProductDetailResult> {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
 
         val getResultDeferred = StylishApiV2.retrofitService
-            .getProductDetail(token, currency.abbreviate, productId)
+            .getProductDetail(token, currency, productId)
 
         return try {
             val result = getResultDeferred.await()

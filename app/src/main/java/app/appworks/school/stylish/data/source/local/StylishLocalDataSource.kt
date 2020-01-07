@@ -30,7 +30,7 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getProductDetail(token: String, currency: Currency, productId: String
+    override suspend fun getProductDetail(token: String, currency: String, productId: String
     ): Result<ProductDetailResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
