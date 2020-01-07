@@ -57,10 +57,11 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
         return stylishRemoteDataSource.getMarketingHots()
     }
 
-    override suspend fun getProductList(type: String, paging: String?, sort: Sort?, order: Order?
-    ): Result<ProductListResult> {
-        return stylishRemoteDataSource.getProductList(type, paging, sort, order)
-}
+    override suspend fun getProductList(token: String, currency: String,
+                                        type: String, paging: String?,
+                                        sort: Sort?, order: Order?): Result<ProductListResult> {
+        return stylishRemoteDataSource.getProductList(token, currency, type, paging, sort, order)
+    }
 
     override suspend fun getUserProfile(token: String): Result<UserProfileResult> {
         return stylishRemoteDataSource.getUserProfile(token)

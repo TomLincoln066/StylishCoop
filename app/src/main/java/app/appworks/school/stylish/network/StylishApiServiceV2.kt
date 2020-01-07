@@ -141,7 +141,8 @@ interface StylishApiServiceV2 {
      * The @Query annotation indicates that it will be added "?paging={pagingKey}" after endpoint
      */
     @GET("products/{catalogType}")
-    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null,
+    fun getProductList(@Header("token") token: String, @Header("currency") currency: String,
+                       @Path("catalogType") type: String, @Query("paging") paging: String? = null,
                        @Query("sort") sort: String? = null, @Query("order") order: String? = null):
             Deferred<ProductListResult>
     /**

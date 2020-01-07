@@ -17,7 +17,9 @@ interface StylishDataSource {
 
     suspend fun getMarketingHots(): Result<List<HomeItem>>
 
-    suspend fun getProductList(type: String, paging: String? = null, sort: Sort? = null, order: Order? = null): Result<ProductListResult>
+    suspend fun getProductList(token: String, currency: String,
+                               type: String, paging: String? = null,
+                               sort: Sort? = null, order: Order? = null): Result<ProductListResult>
 
     suspend fun getUserProfile(token: String): Result<UserProfileResult>
 

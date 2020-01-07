@@ -35,8 +35,9 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getProductList(type: String, paging: String?, sort: Sort?, order: Order?
-    ): Result<ProductListResult> {
+    override suspend fun getProductList(token: String, currency: String,
+                                        type: String, paging: String?,
+                                        sort: Sort?, order: Order?): Result<ProductListResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -220,13 +220,16 @@ object StylishRemoteDataSource : StylishDataSource {
     /***
      * PRODUCT
      */
-    override suspend fun getProductList(type: String, paging: String?, sort: Sort?, order: Order?
+    override suspend fun getProductList(token: String, currency: String, type: String, paging: String?, sort: Sort?, order: Order?
     ): Result<ProductListResult> {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
         // Get the Deferred object for our Retrofit request
-        val getResultDeferred = StylishApiV2.retrofitService.getProductList(type = type, paging = paging, sort = sort?.value, order = order?.value)
+        val getResultDeferred = StylishApiV2.retrofitService
+            .getProductList(token = token, currency = currency,
+                type = type, paging = paging,
+                sort = sort?.value, order = order?.value)
 
         return try {
             // this will run on a thread managed by Retrofit

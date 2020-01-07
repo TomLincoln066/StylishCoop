@@ -8,6 +8,7 @@ import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
+import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.util.Util.getString
 import kotlinx.coroutines.CoroutineScope
@@ -47,7 +48,7 @@ class PagingDataSource(val type: CatalogTypeFilter) : PageKeyedDataSource<String
             _statusInitialLoad.value = LoadApiStatus.LOADING
 
             val result = StylishApplication.instance.stylishRepository
-                .getProductList(type = type.value)
+                .getProductList(token = UserManager.userToken ?: "", currency = UserManager.userCurrency ,type = type.value)
             when (result) {
                 is Result.Success -> {
                     _errorInitialLoad.value = null
@@ -80,7 +81,7 @@ class PagingDataSource(val type: CatalogTypeFilter) : PageKeyedDataSource<String
 
         coroutineScope.launch {
             val result = StylishApplication.instance.stylishRepository
-                .getProductList(type = type.value, paging = params.key)
+                .getProductList(token = UserManager.userToken ?: "", currency = UserManager.userCurrency,type = type.value, paging = params.key)
             when (result) {
                 is Result.Success -> {
 //                    Logger.d("[${type.value}] loadAfter.result=${result.data}") // open it if you want to observe status
