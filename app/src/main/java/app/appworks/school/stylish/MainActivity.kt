@@ -157,7 +157,7 @@ class MainActivity : BaseActivity() {
         /** Get Product Detail*/
         CoroutineScope(Dispatchers.Main).launch {
             val tag = "GET PRODUCT DETAIL"
-            val result = StylishRemoteDataSource.getProductDetail("f272145222f587ee40e63f9c1c6161f8d990073efb6146250566a677e6fe8bb5", Currency.JPY, "201807201824")
+            val result = StylishRemoteDataSource.getProductDetail("f272145222f587ee40e63f9c1c6161f8d990073efb6146250566a677e6fe8bb5", Currency.JPY.abbreviate, "201807201824")
 
             when (result) {
                 is Result.Success -> {

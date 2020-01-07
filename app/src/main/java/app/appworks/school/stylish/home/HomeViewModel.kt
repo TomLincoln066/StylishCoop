@@ -128,11 +128,28 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
         _status.value = LoadApiStatus.LOADING
 
         coroutineScope.launch {
-            stylishRepository.getProductDetail(UserManager.userToken, UserManager.userCurrency)
+            val result = stylishRepository
+                .getProductDetail(UserManager.userToken ?: "TWD",
+                    UserManager.userCurrency, product.id.toString())
+
+            when(result) {
+                is Result.Success -> {
+                    if (result.data.error == null) {
+                        _navigateToDetail.value = result.data.product
+                        _status.value = LoadApiStatus.DONE
+                    } else {
+                        _navigateToDetail.value = null
+                        _status.value = LoadApiStatus.ERROR
+                    }
+                }
+
+                else -> {
+                    _navigateToDetail.value = null
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+
         }
-
-
-        _navigateToDetail.value = product
     }
 
     fun onDetailNavigated() {
