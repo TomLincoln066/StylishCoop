@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
 
         binding.spinnerHomeCurrency.setOnItemClickListener { parent, view, position, id ->
             UserManager.userCurrency = getString(Currency.values()[position].abbRes)
+
         }
         return binding.root
     }

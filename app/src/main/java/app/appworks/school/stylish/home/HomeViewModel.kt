@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.appworks.school.stylish.R
+import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.data.HomeItem
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
@@ -83,7 +84,34 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
         coroutineScope.launch {
             if(isInitial) _status.value = LoadApiStatus.LOADING
 
-            val result = stylishRepository.getProductList()
+            val result = stylishRepository.getProductList(CatalogTypeFilter.ALL.value)
+
+            _homeItems.value = when(result) {
+                is Result.Success -> {
+                    _error.value = null
+                    if (isInitial) _status.value = LoadApiStatus.DONE
+                    result.data.products
+                }
+
+                is Result.Fail -> {
+                    _error.value = result.error
+                    if (isInitial) _status.value = LoadApiStatus.ERROR
+                    null
+                }
+
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    if (isInitial) _status.value = LoadApiStatus.ERROR
+                    null
+                }
+
+                else -> {
+                    _error.value = getString(R.string.you_know_nothing)
+                    if (isInitial) _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+
         }
     }
 
