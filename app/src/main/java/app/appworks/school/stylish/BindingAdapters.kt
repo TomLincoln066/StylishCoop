@@ -7,6 +7,7 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.Shape
 import android.view.View
 import android.widget.*
+import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -19,6 +20,7 @@ import app.appworks.school.stylish.catalog.item.CatalogItemAdapter
 import app.appworks.school.stylish.component.ColorSquare
 import app.appworks.school.stylish.component.SelectedSquare
 import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.data.Currency
 import app.appworks.school.stylish.detail.DetailCircleAdapter
 import app.appworks.school.stylish.detail.DetailColorAdapter
 import app.appworks.school.stylish.detail.DetailGalleryAdapter
@@ -26,7 +28,6 @@ import app.appworks.school.stylish.detail.chatbot.ChatbotAdapter
 import app.appworks.school.stylish.detail.chatbot.ChatbotButtonAdapter
 import app.appworks.school.stylish.detail.chatbot.ChatbotItem
 import app.appworks.school.stylish.home.HomeAdapter
-import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.payment.PaymentAdapter
@@ -358,7 +359,14 @@ fun bindDecoration(recyclerView: RecyclerView, decoration: RecyclerView.ItemDeco
 //TODO: TAKE
 @BindingAdapter("price")
 fun bindPrice(textView: TextView, price: Float?) {
-    price?.let { textView.text = StylishApplication.instance.getString(R.string.other_dollars_, it) }
+
+    val value = price ?: 0f
+
+    textView.text = when (Currency.valueOf(UserManager.userCurrency)) {
+        Currency.JPY -> StylishApplication.instance.getString(R.string.jp_yen_, value.toInt())
+        Currency.USD -> StylishApplication.instance.getString(R.string.us_dollars_, value)
+        Currency.TWD -> StylishApplication.instance.getString(R.string.nt_dollars_, value.toInt())
+    }
 }
 
 /**

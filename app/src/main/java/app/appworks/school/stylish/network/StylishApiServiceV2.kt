@@ -13,6 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
+import java.util.*
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -30,6 +31,7 @@ private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
  * full Kotlin compatibility.
  */
 private val moshi = Moshi.Builder()
+    .add(MultitypeJSONAdapter())
     .add(KotlinJsonAdapterFactory())
     .build()
 
@@ -104,6 +106,17 @@ private val retrofit = Retrofit.Builder()
     .client(client)
     .build()
 
+
+enum class Sort(val value: String) {
+    PRICE("price"),
+    POPULARITY("popularity")
+}
+
+enum class Order(val value: String) {
+    DESCEND("desc"),
+    ASCEND("asc")
+}
+
 /**
  * A public interface that exposes the [getMarketingHots], [getProductList], [getUserProfile],
  * [userSignIn], [checkoutOrder] methods
@@ -117,6 +130,10 @@ interface StylishApiServiceV2 {
     fun getMarketingHots():
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<MarketingHotsResult>
+
+    @GET("products/all")
+    fun getAllProducts(@Header("token") token: String?, @Header("currency") currency: String): Deferred<AllProductResult>
+
     /**
      * Returns a Coroutine [Deferred] [ProductListResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "products/{catalogType}" endpoint will be requested with the GET
@@ -124,7 +141,9 @@ interface StylishApiServiceV2 {
      * The @Query annotation indicates that it will be added "?paging={pagingKey}" after endpoint
      */
     @GET("products/{catalogType}")
-    fun getProductList(@Path("catalogType") type: String, @Query("paging") paging: String? = null):
+    fun getProductList(@Header("token") token: String, @Header("currency") currency: String,
+                       @Path("catalogType") type: String, @Query("paging") paging: String? = null,
+                       @Query("sort") sort: String? = null, @Query("order") order: String? = null):
             Deferred<ProductListResult>
     /**
      * Returns a Coroutine [Deferred] [UserProfileResult] which can be fetched with await() if in a Coroutine scope.
@@ -132,7 +151,7 @@ interface StylishApiServiceV2 {
      * The @Header annotation indicates that it will be added "Authorization" header
      */
     @GET("user/profile")
-    fun getUserProfile(@Header("Authorization") token: String):
+    fun getUserProfile(@Header("token") token: String):
             Deferred<UserProfileResult>
     /**
      * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
@@ -192,11 +211,20 @@ interface StylishApiServiceV2 {
      * The @Body annotation indicates that an id [String] to the body of the GET HTTP METHOD
      */
     @GET("products/details")
-    fun getProductDetail(@Header("Cookie") token: String, @Query("id") id: String):
+    fun getProductDetail(@Header("token") token: String, @Header("currency") currency: String, @Query("id") id: String):
             Deferred<ProductDetailResult>
 
     @GET("userrecord/products")
-    fun getUserRecord(@Header("Cookie") token: String): Deferred<UserRecordsResult>
+    fun getUserRecord(@Header("token") token: String): Deferred<UserRecordsResult>
+
+    @GET("coupon")
+    fun getAvailableCoupons(@Header("token") token: String): Deferred<CouponMultitypeResult>
+
+    @PUT("admin/coupon")
+    fun addCoupon(@Header("token") token: String, @Header("coupon_id") couponID: Int): Deferred<CouponMultitypeResult>
+
+//    @PUT("admin/coupon")
+//    fun updateCoupon(@Header("token") token: String, @Header("id") couponId: Int, )
 }
 
 /**

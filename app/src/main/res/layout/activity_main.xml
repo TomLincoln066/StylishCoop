@@ -20,6 +20,9 @@
                 android:layout_height="match_parent"
                 tools:context=".MainActivity">
 
+
+
+
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -55,6 +58,8 @@
                         android:background="@drawable/logo_stylish_s"
                         android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.HOME ? View.VISIBLE : View.GONE}"
                         tools:visibility="gone"/>
+
+
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -93,5 +98,15 @@
                 android:layout_gravity="start"
                 android:fitsSystemWindows="true"
                 app:menu="@menu/navdrawer_menu"/>
+
+        <com.google.android.material.navigation.NavigationView
+                android:id="@+id/CatalogFilterNavView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity ="end"
+                android:fitsSystemWindows="true"
+                app:menu="@menu/catalog_filter_menu"
+                />
+
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

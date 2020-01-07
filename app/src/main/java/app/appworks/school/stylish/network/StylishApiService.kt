@@ -21,6 +21,7 @@ import javax.net.ssl.X509TrustManager
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
+
 //private const val HOST_NAME = "stuarrrt.com"
 private const val HOST_NAME = "api.appworks-school.tw"//stuarrrt.com"//"api.appworks-school.tw"
 private const val API_VERSION = "1.0"
@@ -135,4 +136,14 @@ interface StylishApiService {
  */
 object StylishApi {
     val retrofitService : StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
+}
+
+//filter-enum class
+enum class StylishApiFilter(val valueFilter: String) {
+    SHOW_POPULARITY_ASCENDING("popularity_ascending"),
+    SHOW_POPULARITY_DESCENDING("popularity_descending"),
+    SHOW_PRICE_ASCENDING("price_ascending"),
+    SHOW_PRICE_DESCENDING("price_descending"),
+    SHOW_PRICE_RANGE("price_range"),
+    SHOW_ALL("all")
 }

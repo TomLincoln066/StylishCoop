@@ -13,16 +13,6 @@ import app.appworks.school.stylish.util.Util.getString
  * Created by Wayne Chen in Jul. 2019.
  */
 
-enum class Currency(val abbreviate: String) {
-    TWD("TWD"),
-    JPY("JPY"),
-    USD("USD"),
-    GBP("GBP"),
-    CNY("CNY"),
-    EUR("EUR"),
-    KRW("KRW"),
-    AUD("AUD")
-}
 
 object UserManager {
 
@@ -58,9 +48,9 @@ object UserManager {
             }
         }
 
-    var userCurrency: String? = "TWD"
+    var userCurrency: String = "TWD"
         get() = StylishApplication.instance.getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
-            .getString(USER_CURRENCY, "TWD")
+            .getString(USER_CURRENCY, "TWD") ?: "TWD"
         set(value) {
             field = when (value) {
                 null -> {
@@ -69,7 +59,7 @@ object UserManager {
                         .edit()
                         .remove(USER_CURRENCY)
                         .apply()
-                    null
+                    "TWD"
                 }
                 else -> {
                     StylishApplication.instance
