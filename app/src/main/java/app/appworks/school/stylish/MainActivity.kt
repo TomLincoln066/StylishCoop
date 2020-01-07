@@ -19,6 +19,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import app.appworks.school.stylish.data.Coupon
+import app.appworks.school.stylish.data.CouponBody
 import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 import app.appworks.school.stylish.databinding.ActivityMainBinding
@@ -26,7 +28,10 @@ import app.appworks.school.stylish.databinding.BadgeBottomBinding
 import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
+import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.login.UserManager
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.util.CurrentFragmentType
 import app.appworks.school.stylish.util.DrawerToggleType
 import app.appworks.school.stylish.util.Logger
@@ -145,30 +150,84 @@ class MainActivity : BaseActivity() {
         setupDrawer()
         setupNavController()
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val tag = "RECORD VIEW"
-            val result = StylishRemoteDataSource.userSignIn("abc@gmail.com", "name")
-            when (result) {
-                is Result.Success -> {
-                    if (result.data.error != null) {
-                        Log.i(tag, "ERROR : ${result.data.error}")
-                    } else {
-                        Log.i(tag, "RESULT : ${result.data.userSignIn}")
 
+        val testtoken = "9c9ddeea44206d5eb1ec1827a4e55efe3e221cbcca6abc089ef6ba9bb37e740e"
+        val dummyToken = "2f7c7900c565ae05f9e8cae6b87828778d98b494b36b8db2f361e041c243a72a"
 
-                    }
-                }
+        /** Get Product Detail*/
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "GET PRODUCT DETAIL"
+//            val result = StylishRemoteDataSource.getProductDetail("f272145222f587ee40e63f9c1c6161f8d990073efb6146250566a677e6fe8bb5", Currency.JPY, "201807201824")
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.product}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
 
-                is Result.Error -> {
-                    Log.i(tag, "ERROR : ${result.exception.message}")
-                }
+        /**Fetch Product List*/
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "FETCH PRODUCT LIST"
+//            val result = StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.DESCEND)
+//
+//            when(result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.products}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//        }
 
-                is Result.Fail -> {
-                    Log.i(tag, "FAIL : ${result.error}")
-                }
-            }
-
-        }
+        /** User View Record
+         * "f272145222f587ee40e63f9c1c6161f8d990073efb6146250566a677e6fe8bb5"
+         * */
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "RECORD VIEW"
+//            val result = StylishRemoteDataSource.getUserViewingRecord(testtoken)
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.records}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
 
 //        CoroutineScope(Dispatchers.Main).launch {
 //            val tag = "RECORD VIEW"
@@ -195,17 +254,19 @@ class MainActivity : BaseActivity() {
 //
 //        }
 
+        /** name@gmail.com, name, 12345
+         * "9c9ddeea44206d5eb1ec1827a4e55efe3e221cbcca6abc089ef6ba9bb37e740e"
+         */
+
 //        CoroutineScope(Dispatchers.Main).launch {
 //            val tag = "RECORD VIEW"
-//            val result = StylishRemoteDataSource.getUserViewingRecord("2f7c7900c565ae05f9e8cae6b87828778d98b494b36b8db2f361e041c243a72a")
+//            val result = StylishRemoteDataSource.userSignIn( "name@gmail.com", "12345")
 //            when (result) {
 //                is Result.Success -> {
 //                    if (result.data.error != null) {
 //                        Log.i(tag, "ERROR : ${result.data.error}")
 //                    } else {
-//                        Log.i(tag, "RESULT : ${result.data.records}")
-//
-//
+//                        Log.i(tag, "RESULT : ${result.data.userSignIn}")
 //                    }
 //                }
 //
@@ -219,6 +280,92 @@ class MainActivity : BaseActivity() {
 //            }
 //
 //        }
+
+        /**
+         * Coupon API - 查詢、新增、修改
+         * Still need some fix
+         */
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "COUPON GET"
+//            val result = StylishRemoteDataSource.getAvaliableCoupons(testtoken)
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.coupons}")
+//                        Log.i(tag,"MESSAGE : ${result.data.message}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//        }
+
+        /***
+         * Coupon API 新增
+         * Still need to test, due to HTTP 500
+         */
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "COUPON PUT"
+//            val result = StylishRemoteDataSource.addNewCoupons(dummyToken, 8)
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.coupons}")
+//                        Log.i(tag,"MESSAGE : ${result.data.message}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//        }
+
+        /**
+         * GET USER PROFILE
+         * */
+//        CoroutineScope(Dispatchers.Main).launch {
+//                        val tag = "GET USER PROFILE"
+//            val result = StylishRemoteDataSource.getUserProfile(dummyToken)
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.user?.coupons}")
+//                        Log.i(tag,"MESSAGE : ${result.data.user?.viewedProduct}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//        }
+
+
     }
 
     /**
