@@ -31,6 +31,7 @@ private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
  * full Kotlin compatibility.
  */
 private val moshi = Moshi.Builder()
+    .add(MultitypeJSONAdapter())
     .add(KotlinJsonAdapterFactory())
     .build()
 
@@ -145,7 +146,7 @@ interface StylishApiServiceV2 {
      * The @Header annotation indicates that it will be added "Authorization" header
      */
     @GET("user/profile")
-    fun getUserProfile(@Header("Authorization") token: String):
+    fun getUserProfile(@Header("token") token: String):
             Deferred<UserProfileResult>
     /**
      * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
@@ -212,10 +213,10 @@ interface StylishApiServiceV2 {
     fun getUserRecord(@Header("token") token: String): Deferred<UserRecordsResult>
 
     @GET("coupon")
-    fun getAvailableCoupons(@Header("token") token: String): Deferred<CouponResult>
+    fun getAvailableCoupons(@Header("token") token: String): Deferred<CouponMultitypeResult>
 
-    @POST("admin/coupon")
-    fun addCoupon(@Header("token") token: String, @Body couponBody: CouponBody)
+    @PUT("admin/coupon")
+    fun addCoupon(@Header("token") token: String, @Header("coupon_id") couponID: Int): Deferred<CouponMultitypeResult>
 
 //    @PUT("admin/coupon")
 //    fun updateCoupon(@Header("token") token: String, @Header("id") couponId: Int, )

@@ -17,6 +17,15 @@ import kotlinx.coroutines.withContext
  */
 class StylishLocalDataSource(val context: Context) : StylishDataSource {
 
+    override suspend fun addNewCoupons(token: String, couponID: Int):
+            Result<CouponMultitypeResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getAvaliableCoupons(token: String): Result<CouponMultitypeResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun getProductDetail(token: String, currency: Currency, productId: String
     ): Result<ProductDetailResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -47,7 +56,7 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getUserProfile(token: String): Result<User> {
+    override suspend fun getUserProfile(token: String): Result<UserProfileResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

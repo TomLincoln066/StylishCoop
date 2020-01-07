@@ -167,7 +167,7 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
-                    result.data
+                    result.data.user
                 }
                 is Result.Fail -> {
                     _error.value = result.error

@@ -17,7 +17,7 @@ interface StylishRepository {
 
     suspend fun getProductList(type: String, paging: String? = null, sort: Sort? = null, order: Order? = null): Result<ProductListResult>
 
-    suspend fun getUserProfile(token: String): Result<User>
+    suspend fun getUserProfile(token: String): Result<UserProfileResult>
 
     suspend fun userSignIn(fbToken: String): Result<UserSignInResult>
 
@@ -34,6 +34,10 @@ interface StylishRepository {
     suspend fun getProductDetail(token: String, currency: Currency, productId: String): Result<ProductDetailResult>
 
     suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult>
+
+    suspend fun getAvaliableCoupons(token: String): Result<CouponMultitypeResult>
+
+    suspend fun addNewCoupons(token: String, couponID: Int): Result<CouponMultitypeResult>
 
     suspend fun isProductInCart(id: Long, colorCode: String, size: String): Boolean
 

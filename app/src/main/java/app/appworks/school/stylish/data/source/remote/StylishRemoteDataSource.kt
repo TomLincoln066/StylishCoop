@@ -20,6 +20,49 @@ import app.appworks.school.stylish.util.Util.isInternetConnected
  */
 object StylishRemoteDataSource : StylishDataSource {
 
+    override suspend fun addNewCoupons(token: String, couponID: Int):
+            Result<CouponMultitypeResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.addCoupon(token, couponID)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getAvaliableCoupons(token: String): Result<CouponMultitypeResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.getAvailableCoupons(token)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult> {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
@@ -176,13 +219,13 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
-    override suspend fun getUserProfile(token: String): Result<User> {
+    override suspend fun getUserProfile(token: String): Result<UserProfileResult> {
 
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
         // Get the Deferred object for our Retrofit request
-        val getResultDeferred = StylishApi.retrofitService.getUserProfile(token)
+        val getResultDeferred = StylishApiV2.retrofitService.getUserProfile(token)
 
         return try {
             // this will run on a thread managed by Retrofit
@@ -191,10 +234,8 @@ object StylishRemoteDataSource : StylishDataSource {
             listResult.error?.let {
                 return Result.Fail(it)
             }
-            listResult.user?.let {
-                return Result.Success(it)
-            }
-            Result.Fail(getString(R.string.you_know_nothing))
+
+            Result.Success(listResult)
 
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
