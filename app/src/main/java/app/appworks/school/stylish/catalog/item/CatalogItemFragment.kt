@@ -47,6 +47,7 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter, private va
 
         binding.viewModel = viewModel
 
+
         adapter = PagingAdapter(PagingAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
@@ -78,9 +79,12 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter, private va
         return binding.root
     }
 
+    //what 's the difference between this fun update and the one in CatalogFragment.kt ( fun setSort )
     fun update(sort: Sort, order: Order) {
         this.sort = sort
         this.order = order
+        //viewModel = CatalogItemViewModel / Call viewModel's property, which is fun refreshWithSortAndOrder(sort, order)
+        //but why??
         viewModel.refreshWithSortAndOrder(sort, order)
     }
 }

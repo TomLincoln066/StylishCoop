@@ -28,8 +28,8 @@ import kotlinx.coroutines.Job
 class CatalogItemViewModel(
     private val stylishRepository: StylishRepository,
     catalogType: CatalogTypeFilter, // Handle the type for each catalog item
-    sort: Sort,
-    order: Order
+    sort: Sort, // add sort property
+    order: Order // add order property
 ) : ViewModel() {
 
     private val sourceFactory = PagingDataSourceFactory(catalogType, sort, order)
