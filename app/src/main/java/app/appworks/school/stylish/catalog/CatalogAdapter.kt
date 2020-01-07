@@ -13,7 +13,7 @@ class CatalogAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapt
         return CatalogItemFragment(CatalogTypeFilter.values()[position])
     }
 
-    override fun getCount() = CatalogTypeFilter.values().size
+    override fun getCount() = (CatalogTypeFilter.values().size - 1)
 
     override fun getPageTitle(position: Int): CharSequence? {
         return CatalogTypeFilter.values()[position].value
