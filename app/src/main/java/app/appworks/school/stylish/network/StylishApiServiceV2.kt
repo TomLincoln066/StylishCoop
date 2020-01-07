@@ -132,7 +132,7 @@ interface StylishApiServiceV2 {
             Deferred<MarketingHotsResult>
 
     @GET("products/all")
-    fun getAllProducts(): Deferred<AllProductResult>
+    fun getAllProducts(@Header("token") token: String?, @Header("currency") currency: String): Deferred<AllProductResult>
 
     /**
      * Returns a Coroutine [Deferred] [ProductListResult] which can be fetched with await() if in a Coroutine scope.

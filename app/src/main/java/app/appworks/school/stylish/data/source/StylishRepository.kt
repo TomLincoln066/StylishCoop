@@ -13,7 +13,7 @@ import app.appworks.school.stylish.network.Sort
  */
 interface StylishRepository {
 
-    suspend fun getProductAll(): Result<List<HomeItem>>
+    suspend fun getProductAll(token: String?, currency: String): Result<List<HomeItem>>
 
     suspend fun getMarketingHots(): Result<List<HomeItem>>
 

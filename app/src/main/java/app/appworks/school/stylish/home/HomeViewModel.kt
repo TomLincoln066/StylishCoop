@@ -9,6 +9,7 @@ import app.appworks.school.stylish.data.HomeItem
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
@@ -88,7 +89,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
             if (isInitial) _status.value = LoadApiStatus.LOADING
             // It will return Result object after Deferred flow
-            val result = stylishRepository.getProductAll()
+            val result = stylishRepository.getProductAll(UserManager.userToken, UserManager.userCurrency)
 
             _homeItems.value = when (result) {
                 is Result.Success -> {
