@@ -19,13 +19,24 @@ import app.appworks.school.stylish.network.Sort
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
+//define more properties of CatalogItemFragment class, referring to  sort, order, and set their initial values as Sort.POPULARITY and Order.DESCEND in respective.
 class CatalogItemFragment(private val catalogType: CatalogTypeFilter, private var sort: Sort = Sort.POPULARITY, private var order:Order = Order.DESCEND) : Fragment() {
 
     /**
      * Lazily initialize our [CatalogItemViewModel].
      */
+
+    // (1) what does by  means??
+    // (2) viewModels<CatalogItemViewModel> ??
+    // (3){ getVmFactory(catalogType, sort, order) }
     private val viewModel by viewModels<CatalogItemViewModel> { getVmFactory(catalogType, sort, order) }
 
+
+    //If you’re completely certain that you can’t assign an initial value to a property when you call
+    //the class constructor, you can prefix it with lateinit. This tells the compiler that you’re aware
+    //that the property hasn’t been initialized yet, and you’ll handle it later.
+    //(1) why need lateinit??
+    //(2) initialize vs define??
     private lateinit var adapter: PagingAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

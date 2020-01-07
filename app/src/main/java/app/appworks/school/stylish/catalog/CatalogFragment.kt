@@ -73,6 +73,7 @@ class CatalogFragment : Fragment() {
 
                             1 -> setSort( Sort.POPULARITY, Order.DESCEND)
 
+                            //if position is 2 ( user selects third one(check spinner's entries in string.xml ), sort data with product's price ascending order)
                             2 -> setSort(Sort.PRICE, Order.ASCEND)
 
                             3 -> setSort(Sort.PRICE, Order.DESCEND)
@@ -80,10 +81,7 @@ class CatalogFragment : Fragment() {
                     }
                 }
 
-//            filterButton.setOnClickListener{
-//
-//                findNavController().navigate(R.id.action_global_catalogSortFilterDialog)
-//            }
+
 
             return@onCreateView root
         }
@@ -91,7 +89,15 @@ class CatalogFragment : Fragment() {
 
     }
 
+
+
+    // create a fuc setSort(declare two parameters, sort and order, inside the function)
+    // Each parameter must have a name and type.
+
     fun setSort(sort: Sort, order: Order) {
+        //why assigning sort parameter to catalogAdapter.sort??
+        //what does catalogAdapter?.sort mean??
+
         catalogAdapter?.sort = sort
         catalogAdapter?.order = order
         catalogAdapter?.notifyDataSetChanged()
