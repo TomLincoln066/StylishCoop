@@ -33,7 +33,7 @@ interface StylishRepository {
 
     fun getProductsInCart(): LiveData<List<Product>>
 
-    suspend fun getProductDetail(token: String, currency: Currency, productId: String): Result<ProductDetailResult>
+    suspend fun getProductDetail(token: String, currency: String, productId: String): Result<ProductDetailResult>
 
     suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult>
 

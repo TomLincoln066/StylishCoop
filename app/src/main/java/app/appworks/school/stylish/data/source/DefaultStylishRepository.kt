@@ -31,7 +31,7 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
         return stylishRemoteDataSource.getUserViewingRecord(token)
     }
 
-    override suspend fun getProductDetail( token: String, currency: Currency, productId: String):
+    override suspend fun getProductDetail( token: String, currency: String, productId: String):
             Result<ProductDetailResult> {
         return stylishRemoteDataSource.getProductDetail(token, currency, productId)
     }
