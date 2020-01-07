@@ -12,13 +12,19 @@ import app.appworks.school.stylish.network.Sort
  *
  * Factory for PagingDataSource
  */
-class PagingDataSourceFactory(val type: CatalogTypeFilter, val sort: Sort? = null, val order: Order? = null) : DataSource.Factory<String, Product>() {
+class PagingDataSourceFactory(val type: CatalogTypeFilter, var sort: Sort? = null, var order: Order? = null) : DataSource.Factory<String, Product>() {
 
     val sourceLiveData = MutableLiveData<PagingDataSource>()
 
     override fun create(): DataSource<String, Product> {
         val source = PagingDataSource(type, sort, order)
         sourceLiveData.postValue(source)
-        return source
+        return source!!
+    }
+
+    fun refreshSortAndOrder(sort: Sort, order: Order) {
+        this.sort = sort
+        this.order = order
+
     }
 }

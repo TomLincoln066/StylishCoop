@@ -13,6 +13,8 @@ import app.appworks.school.stylish.component.GridSpacingItemDecoration
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,10 +27,18 @@ import kotlinx.coroutines.Job
  */
 class CatalogItemViewModel(
     private val stylishRepository: StylishRepository,
-    catalogType: CatalogTypeFilter // Handle the type for each catalog item
+    catalogType: CatalogTypeFilter, // Handle the type for each catalog item
+    sort: Sort,
+    order: Order
 ) : ViewModel() {
 
-    private val sourceFactory = PagingDataSourceFactory(catalogType)
+    private val sourceFactory = PagingDataSourceFactory(catalogType, sort, order)
+
+    fun refreshWithSortAndOrder(sort: Sort, order: Order) {
+        sourceFactory.sort = sort
+        sourceFactory.order = order
+        refresh()
+    }
 
     val pagingDataProducts: LiveData<PagedList<Product>> = sourceFactory.toLiveData(6, null)
 

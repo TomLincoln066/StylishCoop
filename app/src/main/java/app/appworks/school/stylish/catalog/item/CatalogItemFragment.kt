@@ -13,16 +13,20 @@ import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.databinding.FragmentCatalogItemBinding
 import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
-class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment() {
+class CatalogItemFragment(private val catalogType: CatalogTypeFilter, private var sort: Sort = Sort.POPULARITY, private var order:Order = Order.DESCEND) : Fragment() {
 
     /**
      * Lazily initialize our [CatalogItemViewModel].
      */
-    private val viewModel by viewModels<CatalogItemViewModel> { getVmFactory(catalogType) }
+    private val viewModel by viewModels<CatalogItemViewModel> { getVmFactory(catalogType, sort, order) }
+
+    private lateinit var adapter: PagingAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -32,9 +36,11 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
 
         binding.viewModel = viewModel
 
-        binding.recyclerCatalogItem.adapter = PagingAdapter(PagingAdapter.OnClickListener {
+        adapter = PagingAdapter(PagingAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
+
+        binding.recyclerCatalogItem.adapter = adapter
 
         viewModel.navigateToDetail.observe(this, Observer {
             it?.let {
@@ -59,5 +65,11 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
         })
 
         return binding.root
+    }
+
+    fun update(sort: Sort, order: Order) {
+        this.sort = sort
+        this.order = order
+        viewModel.refreshWithSortAndOrder(sort, order)
     }
 }

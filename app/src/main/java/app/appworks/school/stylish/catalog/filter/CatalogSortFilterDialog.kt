@@ -53,13 +53,16 @@ class CatalogSortFilterDialog : AppCompatDialogFragment() {
                 id: Long
             ) {
                   suspend fun CoroutineScope(){
+
                  when(binding1.filterSpinner.id){
+
                     0-> StylishRemoteDataSource.getProductList("men", null, Sort.POPULARITY, Order.ASCEND)
                     1-> StylishRemoteDataSource.getProductList("men", null, Sort.POPULARITY, Order.DESCEND)
                     2-> StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.ASCEND)
                     3-> StylishRemoteDataSource.getProductList("men", null, Sort.PRICE, Order.DESCEND)
                  }
                   }
+
 
             }
 
