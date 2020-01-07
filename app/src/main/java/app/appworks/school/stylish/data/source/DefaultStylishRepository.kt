@@ -49,6 +49,10 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
         return stylishRemoteDataSource.userSignIn(token)
     }
 
+    override suspend fun getProductAll(): Result<List<HomeItem>> {
+        return stylishRemoteDataSource.getProductAll()
+    }
+
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
         return stylishRemoteDataSource.getMarketingHots()
     }

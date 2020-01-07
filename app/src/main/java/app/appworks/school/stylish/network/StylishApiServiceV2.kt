@@ -130,6 +130,10 @@ interface StylishApiServiceV2 {
     fun getMarketingHots():
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<MarketingHotsResult>
+
+    @GET("products/all")
+    fun getAllProducts(): Deferred<AllProductResult>
+
     /**
      * Returns a Coroutine [Deferred] [ProductListResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "products/{catalogType}" endpoint will be requested with the GET
