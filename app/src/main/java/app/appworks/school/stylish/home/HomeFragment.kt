@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
     private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        init()
+
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -58,6 +58,8 @@ class HomeFragment : Fragment() {
         val items = arrayOf(CurrencyDropItem(Currency.TWD), CurrencyDropItem(Currency.USD), CurrencyDropItem(Currency.JPY))
         context?.let {
             binding.spinnerHomeCurrency.adapter = CustomDropDownAdapter(items = items)
+
+            binding.spinnerHomeCurrency.setSelection(Currency.values().indexOf(Currency.valueOf(UserManager.userCurrency)))
         }
 
 
