@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
  */
 class CatalogFragment : Fragment() {
 
+    // declare an variable, have it inherits CatalogAdapter and set its initial value as null
     var catalogAdapter: CatalogAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -29,19 +30,34 @@ class CatalogFragment : Fragment() {
             viewpagerCatalog.let {
                 tabsCatalog.setupWithViewPager(it)
 
+
+                // use a if statement as a  decision checkpoint
                 if (catalogAdapter == null) {
+
+                    //what is an childFragmentManager???
                     catalogAdapter = CatalogAdapter(childFragmentManager)
                 }
 
+                //have ViewPager's adapter point to catalogAdapter(In computer memory)
                 it.adapter = catalogAdapter
+
+                //have ViewPager's addOnPageChangeListner injected a TabLayout (id:tabs_catalog) from fragment_catalog.xml)
                 it.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabsCatalog))
             }
 
+
+            // why do all this in OnCreateView?
+            // what's OnCreateView? difference from OnCreate?
+            //(1)setup filterSpinner's property, which is onItemSelectedListener, its entries with a OnItemSelectedListener.
+            //(2)implement two functions 1.onNothingSelected 2.onItemSelected
             filterSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+
+                //onNothingSelected
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
 
+                //onItemSelected
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
@@ -49,6 +65,8 @@ class CatalogFragment : Fragment() {
                     id: Long
                 ) {
 
+                    // the position refers to the position in items of spinner's entries (check (id:) filter_spinner in fragment_catalog.xml)
+                    //lambda expressions xx -> do something and return the result
                         when (position) {
 
                             0 -> setSort(Sort.POPULARITY, Order.ASCEND)
