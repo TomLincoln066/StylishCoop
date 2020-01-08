@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.logging.Handler
+import kotlin.random.Random
 
 class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel() {
 
@@ -48,7 +49,7 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
         get() = _navigateToDetail
 
 
-    // Handle leave login
+    // Handle leave advertisement
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -175,7 +176,12 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
             when(result) {
                 is Result.Success -> {
                     if (result.data.error == null) {
-                        result.data.ad
+                        result.data.ad?.let {ads ->
+                            val rand = Random(ads.images?.size ?: 0)
+
+                        }
+
+
 
                         android.os.Handler().looper
 
