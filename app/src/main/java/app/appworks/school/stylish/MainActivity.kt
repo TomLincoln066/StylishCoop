@@ -23,10 +23,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
-import app.appworks.school.stylish.databinding.ActivityMainBinding
-import app.appworks.school.stylish.databinding.BadgeBottomBinding
-import app.appworks.school.stylish.databinding.FragmentCatalogBinding
-import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
+import app.appworks.school.stylish.databinding.*
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.login.UserManager
@@ -55,6 +52,9 @@ class MainActivity : BaseActivity() {
 
 
 //    private lateinit var binding1:FragmentCatalogBinding
+
+//    private lateinit var binding2:DialogCommercialAdBinding
+
 
     private lateinit var binding: ActivityMainBinding
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
@@ -114,6 +114,11 @@ class MainActivity : BaseActivity() {
 
         startActivity(Intent(this, LogoActivity::class.java))
 
+
+//        binding2 = DataBindingUtil.setContentView(this,R.layout.dialog_commercial_ad)
+
+
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -154,6 +159,10 @@ class MainActivity : BaseActivity() {
                 viewModel.onHomeNavigated()
             }
         })
+
+
+
+
 
         setupToolbar()
         setupBottomNav()

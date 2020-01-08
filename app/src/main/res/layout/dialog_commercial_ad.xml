@@ -1,38 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <data>
+        <variable
+                name="viewModel"
+                type="app.appworks.school.stylish.ad.AdViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/layout_swipe_refresh_ad_item"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+
+        <ImageView
+                android:id="@+id/imageView_ad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toTopOf="@id/textView_seconds_countdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_ad_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="1">
-
-            </androidx.recyclerview.widget.RecyclerView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                app:layout_constraintTop_toBottomOf="@id/button_close_ad"
+                tools:srcCompat="@tools:sample/backgrounds/scenic[12]" />
 
         <TextView
                 android:id="@+id/textView_seconds_countdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="秒數"
+                android:text="秒"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+                android:id="@+id/textView_close_get_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Watch full Ad to get Coupons"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+        <Button
+                android:id="@+id/button_close_ad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:drawableTop="@drawable/com_facebook_close"
+                />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
