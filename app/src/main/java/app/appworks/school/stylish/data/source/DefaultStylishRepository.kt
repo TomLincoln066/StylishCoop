@@ -2,7 +2,6 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
-import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,6 +16,10 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
                                private val stylishLocalDataSource: StylishDataSource,
                                private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StylishRepository {
+
+    override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
+        return stylishRemoteDataSource.getReplyFromChatbot(question)
+    }
 
     override suspend fun addNewCoupons(token: String, couponID: Int):
             Result<CouponMultitypeResult> {
@@ -98,6 +101,10 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
 
     override suspend fun clearProductInCart() {
         stylishLocalDataSource.clearProductInCart()
+    }
+
+    override suspend fun getAd(): Result<AdResult> {
+        return stylishRemoteDataSource.getAd()
     }
 
     override suspend fun getUserInformation(key: String?): String {
