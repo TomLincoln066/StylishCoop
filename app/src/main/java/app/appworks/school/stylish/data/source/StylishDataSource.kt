@@ -34,6 +34,12 @@ interface StylishDataSource {
 
     fun getProductsInCart(): LiveData<List<Product>>
 
+    fun getUserViewRecords(): LiveData<List<UserRecord>>
+
+    suspend fun insert(userRecord:UserRecord)
+
+    suspend fun deleteAllViewRecords()
+
     suspend fun getProductDetail(token: String, currency: String, productId: String): Result<ProductDetailResult>
 
     suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult>

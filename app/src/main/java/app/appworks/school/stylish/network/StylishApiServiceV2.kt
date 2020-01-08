@@ -8,6 +8,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
@@ -180,7 +181,7 @@ interface StylishApiServiceV2 {
         @Field("name") name: String = "",
         @Field("email") email: String,
         @Field("password") password: String):
-            Deferred<UserSignUpResult>
+            Deferred<Response<UserSignUpResult>>
 
     /**
      * Returns a Coroutine [Deferred] [UserRefreshTokenResult] which can be fetched with await() if in a Coroutine scope.

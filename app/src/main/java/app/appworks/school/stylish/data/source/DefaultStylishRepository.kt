@@ -21,6 +21,10 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
         return stylishRemoteDataSource.getReplyFromChatbot(question)
     }
 
+    override fun getUserViewRecords(): LiveData<List<UserRecord>> {
+        return stylishLocalDataSource.getUserViewRecords()
+    }
+
     override suspend fun addNewCoupons(token: String, couponID: Int):
             Result<CouponMultitypeResult> {
         return stylishRemoteDataSource.addNewCoupons(token, couponID)
@@ -54,6 +58,10 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
 
     override suspend fun getProductAll(token: String?, currency: String): Result<List<HomeItem>> {
         return stylishRemoteDataSource.getProductAll(token, currency)
+    }
+
+    override suspend fun deleteAllViewRecords() {
+        return stylishLocalDataSource.deleteAllViewRecords()
     }
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
@@ -105,6 +113,10 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
 
     override suspend fun getAd(): Result<AdResult> {
         return stylishRemoteDataSource.getAd()
+    }
+
+    override suspend fun insert(userRecord: UserRecord) {
+        stylishLocalDataSource.insert(userRecord)
     }
 
     override suspend fun getUserInformation(key: String?): String {
