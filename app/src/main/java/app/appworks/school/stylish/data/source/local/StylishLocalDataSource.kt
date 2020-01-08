@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
-import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +15,14 @@ import kotlinx.coroutines.withContext
  * Concrete implementation of a Stylish source as a db.
  */
 class StylishLocalDataSource(val context: Context) : StylishDataSource {
+
+    override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getAd(): Result<AdResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override suspend fun getProductAll(token: String?, currency: String): Result<List<HomeItem>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

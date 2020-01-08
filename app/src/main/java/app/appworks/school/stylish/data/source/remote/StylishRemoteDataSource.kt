@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
-import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.network.StylishApi
@@ -19,6 +18,48 @@ import app.appworks.school.stylish.util.Util.isInternetConnected
  * Implementation of the Stylish source that from network.
  */
 object StylishRemoteDataSource : StylishDataSource {
+
+    override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.getChatbotReplyFor(question)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getAd(): Result<AdResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.getAdvertisement()
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
 
     override suspend fun addNewCoupons(token: String, couponID: Int):
             Result<CouponMultitypeResult> {
