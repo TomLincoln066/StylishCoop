@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.appworks.school.stylish.data.HomeItem
 import app.appworks.school.stylish.data.Product
+import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
@@ -13,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.logging.Handler
 
 class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel() {
 
@@ -166,6 +168,34 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
 //    }
 
 
+    fun fetchAD() {
+        coroutineScope.launch {
+            val result = stylishRepository.getAd()
+
+            when(result) {
+                is Result.Success -> {
+                    if (result.data.error == null) {
+                        result.data.ad
+
+                        android.os.Handler().looper
+
+                    } else {
+
+                    }
+                }
+            }
+
+        }
+    }
+
+    private val _advertiseCountDown = MutableLiveData<Int>()
+    val advertiseCountDown:LiveData<Int>
+        get() = _advertiseCountDown
+
+    fun countDown() {
+        _advertiseCountDown.value = _advertiseCountDown.value ?: 1 - 1
+    }
+
     fun leave() {
         _leave.value = true
     }
@@ -173,6 +203,8 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
     fun doneLeaving(){
         _leave.value = null
     }
+
+
 
 
 }
