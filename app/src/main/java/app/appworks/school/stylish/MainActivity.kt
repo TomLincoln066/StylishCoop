@@ -114,14 +114,10 @@ class MainActivity : BaseActivity() {
 
         startActivity(Intent(this, LogoActivity::class.java))
 
-
-//        binding2 = DataBindingUtil.setContentView(this,R.layout.dialog_commercial_ad)
-
-
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+//        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
 
         // observe current fragment change, only for show info
         viewModel.currentFragmentType.observe(this, Observer {
