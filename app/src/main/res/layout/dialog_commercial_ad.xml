@@ -54,6 +54,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:drawableTop="@drawable/com_facebook_close"
+                android:onClick="@{() -> viewModel.leave()}"
+
                 />
 
 

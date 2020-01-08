@@ -32,6 +32,16 @@ class AdFragment : AppCompatDialogFragment() {
         binding.viewModel = viewModel
 
 
+        //observe if value of leave changed, if yes, change doneLeaving() 's value.
+        viewModel.leave.observe(this, Observer {
+            it?.let {
+                if (it) {
+                    viewModel.doneLeaving()
+                    dismiss()
+                }
+            }
+        })
+
 
 //        if (viewModel.status.value == null) {
 //            // user info will be null if user already logged in, and it will get user info from server,

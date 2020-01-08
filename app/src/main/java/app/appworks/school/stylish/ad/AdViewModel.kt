@@ -45,6 +45,16 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
     val navigateToDetail: LiveData<Product>
         get() = _navigateToDetail
 
+
+    // Handle leave login
+    private val _leave = MutableLiveData<Boolean>()
+
+    val leave: LiveData<Boolean>
+        get() = _leave
+
+
+
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -154,4 +164,15 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
 //    fun onDetailNavigated() {
 //        _navigateToDetail.value = null
 //    }
+
+
+    fun leave() {
+        _leave.value = true
+    }
+
+    fun doneLeaving(){
+        _leave.value = null
+    }
+
+
 }
