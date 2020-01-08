@@ -21,10 +21,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import app.appworks.school.stylish.data.ChatbotBody
-import app.appworks.school.stylish.data.Coupon
-import app.appworks.school.stylish.data.CouponBody
-import app.appworks.school.stylish.data.Result
+import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 import app.appworks.school.stylish.databinding.ActivityMainBinding
 import app.appworks.school.stylish.databinding.BadgeBottomBinding
@@ -224,29 +221,29 @@ class MainActivity : BaseActivity() {
 
 
         /** Get Product Detail*/
-        CoroutineScope(Dispatchers.Main).launch {
-            val tag = "GET PRODUCT DETAIL"
-            val result = StylishRemoteDataSource.getProductDetail("f272145222f587ee40e63f9c1c6161f8d990073efb6146250566a677e6fe8bb5", Currency.JPY.abbreviate, "201807201824")
-
-            when (result) {
-                is Result.Success -> {
-                    if (result.data.error != null) {
-                        Log.i(tag, "ERROR : ${result.data.error}")
-                    } else {
-                        Log.i(tag, "RESULT : ${result.data.product}")
-                    }
-                }
-
-                is Result.Error -> {
-                    Log.i(tag, "ERROR : ${result.exception.message}")
-                }
-
-                is Result.Fail -> {
-                    Log.i(tag, "FAIL : ${result.error}")
-                }
-            }
-
-        }
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "GET PRODUCT DETAIL"
+//            val result = StylishRemoteDataSource.getProductDetail("f272145222f587ee40e63f9c1c6161f8d990073efb6146250566a677e6fe8bb5", getString(Currency.JPY.abbRes), "201807201824")
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.product}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
 
         /**Fetch Product List*/
 
