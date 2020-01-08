@@ -2,7 +2,6 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
-import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
 
@@ -54,4 +53,16 @@ interface StylishRepository {
     suspend fun clearProductInCart()
 
     suspend fun getUserInformation(key: String?): String
+
+    /***
+     * AD
+     */
+
+    suspend fun getAd():Result<AdResult>
+
+    /***
+     * ChatBot
+     */
+
+    suspend fun getReplyFromChatbot(question: ChatbotBody):Result<ChatbotReplyMultiTypeResult>
 }

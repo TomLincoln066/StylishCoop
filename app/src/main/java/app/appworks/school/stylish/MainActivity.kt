@@ -19,6 +19,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import app.appworks.school.stylish.data.ChatbotBody
 import app.appworks.school.stylish.data.Coupon
 import app.appworks.school.stylish.data.CouponBody
 import app.appworks.school.stylish.data.Result
@@ -28,7 +29,6 @@ import app.appworks.school.stylish.databinding.BadgeBottomBinding
 import app.appworks.school.stylish.databinding.NavHeaderDrawerBinding
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
-import app.appworks.school.stylish.login.Currency
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
@@ -153,6 +153,62 @@ class MainActivity : BaseActivity() {
 
         val testtoken = "9c9ddeea44206d5eb1ec1827a4e55efe3e221cbcca6abc089ef6ba9bb37e740e"
         val dummyToken = "2f7c7900c565ae05f9e8cae6b87828778d98b494b36b8db2f361e041c243a72a"
+
+        /***
+         * CHATBOT
+         */
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//                        val tag = "CHAT BOT"
+//            val result = StylishRemoteDataSource.getReplyFromChatbot(ChatbotBody(2, 201807242222, 178.0, 70.0))
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.reply}, ACTIVITY : ${result.data.activities}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
+        /***
+         * AD
+         */
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "GET AD"
+//            val result = StylishRemoteDataSource.getAd()
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.ad}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
 
         /** Get Product Detail*/
 //        CoroutineScope(Dispatchers.Main).launch {

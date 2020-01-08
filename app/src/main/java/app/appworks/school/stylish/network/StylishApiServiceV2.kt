@@ -31,6 +31,7 @@ private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
  * full Kotlin compatibility.
  */
 private val moshi = Moshi.Builder()
+    .add(ChatbotReplyJSONAdpater())
     .add(MultitypeJSONAdapter())
     .add(KotlinJsonAdapterFactory())
     .build()
@@ -223,8 +224,19 @@ interface StylishApiServiceV2 {
     @PUT("admin/coupon")
     fun addCoupon(@Header("token") token: String, @Header("coupon_id") couponID: Int): Deferred<CouponMultitypeResult>
 
-//    @PUT("admin/coupon")
-//    fun updateCoupon(@Header("token") token: String, @Header("id") couponId: Int, )
+
+    /***
+     * AD
+     */
+    @GET("ad")
+    fun getAdvertisement(): Deferred<AdResult>
+
+    /**
+     * CHATBOT
+     */
+    @Headers("Content-Type: application/json")
+    @POST("chatbot")
+    fun getChatbotReplyFor(@Body questionBody: ChatbotBody): Deferred<ChatbotReplyMultiTypeResult>
 }
 
 /**
