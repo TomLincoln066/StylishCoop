@@ -33,6 +33,16 @@
                 app:imageUrl="@{viewModel.advertisePicture}"
                 />
 
+        <ProgressBar
+                android:id="@+id/progressBar_ad"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/imageView_ad"
+                app:layout_constraintStart_toStartOf="parent"
+
+                />
+
         <TextView
                 android:id="@+id/textView_seconds_countdown"
                 android:layout_width="wrap_content"

@@ -2,9 +2,11 @@ package app.appworks.school.stylish.ad
 
 import android.os.CountDownTimer
 import android.util.Log
+import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.HomeItem
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
@@ -12,12 +14,19 @@ import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.util.Logger
+import kotlinx.android.synthetic.main.dialog_commercial_ad.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.logging.Handler
 import kotlin.random.Random
+import android.R.string.cancel
+import androidx.databinding.adapters.SeekBarBindingAdapter.setProgress
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import app.appworks.school.stylish.StylishApplication
+import java.util.*
+
 
 class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel() {
 
@@ -166,6 +175,29 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
     //declare a global variable
     var timer: CountDownTimer? = null
 
+
+    //progressBar_ad
+
+//    var progressBar_ad = ProgressBar(StylishApplication.instance)
+//    var counter = 0
+//    fun prog(){
+//         progressBar_ad = (ProgressBar)findViewById(R.id.progressBar_ad)
+//
+//        val t = Timer()
+//        val tt = object : TimerTask() {
+//            fun run() {
+//                counter++
+//                progressBar_ad.setProgress(counter)
+//
+//                if (counter == 100)
+//                    t.cancel()
+//            }
+//        }
+//
+//        t.schedule(tt, 0, 100)
+//
+//
+//    }
 
 
     private val _advertisePicture = MutableLiveData<String>()

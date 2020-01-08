@@ -43,6 +43,12 @@ class AdFragment : AppCompatDialogFragment() {
             }
         })
 
+        viewModel.advertiseCountDown.observe(this, Observer {
+            it?.let {
+                binding.progressBarAd.setProgress(it)
+            }
+        })
+
 
 //        if (viewModel.status.value == null) {
 //            // user info will be null if user already logged in, and it will get user info from server,
