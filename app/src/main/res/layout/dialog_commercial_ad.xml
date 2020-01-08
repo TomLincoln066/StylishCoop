@@ -22,8 +22,8 @@
 
         <ImageView
                 android:id="@+id/imageView_ad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 app:layout_constraintBottom_toTopOf="@id/textView_seconds_countdown"
@@ -31,7 +31,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_close_ad"
                 android:src ="@drawable/krispy_kreme"
-                tools:srcCompat="@tools:sample/backgrounds/scenic[12]" />
+
+                />
 
         <TextView
                 android:id="@+id/textView_seconds_countdown"
@@ -45,24 +46,27 @@
                 android:id="@+id/textView_close_get_coupon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Watch full Ad to get Coupons"
+                android:text="@string/textView_close_get_coupon"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintEnd_toStartOf="@+id/textView_seconds_countdown"
+                app:layout_constraintStart_toStartOf="parent" />
 
         <Button
                 android:id="@+id/button_close_ad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@color/transparent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:drawableTop="@drawable/com_facebook_close"
                 android:onClick="@{() -> viewModel.leave()}"
                 android:visibility="@{viewModel.advertiseCountDown == 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
 
                 />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+<!--        android:src ="@drawable/krispy_kreme"-->

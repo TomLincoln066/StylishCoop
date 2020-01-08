@@ -134,4 +134,7 @@
     <string name ="textView_price">按照價錢高低排序</string>
 
 
+    <string name="textView_close_get_coupon">Watch Full Ad To Get Coupons</string>
+
+
 </resources>

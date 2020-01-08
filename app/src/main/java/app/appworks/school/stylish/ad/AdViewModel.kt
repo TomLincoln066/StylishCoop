@@ -223,6 +223,11 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
         }
     }
 
+    private val _advertisePicture = MutableLiveData<Int>()
+    val advertisePicture: LiveData<Int>
+        get() = _advertisePicture
+
+
 
     private val _advertiseCountDown = MutableLiveData<Int>()
     val advertiseCountDown: LiveData<Int>
