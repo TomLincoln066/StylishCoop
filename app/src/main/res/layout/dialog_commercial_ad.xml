@@ -27,6 +27,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_close_ad"
+                android:src ="@drawable/krispy_kreme"
                 tools:srcCompat="@tools:sample/backgrounds/scenic[12]" />
 
         <TextView
