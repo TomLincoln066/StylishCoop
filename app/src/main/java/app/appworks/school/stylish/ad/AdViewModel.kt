@@ -166,6 +166,12 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
     //declare a global variable
     var timer: CountDownTimer? = null
 
+
+
+    private val _advertisePicture = MutableLiveData<String>()
+    val advertisePicture: LiveData<String>
+        get() = _advertisePicture
+
     //what is coroutineScope.launch?
     fun fetchAD() {
         coroutineScope.launch {
@@ -178,12 +184,14 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
                 is Result.Success -> {
                     if (result.data.error == null) {
                         result.data.ad?.let { ads ->
-                            val rand = Random(ads.images?.size ?: 0)
 
                             //display pictures randomly ( from 6 pictures)
-                            fun random(from: Int, to: Int): Int {
-                                return rand.nextInt(to - from) + from
-                            }
+                            val rand = Random(ads.images?.size ?: 0)
+
+                            val index = rand.nextInt(ads.images?.size ?: 0)
+
+                            _advertisePicture.value = ads.images!![index]
+
 
                             _advertiseCountDown.value = ads.displayTime ?: 0
 
@@ -223,9 +231,7 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
         }
     }
 
-    private val _advertisePicture = MutableLiveData<Int>()
-    val advertisePicture: LiveData<Int>
-        get() = _advertisePicture
+
 
 
 

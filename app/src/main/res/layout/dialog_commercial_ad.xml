@@ -30,8 +30,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_close_ad"
-                android:src ="@drawable/krispy_kreme"
-
+                app:imageUrl="@{viewModel.advertisePicture}"
                 />
 
         <TextView
@@ -48,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/textView_close_get_coupon"
                 android:textSize="16sp"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView_seconds_countdown"
                 app:layout_constraintStart_toStartOf="parent" />
