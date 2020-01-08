@@ -1,5 +1,7 @@
 package app.appworks.school.stylish.ad
 
+import android.os.CountDownTimer
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,8 +58,6 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
         get() = _leave
 
 
-
-
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -79,17 +79,12 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
     init {
 
 
-
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
 //        getMarketingHotsResult(true)
     }
-
-
-
-
 
 
     /**
@@ -168,49 +163,86 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
 //        _navigateToDetail.value = null
 //    }
 
+    //declare a global variable
+    var timer: CountDownTimer? = null
 
+    //what is coroutineScope.launch?
     fun fetchAD() {
         coroutineScope.launch {
+
+            val tag = "GET AD"
             val result = stylishRepository.getAd()
 
-            when(result) {
+
+            when (result) {
                 is Result.Success -> {
                     if (result.data.error == null) {
-                        result.data.ad?.let {ads ->
+                        result.data.ad?.let { ads ->
                             val rand = Random(ads.images?.size ?: 0)
+
+                            //display pictures randomly ( from 6 pictures)
+                            fun random(from: Int, to: Int): Int {
+                                return rand.nextInt(to - from) + from
+                            }
+
+                            _advertiseCountDown.value = ads.displayTime ?: 0
+
+                            if (timer == null){
+
+                                timer = object: CountDownTimer((_advertiseCountDown.value!! * 1000).toLong(), 1000) {
+                                    override fun onTick(millisUntilFinished: Long) {
+                                        countDown()
+                                    }
+
+                                    override fun onFinish() {
+                                        _advertiseCountDown.value = 0
+                                    }
+                                }
+                            }
+                            timer?.start()
 
                         }
 
-
-
-                        android.os.Handler().looper
-
                     } else {
 
+                        Log.i(tag, "RESULT : ${result.data.ad}")
+
+
                     }
+                }
+
+                is Result.Error -> {
+                    Log.i(tag, "ERROR : ${result.exception.message}")
+                }
+
+                is Result.Fail ->{
+                    Log.i(tag, "FAIL : ${result.error}")
                 }
             }
 
         }
     }
 
+
     private val _advertiseCountDown = MutableLiveData<Int>()
-    val advertiseCountDown:LiveData<Int>
+    val advertiseCountDown: LiveData<Int>
         get() = _advertiseCountDown
+
 
     fun countDown() {
         _advertiseCountDown.value = _advertiseCountDown.value ?: 1 - 1
     }
 
+    //handle ad close button
+
     fun leave() {
         _leave.value = true
     }
+    //handle ad close button
 
-    fun doneLeaving(){
+    fun doneLeaving() {
         _leave.value = null
     }
-
-
 
 
 }

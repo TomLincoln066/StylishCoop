@@ -10,6 +10,9 @@
         <variable
                 name="viewModel"
                 type="app.appworks.school.stylish.ad.AdViewModel" />
+
+        <import type="android.view.View" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +37,7 @@
                 android:id="@+id/textView_seconds_countdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="秒"
+                android:text='@{viewModel.advertiseCountDown.toString() }'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -56,6 +59,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:drawableTop="@drawable/com_facebook_close"
                 android:onClick="@{() -> viewModel.leave()}"
+                android:visibility="@{viewModel.advertiseCountDown == 0 ? View.VISIBLE : View.GONE}"
 
                 />
 

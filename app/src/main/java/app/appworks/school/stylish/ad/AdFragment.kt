@@ -32,6 +32,7 @@ class AdFragment : AppCompatDialogFragment() {
         binding.viewModel = viewModel
 
 
+
         //observe if value of leave changed, if yes, change doneLeaving() 's value, and  execute dismiss() after finish running doneLeaving().
         viewModel.leave.observe(this, Observer {
             it?.let {
@@ -53,6 +54,8 @@ class AdFragment : AppCompatDialogFragment() {
 //                }
 //            })
 //        }
+
+        viewModel.fetchAD()
 
         return binding.root
 
