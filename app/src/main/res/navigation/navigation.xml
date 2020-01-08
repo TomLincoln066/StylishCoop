@@ -114,4 +114,7 @@
     <action
             android:id="@+id/action_global_emailLoginDialog"
             app:destination="@id/emailLoginDialog" />
+    <action
+            android:id="@+id/action_navigate_to_payment_fragment"
+            app:destination="@id/paymentFragment" />
 </navigation>

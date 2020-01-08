@@ -13,12 +13,15 @@
         <import type="android.view.View"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+            android:gravity="center"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".login.EmailLoginDialog">
         <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,12 +95,31 @@
 
                 <!--Check Visibility -->
                 <EditText
+                        android:id="@+id/edit_emaillogin_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/hint_username"
+                        android:layout_marginTop="10dp"
+                        android:text="@={viewModel.username}"
+                        android:inputType="textPersonName"
+                        android:visibility="@{viewModel.isSignUp == false ? View.GONE:View.VISIBLE}"/>
+                <TextView
+                        android:id="@+id/textview_emaillogin_name_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red_d0021b"
+                        android:textSize="13sp"
+                        android:layout_marginTop="5dp"
+                        android:visibility='@{viewModel.nameErrorMessage != null  &amp;&amp; viewModel.isSignUp == false ? View.VISIBLE:View.GONE}'
+                        tools:text="請以英文字母和數字"
+                        android:text="@{viewModel.emailErrorMessage}"/>
+                <EditText
                         android:id="@+id/edit_emaillogin_email"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="@string/hint_email_required"
-                        android:layout_marginTop="10dp"
-                        android:text="@={viewModel.userEmail}" />
+                        android:text="@={viewModel.userEmail}"
+                        android:inputType="textEmailAddress"/>
                 <TextView
                         android:id="@+id/textview_emaillogin_email_error"
                         android:layout_width="wrap_content"
@@ -114,7 +136,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="@string/hint_password_required"
-                        android:text="@={viewModel.password}"/>
+                        android:text="@={viewModel.password}"
+                        android:inputType="textPassword"/>
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -156,5 +179,5 @@
 
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

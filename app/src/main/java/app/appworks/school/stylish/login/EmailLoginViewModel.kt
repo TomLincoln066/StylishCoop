@@ -30,6 +30,7 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
         get() = _user
 
     val username = MutableLiveData<String>()
+    val nameErrorMessage = MutableLiveData<String>()
     val userEmail = MutableLiveData<String>()
     val emailErrorMessage = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -46,26 +47,57 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
 
     fun setSignIn() {
         isSignUp.value = false
+        resetAllData()
         confirmationMessage.value = "登入"
     }
 
     fun setSignUp() {
         isSignUp.value = true
+        resetAllData()
         confirmationMessage.value = "申請"
     }
 
+    fun resetAllData() {
+        passwordErrorMessage.value = null
+        emailErrorMessage.value = null
+        nameErrorMessage.value = null
+    }
+
+    fun isValidUsername(): Boolean {
+
+        val username = username.value
+
+        return if (username == null || username.isEmpty()) {
+            nameErrorMessage.value = "請輸入帳號名稱"
+            false
+        } else {
+            val reg = Regex("([A-Za-z0-9.])\\w+")
+            if (!username.matches(reg)) {
+                nameErrorMessage.value = "名稱只包含英文字母(a-z)、數字(0-9) 和半形句號(.)"
+                false
+            }
+            true
+        }
+
+    }
+
     fun signInOrSignUp() {
+
+        emailErrorMessage.value = null
+        passwordErrorMessage.value = null
+
+        /** DEFAULT is SIGNIN*/
+        if (isSignUp.value == true) {
+            // check user name
+            if (!isValidUsername()) {
+                return
+            }
+        }
+
         if (userEmail.value == null) {
             emailErrorMessage.value = "請輸入電子信箱"
             return
         }
-
-        if (password.value == null) {
-            passwordErrorMessage.value = "請輸入密碼"
-            return
-        }
-
-        passwordErrorMessage.value = null
 
         userEmail.value?.let {email ->
             if (email.isEmpty()) {
@@ -77,12 +109,14 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
                 emailErrorMessage.value = "電子信箱格式有誤"
                 return
             }
-            emailErrorMessage.value = null
         }
 
-        emailErrorMessage.value = null
+        if (password.value == null) {
+            passwordErrorMessage.value = "請輸入密碼"
+            return
+        }
 
-        signInOrUp(userEmail.value!!, password.value!!)
+        signInOrUp(userEmail.value!!, password.value!!, username.value)
 
     }
 
@@ -147,22 +181,29 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
      * track [StylishRepository.userSignIn]: -> [DefaultStylishRepository] : [StylishRepository] -> [StylishRemoteDataSource] : [StylishDataSource]
      * @param
      */
-    private fun signInOrUp(email: String, password: String) {
+    private fun signInOrUp(email: String, password: String, name: String?) {
         isSignUp.value?.let {signUp ->
             if (signUp) {
                 coroutineScope.launch {
                     _status.value = LoadApiStatus.LOADING
-                    when(val result = stylishRepository.userSignUp("name", email, password)) {
+                    when(val result = stylishRepository.userSignUp(name!!, email, password)) {
                         is Result.Success -> {
                             _error.value = null
+
+                            if (result.data.error != null) {
+                                passwordErrorMessage.value = result.data.error
+                            } else {
+                                UserManager.userToken = result.data.userSignUp?.accessToken
+                                _user.value = result.data.userSignUp?.user
+                                _navigateToLoginSuccess.value = user.value
+                            }
                             _status.value = LoadApiStatus.DONE
-                            UserManager.userToken = result.data.userSignUp?.accessToken
-                            _user.value = result.data.userSignUp?.user
-                            _navigateToLoginSuccess.value = user.value
+
                         }
 
                         is Result.Fail -> {
                             _error.value = result.error
+                            passwordErrorMessage.value = result.error
                             _status.value = LoadApiStatus.ERROR
                         }
 
@@ -182,6 +223,7 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
                     when(val result = stylishRepository.userSignIn(email, password)) {
                         is Result.Success -> {
                             _error.value = null
+                            passwordErrorMessage.value = result.data.error
                             _status.value = LoadApiStatus.DONE
                             UserManager.userToken = result.data.userSignIn?.accessToken
                             _user.value = result.data.userSignIn?.user
@@ -190,6 +232,7 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
 
                         is Result.Fail -> {
                             _error.value = result.error
+                            passwordErrorMessage.value = result.error
                             _status.value = LoadApiStatus.ERROR
                         }
 

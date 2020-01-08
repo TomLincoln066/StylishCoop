@@ -140,5 +140,6 @@
 
     <string name ="textView_popularity">按照人氣高低排序</string>
     <string name ="textView_price">按照價錢高低排序</string>
+    <string name="hint_username">請輸入帳號名稱</string>
 
 </resources>
