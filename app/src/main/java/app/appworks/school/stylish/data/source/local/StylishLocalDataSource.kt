@@ -42,6 +42,7 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
 
     override suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        StylishViewingRecordDatabase.getInstance(context).viewRecordDatabaseDao.fetchAllRecords()
     }
 
     override suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult> {
@@ -106,6 +107,23 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
             StylishDatabase.getInstance(context).stylishDatabaseDao.clear()
         }
     }
+
+    override fun getUserViewRecords(): LiveData<List<UserRecord>> {
+        return StylishViewingRecordDatabase.getInstance(context).viewRecordDatabaseDao.fetchAllRecords()
+    }
+
+    override suspend fun deleteAllViewRecords() {
+        withContext(Dispatchers.IO) {
+            StylishViewingRecordDatabase.getInstance(context).viewRecordDatabaseDao.delete()
+        }
+    }
+
+    override suspend fun insert(userRecord: UserRecord) {
+        withContext(Dispatchers.IO) {
+            StylishViewingRecordDatabase.getInstance(context).viewRecordDatabaseDao.insert(userRecord)
+        }
+    }
+
 
     override suspend fun getUserInformation(key: String?): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

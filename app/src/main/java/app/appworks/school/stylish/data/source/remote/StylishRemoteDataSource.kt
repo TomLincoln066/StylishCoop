@@ -342,6 +342,10 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
+    override fun getUserViewRecords(): LiveData<List<UserRecord>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getProductsInCart(): LiveData<List<Product>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -367,6 +371,14 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun getUserInformation(key: String?): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun deleteAllViewRecords() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun insert(userRecord: UserRecord) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
