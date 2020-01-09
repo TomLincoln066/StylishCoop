@@ -23,16 +23,25 @@
                 android:layout_height="wrap_content"
                 android:text="@string/textView_login_to_get_coupons"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+                android:id="@+id/imageView_user_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/krispy_kreme" />
 
         <Button
                 android:id="@+id/button_sign_up_or_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="210dp"
                 android:text="@string/button_sign_up_or_in"
                 app:layout_constraintEnd_toStartOf="@+id/button_close_just_watch_ad"
                 app:layout_constraintHorizontal_bias="0.5"

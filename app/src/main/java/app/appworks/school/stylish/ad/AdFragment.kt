@@ -33,7 +33,7 @@ class AdFragment : AppCompatDialogFragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-
+        isCancelable = false
 
         //observe if value of leave changed, if yes, change doneLeaving() 's value, and  execute dismiss() after finish running doneLeaving().
         viewModel.leave.observe(this, Observer {

@@ -119,9 +119,9 @@ class MainActivity : BaseActivity() {
         binding.viewModel = viewModel
 
 
-
+        //when app oncreate, show adFragment.
         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
-
+        //when app oncreate, show UserLoginDialog.
         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalUserLoginDialog())
 
 

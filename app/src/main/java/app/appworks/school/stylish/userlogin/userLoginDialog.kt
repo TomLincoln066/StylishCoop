@@ -25,6 +25,13 @@ class userLoginDialog : AppCompatDialogFragment() {
 
         val binding = DialogUserLoginAlertBinding.inflate(inflater, container, false)
 
+//        isCancelable = false
+
+        //if buttonCloseJustWatchAd onclick, dismiss the userSignUp alert dialog
+        binding.buttonCloseJustWatchAd.setOnClickListener{
+            dismiss()
+        }
+
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
