@@ -18,28 +18,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-        <ImageButton
-                android:id="@+id/button_sign_up_or_in"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/coupon_tap_me"
-                android:text="@string/button_sign_up_or_in"
-                app:layout_constraintEnd_toStartOf="@+id/button_close_just_watch_ad"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-                android:id="@+id/button_close_just_watch_ad"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_login_close"
-                android:text="@string/button_close_just_watch_ad"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button_sign_up_or_in"
-                app:layout_constraintTop_toTopOf="@+id/button_sign_up_or_in" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                    android:id="@+id/button_sign_up_or_in"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/coupon_tap_me"
+                    android:text="@string/button_sign_up_or_in"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/button_close_just_watch_ad"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                    android:id="@+id/button_close_just_watch_ad"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_login_close"
+                    android:text="@string/button_close_just_watch_ad"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

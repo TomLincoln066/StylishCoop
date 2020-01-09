@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import app.appworks.school.stylish.R
 import app.appworks.school.stylish.databinding.DialogUserLoginAlertBinding
 import app.appworks.school.stylish.ext.getVmFactory
 
@@ -16,6 +18,11 @@ class UserLoginDialog(val callback: (willSignUpOrSignIn: Boolean) -> Unit) : App
      * Lazily initialize our [ProfileViewModel].
      */
     private val viewModel by viewModels<UserLoginDialogViewModel> { getVmFactory() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.LoginDialog)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
