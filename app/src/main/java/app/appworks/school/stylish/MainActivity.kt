@@ -472,7 +472,7 @@ class MainActivity : BaseActivity() {
 //            }
 //        }
 
-    } //fun onCreate
+    } //closing curly brace of fun onCreate
 
     var isFirstTime = true
     override fun onResume() {
