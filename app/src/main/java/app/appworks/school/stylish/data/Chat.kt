@@ -2,9 +2,12 @@ package app.appworks.school.stylish.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.TypeConverters
+import app.appworks.school.stylish.data.source.local.ChatbotConverters
 import java.util.*
 
 @Entity(tableName = "chat_dialog_table", primaryKeys = ["sent_date", "is_bot"])
+@TypeConverters(ChatbotConverters::class)
 data class Chat(
     @ColumnInfo(name = "message")
     val message: String,

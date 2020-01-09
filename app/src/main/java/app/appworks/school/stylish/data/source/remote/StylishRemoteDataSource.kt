@@ -159,4 +159,16 @@ object StylishRemoteDataSource : StylishDataSource {
     override suspend fun getUserInformation(key: String?): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun getAllChats(): LiveData<List<Chat>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun insertChat(chat: Chat) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun clearChats() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

@@ -33,4 +33,12 @@ interface StylishDataSource {
     suspend fun clearProductInCart()
 
     suspend fun getUserInformation(key: String?): String
+
+    /**
+     * CHATBOT
+     */
+
+    fun getAllChats(): LiveData<List<Chat>>
+    suspend fun insertChat(chat: Chat)
+    suspend fun clearChats()
 }

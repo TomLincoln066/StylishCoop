@@ -60,6 +60,22 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
         stylishLocalDataSource.clearProductInCart()
     }
 
+    /**
+     * CHATBOT
+     */
+    override fun getAllChats(): LiveData<List<Chat>> {
+        return stylishLocalDataSource.getAllChats()
+    }
+
+    override suspend fun clearChats() {
+        stylishLocalDataSource.clearChats()
+    }
+
+    override suspend fun insertChat(chat: Chat) {
+        stylishLocalDataSource.insertChat(chat)
+    }
+
+
     override suspend fun getUserInformation(key: String?): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

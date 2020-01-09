@@ -69,6 +69,26 @@ class StylishLocalDataSource(val context: Context) : StylishDataSource {
         }
     }
 
+
+    /**
+     * CHATBOT
+     */
+    override fun getAllChats(): LiveData<List<Chat>> {
+        return ChatbotDatabase.getInstance(context).chatbotDatabaseDao.fetchAllChats()
+    }
+
+    override suspend fun insertChat(chat: Chat) {
+        withContext(Dispatchers.IO) {
+            ChatbotDatabase.getInstance(context).chatbotDatabaseDao.insert(chat)
+        }
+    }
+
+    override suspend fun clearChats() {
+        withContext(Dispatchers.IO) {
+            ChatbotDatabase.getInstance(context).chatbotDatabaseDao.clearTable()
+        }
+    }
+
     override suspend fun getUserInformation(key: String?): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
