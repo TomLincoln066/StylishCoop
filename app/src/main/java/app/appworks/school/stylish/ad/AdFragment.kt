@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.databinding.DialogCommercialAdBinding
 import app.appworks.school.stylish.ext.getVmFactory
 
+
 class AdFragment : AppCompatDialogFragment() {
 
     /**
@@ -43,6 +44,7 @@ class AdFragment : AppCompatDialogFragment() {
             }
         })
 
+        // observe  countdown and have progressBarAd ascend
         viewModel.advertiseCountDown.observe(this, Observer {
             it?.let {
                 binding.progressBarAd.setProgress(it)

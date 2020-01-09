@@ -178,26 +178,6 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
 
     //progressBar_ad
 
-//    var progressBar_ad = ProgressBar(StylishApplication.instance)
-//    var counter = 0
-//    fun prog(){
-//         progressBar_ad = (ProgressBar)findViewById(R.id.progressBar_ad)
-//
-//        val t = Timer()
-//        val tt = object : TimerTask() {
-//            fun run() {
-//                counter++
-//                progressBar_ad.setProgress(counter)
-//
-//                if (counter == 100)
-//                    t.cancel()
-//            }
-//        }
-//
-//        t.schedule(tt, 0, 100)
-//
-//
-//    }
 
 
     private val _advertisePicture = MutableLiveData<String>()
