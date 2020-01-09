@@ -8,13 +8,11 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -30,8 +28,6 @@ import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.StylishApiFilter
-import app.appworks.school.stylish.network.Order
-import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.util.CurrentFragmentType
 import app.appworks.school.stylish.util.DrawerToggleType
 import app.appworks.school.stylish.util.Logger
@@ -41,7 +37,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -235,7 +230,7 @@ class MainActivity : BaseActivity() {
 //            val result = StylishRemoteDataSource.getGroupBuys("11022fcae1ee7cc9097c24eecd60950839fc467762ae78a433441acdb0c8ecbb")
 //
 //            when (result) {
-//                is Result.Success -> {
+//                is app.appworks.school.stylish.data.Result.Success -> {
 //                    if (result.data.error != null) {
 //                        Log.i(tag, "ERROR : ${result.data.error}")
 //                    } else {
@@ -243,11 +238,11 @@ class MainActivity : BaseActivity() {
 //                    }
 //                }
 //
-//                is Result.Error -> {
+//                is app.appworks.school.stylish.data.Result.Error -> {
 //                    Log.i(tag, "ERROR : ${result.exception.message}")
 //                }
 //
-//                is Result.Fail -> {
+//                is app.appworks.school.stylish.data.Result.Fail -> {
 //                    Log.i(tag, "FAIL : ${result.error}")
 //                }
 //            }

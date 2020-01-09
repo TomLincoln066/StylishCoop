@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import app.appworks.school.stylish.add2cart.Add2cartViewModel
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.detail.Add2GroupBuyViewModel
 import app.appworks.school.stylish.detail.DetailViewModel
 import app.appworks.school.stylish.detail.chatbot.ChatbotViewModel
 
@@ -29,6 +30,10 @@ class ProductViewModelFactory(
                     Add2cartViewModel(stylishRepository, product)
                 isAssignableFrom(ChatbotViewModel::class.java) ->
                     ChatbotViewModel(stylishRepository, product)
+
+                isAssignableFrom(Add2GroupBuyViewModel::class.java) ->
+                    Add2GroupBuyViewModel(stylishRepository, product)
+
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

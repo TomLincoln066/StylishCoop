@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="groupBuy"
+                type="app.appworks.school.stylish.data.GroupBuy" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/image_group_buy"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                app:imageUrl="@{groupBuy.product.mainImage}"
+                app:layout_constraintDimensionRatio="0.8" />
+
+        <TextView
+                android:id="@+id/text_group_buy_producttitle"
+                app:layout_constraintTop_toBottomOf="@id/text_group_buy_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_group_buy"
+                android:layout_marginStart="10dp"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:letterSpacing="0.15"
+                tools:text="輕巧好穿美美衣"
+                android:textColor="@android:color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{groupBuy.product.title}"/>
+
+        <TextView
+                app:layout_constraintStart_toStartOf="@id/text_group_buy_producttitle"
+                app:layout_constraintEnd_toEndOf="@id/text_group_buy_producttitle"
+                app:layout_constraintTop_toTopOf="@id/image_group_buy"
+                android:id="@+id/text_group_buy_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:letterSpacing="0.15"
+                tools:text="ID : 12345688"
+                app:idlongToString="@{groupBuy.productID}"/>
+
+        <TextView
+                android:id="@+id/text_group_buy_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:letterSpacing="0.15"
+                tools:text="厚薄：薄 彈性：無"
+                app:layout_constraintTop_toBottomOf="@id/text_group_buy_producttitle"
+                app:layout_constraintStart_toStartOf="@id/text_group_buy_producttitle"
+                app:layout_constraintEnd_toEndOf="@id/text_group_buy_producttitle"
+                android:layout_marginTop="5dp"
+                android:text="@{groupBuy.product.description}"/>
+
+        <TextView
+                android:id="@+id/text_group_buy_remaining_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/text_group_buy_description"
+                app:layout_constraintStart_toStartOf="@id/text_group_buy_producttitle"
+                tools:text="還差"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp" />
+
+        <TextView
+                android:id="@+id/text_group_buy_remaining"
+                tools:text="2人"
+                app:layout_constraintTop_toTopOf="@id/text_group_buy_remaining_text"
+                app:layout_constraintEnd_toEndOf="@id/text_group_buy_producttitle"
+                app:layout_constraintStart_toStartOf="@id/text_group_buy_remaining_text"
+                android:textSize="30dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintHorizontal_bias="0.4"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_remainder_corner" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

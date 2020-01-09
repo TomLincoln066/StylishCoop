@@ -429,3 +429,11 @@ fun bindColorByColorCode(imageView: ImageView, colorCode: String?) {
         })
     }
 }
+
+/***
+ *
+ */
+@BindingAdapter("idlongToString")
+fun bindTextViewByLong(textView: TextView, long:Long) {
+    textView.text = "ID + ${long}"
+}

@@ -71,7 +71,8 @@ class CatalogFragment : Fragment() {
 //
 //            }
 
-            filterSpinner.adapter = FilterDropDownAdapter(StylishApplication.instance.applicationContext.resources.getStringArray(R.array.arrayFilter))
+            filterSpinner.adapter = FilterDropDownAdapter(
+                StylishApplication.instance.applicationContext.resources.getStringArray(R.array.arrayFilter))
 
             // why do all this in OnCreateView?
             // what's OnCreateView? difference from OnCreate?

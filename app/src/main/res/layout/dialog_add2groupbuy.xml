@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="app.appworks.school.stylish.detail.Add2GroupBuyViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_dialog_weight_height">
+
+            <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="請填入兩位會員 Email"
+                    android:textSize="18sp"
+                    android:letterSpacing="0.15"
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp" />
+
+            <EditText
+                    android:id="@+id/edit_add2group_email1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="請輸入團員 1 的Email"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.emailA}"/>
+
+            <TextView
+                    android:id="@+id/text_add2groupbuy_email1error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/red_d0021b"
+                    android:text="@{viewModel.errorMessageA}"
+                    android:visibility='@{viewModel.errorMessageA != null || viewModel.errorMessageA != "" ? View.VISIBLE:View.GONE}'
+                    tools:text="Email 格式有誤" />
+
+            <EditText
+                    android:id="@+id/edit_add2group_email2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="請輸入團員 2 的Email"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.emailB}"/>
+
+            <TextView
+                    android:id="@+id/text_add2groupbuy_email2error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/red_d0021b"
+                    android:layout_marginEnd="20dp"
+                    tools:text="Email 格式有誤"
+                    android:text="@{viewModel.errorMessageB}"
+                    android:visibility='@{viewModel.errorMessageB != null || viewModel.errorMessageB != "" ? View.VISIBLE:View.GONE}'/>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+
+                <Button
+                        android:id="@+id/button_add2groupbuy_create"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="0.5"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.15"
+                        android:text="創團"
+                        android:background="@drawable/button_add2cart_black_ripple"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless" />
+
+                <Button
+                        android:id="@+id/button_add2groupbuy_cancel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.15"
+                        android:text="取消"
+                        android:background="@drawable/button_add2cart_black_ripple"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

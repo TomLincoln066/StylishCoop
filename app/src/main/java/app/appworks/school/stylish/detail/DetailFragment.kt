@@ -104,6 +104,17 @@ class DetailFragment : Fragment() {
         })
 
         /**
+         * GROUP BUY
+         */
+        viewModel.navigateToAdd2GroupBuy.observe(this, Observer{
+            it?.let{
+                // Show Checkout Similar to Check To Cart
+                findNavController().navigate(NavigationDirections.actionGlobalAdd2GroupBuyDialog(it))
+                viewModel.onAdd2GroupBuy()
+            }
+        })
+
+        /**
          * USERRECORD
          */
 
@@ -149,6 +160,8 @@ class DetailFragment : Fragment() {
                 }
             }
         })
+
+
 
 
         return binding.root

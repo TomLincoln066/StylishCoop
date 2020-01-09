@@ -3,7 +3,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+                name="viewModel"
+                type="app.appworks.school.stylish.groupon.GrouponFragmentViewModel" />
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -11,27 +14,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager_groupbuy"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_spinner">
+        <Spinner
+                android:id="@+id/spinner_groupbuy_status"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_spinner_currency"/>
 
-            <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs_groupbuy"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_catalog_tab"
-                    app:tabIndicatorColor="@color/black_3f3a3a"
-                    app:tabSelectedTextColor="@color/black_3f3a3a"
-                    app:tabTextColor="@color/gray_888888">
-
-            </com.google.android.material.tabs.TabLayout>
-
-
-        </androidx.viewpager.widget.ViewPager>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_groupbuy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </LinearLayout>
 </layout>
