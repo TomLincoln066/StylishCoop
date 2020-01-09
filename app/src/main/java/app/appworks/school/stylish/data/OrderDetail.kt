@@ -9,7 +9,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class OrderDetail(
     val prime: String,
-    val order: Order
+    val order: Order,
+    val groupid: Int? = null
 ) : Parcelable
 
 @Parcelize
