@@ -604,7 +604,7 @@ class MainActivity : BaseActivity() {
                 userLogin = UserLoginDialog{shouldSignInOrSignUp ->
                     if (shouldSignInOrSignUp) {
                         // show dialog for signin/signup
-                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())
                     } else {
                         // fetch ad and displays it
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())

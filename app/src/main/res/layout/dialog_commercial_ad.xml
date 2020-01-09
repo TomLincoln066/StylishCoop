@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
+
         <variable
                 name="viewModel"
                 type="app.appworks.school.stylish.ad.AdViewModel" />
@@ -26,21 +26,20 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.advertisePicture}"
                 app:layout_constraintBottom_toTopOf="@id/textView_seconds_countdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_close_ad"
-                app:imageUrl="@{viewModel.advertisePicture}"
-                android:scaleType="centerCrop"
-                />
+                app:layout_constraintTop_toBottomOf="@id/button_close_ad" />
 
         <ProgressBar
                 android:id="@+id/progressBar_ad"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/imageView_ad"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageView_ad"
 
                 />
 
@@ -50,15 +49,15 @@
                 android:layout_height="wrap_content"
                 android:text='@{viewModel.advertiseCountDown.toString() }'
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
                 android:id="@+id/textView_close_get_coupon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textView_close_get_coupon"
-                android:textSize="16sp"
                 android:textColor="@color/black"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView_seconds_countdown"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -80,4 +79,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 
-<!--        android:src ="@drawable/krispy_kreme"-->
+        <!--        android:src ="@drawable/krispy_kreme"-->
