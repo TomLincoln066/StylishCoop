@@ -17,8 +17,25 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
                                private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StylishRepository {
 
+    override suspend fun getGroupBuys(token: String): Result<GetGroupBuyResult> {
+        return stylishRemoteDataSource.getGroupBuys(token)
+    }
+
+    override suspend fun createGroupBuy(addGroupBuyBody: AddGroupBuyBody): Result<AddGroupBuyResult> {
+        return stylishRemoteDataSource.createGroupBuy(addGroupBuyBody)
+    }
+
+    override suspend fun updateGroupBuy(token: String,
+                                        productID: Long): Result<JoinGroupBuyResult> {
+        return stylishRemoteDataSource.updateGroupBuy(token, productID)
+    }
+
     override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
         return stylishRemoteDataSource.getReplyFromChatbot(question)
+    }
+
+    override fun getUserViewRecords(): LiveData<List<UserRecord>> {
+        return stylishLocalDataSource.getUserViewRecords()
     }
 
     override suspend fun addNewCoupons(token: String, couponID: Int):
@@ -54,6 +71,10 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
 
     override suspend fun getProductAll(token: String?, currency: String): Result<List<HomeItem>> {
         return stylishRemoteDataSource.getProductAll(token, currency)
+    }
+
+    override suspend fun deleteAllViewRecords() {
+        return stylishLocalDataSource.deleteAllViewRecords()
     }
 
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
@@ -103,9 +124,30 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
         stylishLocalDataSource.clearProductInCart()
     }
 
+    /**
+     * CHATBOT
+     */
+    override fun getAllChats(): LiveData<List<Chat>> {
+        return stylishLocalDataSource.getAllChats()
+    }
+
+    override suspend fun clearChats() {
+        stylishLocalDataSource.clearChats()
+    }
+
+    override suspend fun insertChat(chat: Chat) {
+        stylishLocalDataSource.insertChat(chat)
+    }
+
+
     override suspend fun getAd(): Result<AdResult> {
         return stylishRemoteDataSource.getAd()
     }
+
+    override suspend fun insert(userRecord: UserRecord) {
+        stylishLocalDataSource.insert(userRecord)
+    }
+
 
     override suspend fun getUserInformation(key: String?): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

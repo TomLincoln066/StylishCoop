@@ -8,6 +8,7 @@ import app.appworks.school.stylish.cart.CartViewModel
 import app.appworks.school.stylish.checkout.CheckoutSuccessViewModel
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.home.HomeViewModel
+import app.appworks.school.stylish.login.EmailLoginViewModel
 import app.appworks.school.stylish.login.LoginViewModel
 import app.appworks.school.stylish.payment.PaymentViewModel
 import app.appworks.school.stylish.userlogin.UserLoginDialogViewModel
@@ -43,11 +44,16 @@ class ViewModelFactory constructor(
                 isAssignableFrom(CheckoutSuccessViewModel::class.java) ->
                     CheckoutSuccessViewModel(stylishRepository)
 
+
                 isAssignableFrom(AdViewModel::class.java) ->
                     AdViewModel(stylishRepository)
 
                 isAssignableFrom(UserLoginDialogViewModel::class.java) ->
                     UserLoginDialogViewModel(stylishRepository)
+
+
+                isAssignableFrom(EmailLoginViewModel::class.java) ->
+                    EmailLoginViewModel(stylishRepository)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

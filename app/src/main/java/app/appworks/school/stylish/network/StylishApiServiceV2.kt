@@ -8,12 +8,12 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import java.util.*
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -180,7 +180,7 @@ interface StylishApiServiceV2 {
         @Field("name") name: String = "",
         @Field("email") email: String,
         @Field("password") password: String):
-            Deferred<UserSignUpResult>
+            Deferred<Response<UserSignUpResult>>
 
     /**
      * Returns a Coroutine [Deferred] [UserRefreshTokenResult] which can be fetched with await() if in a Coroutine scope.
@@ -237,6 +237,20 @@ interface StylishApiServiceV2 {
     @Headers("Content-Type: application/json")
     @POST("chatbot")
     fun getChatbotReplyFor(@Body questionBody: ChatbotBody): Deferred<ChatbotReplyMultiTypeResult>
+
+
+    /**
+     * GROUPON
+     */
+    @GET("group")
+    fun fetchMyGroupBuy(@Header("token") token: String): Deferred<GetGroupBuyResult>
+
+    @Headers("Content-Type: application/json")
+    @POST("group")
+    fun createGroupBuy(@Body groupBuyBody: AddGroupBuyBody): Deferred<AddGroupBuyResult>
+
+    @PUT("group")
+    fun updateGroupBuy(@Header("token") token: String, @Header("productid") productID: Long): Deferred<JoinGroupBuyResult>
 }
 
 /**

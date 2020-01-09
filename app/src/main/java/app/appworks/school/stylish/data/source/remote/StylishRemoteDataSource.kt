@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.data.source.remote
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.*
@@ -11,6 +12,10 @@ import app.appworks.school.stylish.network.StylishApiV2
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import app.appworks.school.stylish.util.Util.isInternetConnected
+import org.json.JSONException
+import org.json.JSONObject
+import retrofit2.HttpException
+import retrofit2.http.HTTP
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -18,6 +23,70 @@ import app.appworks.school.stylish.util.Util.isInternetConnected
  * Implementation of the Stylish source that from network.
  */
 object StylishRemoteDataSource : StylishDataSource {
+
+    override suspend fun updateGroupBuy(token: String, productID: Long
+    ): Result<JoinGroupBuyResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.updateGroupBuy(token, productID)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun createGroupBuy(addGroupBuyBody: AddGroupBuyBody): Result<AddGroupBuyResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.createGroupBuy(addGroupBuyBody)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getGroupBuys(token: String): Result<GetGroupBuyResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.fetchMyGroupBuy(token)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
 
     override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
         if (!isInternetConnected()) {
@@ -159,16 +228,39 @@ object StylishRemoteDataSource : StylishDataSource {
         // Get the Deferred object for Retrofit_V2 request
         val getResultDeferred = StylishApiV2.retrofitService.userSignUp(name, email, password)
 
-        return try {
-            val result = getResultDeferred.await()
-            result.error?.let {
-                return Result.Fail(it)
-            }
+        val result = getResultDeferred.await()
 
-            Result.Success(result)
-        } catch (e: Exception) {
-            Logger.w("[${this::class.simpleName}] exception=${e.message}")
-            Result.Error(e)
+        when(result.isSuccessful) {
+            true -> {
+                result.body()?.let {body ->
+                    if (body.error != null) {
+                        return Result.Fail(body.error)
+                    } else {
+                       return Result.Success(body)
+                    }
+                }
+                throw JSONException("Error in JSON Parsing")
+
+            }
+            false -> {
+                result.body()?.let {
+                    return Result.Fail(it.error ?: "ERROR")
+                }
+
+                result.errorBody()?.let {
+
+                    val text = it.source().readUtf8Line()!!
+
+
+                    val json = JSONObject(text)
+
+                    if(json.has("error")) {
+                        return Result.Fail(json["error"] as String)
+                    } else { }
+                }
+
+                return Result.Fail(result.message())
+            }
         }
     }
 
@@ -356,6 +448,10 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
+    override fun getUserViewRecords(): LiveData<List<UserRecord>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getProductsInCart(): LiveData<List<Product>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -381,6 +477,27 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun getUserInformation(key: String?): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getAllChats(): LiveData<List<Chat>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun insertChat(chat: Chat) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun clearChats() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun deleteAllViewRecords() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun insert(userRecord: UserRecord) {
+
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

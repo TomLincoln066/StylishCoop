@@ -34,6 +34,12 @@ interface StylishRepository {
 
     fun getProductsInCart(): LiveData<List<Product>>
 
+    fun getUserViewRecords(): LiveData<List<UserRecord>>
+
+    suspend fun deleteAllViewRecords()
+
+    suspend fun insert(userRecord:UserRecord)
+
     suspend fun getProductDetail(token: String, currency: String, productId: String): Result<ProductDetailResult>
 
     suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult>
@@ -64,5 +70,17 @@ interface StylishRepository {
      * ChatBot
      */
 
+    fun getAllChats(): LiveData<List<Chat>>
+    suspend fun insertChat(chat: Chat)
+    suspend fun clearChats()
     suspend fun getReplyFromChatbot(question: ChatbotBody):Result<ChatbotReplyMultiTypeResult>
+
+    /**
+     * Groupon
+     */
+    suspend fun getGroupBuys(token: String): Result<GetGroupBuyResult>
+
+    suspend fun createGroupBuy(addGroupBuyBody: AddGroupBuyBody): Result<AddGroupBuyResult>
+
+    suspend fun updateGroupBuy(token: String, productID: Long): Result<JoinGroupBuyResult>
 }

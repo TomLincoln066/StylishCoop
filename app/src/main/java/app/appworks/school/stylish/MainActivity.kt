@@ -21,7 +21,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 import app.appworks.school.stylish.databinding.*
 import app.appworks.school.stylish.dialog.MessageDialog
@@ -41,6 +40,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -53,6 +53,7 @@ class MainActivity : BaseActivity() {
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
 
+
 //    private lateinit var binding1:FragmentCatalogBinding
 
 //    private lateinit var binding2:DialogCommercialAdBinding
@@ -61,27 +62,30 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private var targetID = 0
 
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-
+                    targetID = R.id.navigation_home
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToHomeFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_catalog -> {
-
+                    targetID = R.id.navigation_catalog
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_cart -> {
 
+                R.id.navigation_cart -> {
+                    targetID = R.id.navigation_cart
                     findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCartFragment())
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_profile -> {
 
+                R.id.navigation_profile -> {
+                    targetID = R.id.navigation_profile
                     when (viewModel.isLoggedIn) {
                         true -> {
                             findNavController(R.id.myNavHostFragment).navigate(
@@ -91,7 +95,7 @@ class MainActivity : BaseActivity() {
                             )
                         }
                         false -> {
-                            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
+                            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())
                             return@OnNavigationItemSelectedListener false
                         }
                     }
@@ -144,7 +148,10 @@ class MainActivity : BaseActivity() {
 
                 // navigate to profile after login success
                 when (viewModel.currentFragmentType.value) {
-                    CurrentFragmentType.PAYMENT -> {
+                    CurrentFragmentType.CART -> {
+                        if (targetID == R.id.navigation_profile) {
+                            viewModel.navigateToProfileByBottomNav(it)
+                        }
                     }
                     else -> viewModel.navigateToProfileByBottomNav(it)
                 }
@@ -174,9 +181,122 @@ class MainActivity : BaseActivity() {
         setupDrawer()
         setupNavController()
 
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "RECORD VIEW"
+//            val result = StylishRemoteDataSource.userSignIn("abc@gmail.com", "name")
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.userSignIn}")
+//
+//
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
 
         val testtoken = "9c9ddeea44206d5eb1ec1827a4e55efe3e221cbcca6abc089ef6ba9bb37e740e"
         val dummyToken = "2f7c7900c565ae05f9e8cae6b87828778d98b494b36b8db2f361e041c243a72a"
+
+        /**
+         * GROUPBUY
+         */
+
+        /**
+         * FETCH GROUPBUY
+         */
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "JOIN GROUP BUY"
+//            val result = StylishRemoteDataSource.getGroupBuys("11022fcae1ee7cc9097c24eecd60950839fc467762ae78a433441acdb0c8ecbb")
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.data}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
+        /**
+         * JOIN GROUPBUY
+         */
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "JOIN GROUP BUY"
+//            val result = StylishRemoteDataSource.updateGroupBuy("11022fcae1ee7cc9097c24eecd60950839fc467762ae78a433441acdb0c8ecbb", 201902191245)
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.success}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
+
+        /**
+         * CREATE GROUPBUY
+         */
+//                CoroutineScope(Dispatchers.Main).launch {
+//                        val tag = "GROUP BUY"
+//            val result = StylishRemoteDataSource.createGroupBuy(AddGroupBuyBody("11022fcae1ee7cc9097c24eecd60950839fc467762ae78a433441acdb0c8ecbb", 201807201824, "test12@test.com", "test13@test.com"))
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.groupID}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
 
         /***
          * CHATBOT
@@ -232,7 +352,6 @@ class MainActivity : BaseActivity() {
 //            }
 //
 //        }
-
 
         /** Get Product Detail*/
 //        CoroutineScope(Dispatchers.Main).launch {
@@ -614,7 +733,7 @@ class MainActivity : BaseActivity() {
                         viewModel.checkUser()
                     }
                     else -> {
-                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())//.navigateToLoginDialog())
                         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                             binding.drawerLayout.closeDrawer(GravityCompat.START)
                         }
