@@ -119,7 +119,9 @@ class MainActivity : BaseActivity() {
         binding.viewModel = viewModel
 
 
+//        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
+
 
 
         // observe current fragment change, only for show info

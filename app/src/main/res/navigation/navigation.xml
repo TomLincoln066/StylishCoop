@@ -115,5 +115,13 @@
     <action
             android:id="@+id/action_global_adFragment"
             app:destination="@id/adFragment" />
+    <dialog
+            android:id="@+id/userLoginDialog"
+            android:name="app.appworks.school.stylish.userlogin.userLoginDialog"
+            android:label="userLoginDialog" />
+    <action
+            android:id="@+id/action_global_userLoginDialog"
+            app:destination="@id/userLoginDialog" />
+
 
 </navigation>
