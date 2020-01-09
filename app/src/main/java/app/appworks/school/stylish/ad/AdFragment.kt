@@ -31,7 +31,7 @@ class AdFragment : AppCompatDialogFragment() {
 //        init()
         val binding = DialogCommercialAdBinding.inflate(inflater, container, false)
 
-        val bindingUserSignInAlert = DialogUserLoginAlertBinding.inflate(inflater,container,false)
+//        val bindingUserSignInAlert = DialogUserLoginAlertBinding.inflate(inflater,container,false)
 
 
         binding.lifecycleOwner = this

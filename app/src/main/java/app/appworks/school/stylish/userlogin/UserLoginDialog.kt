@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import app.appworks.school.stylish.R
+import app.appworks.school.stylish.databinding.DialogCommercialAdBinding
 import app.appworks.school.stylish.databinding.DialogUserLoginAlertBinding
 import app.appworks.school.stylish.ext.getVmFactory
 
@@ -32,6 +33,8 @@ class UserLoginDialog(val callback: (willSignUpOrSignIn: Boolean) -> Unit) : App
 
         val binding = DialogUserLoginAlertBinding.inflate(inflater, container, false)
 
+
+
 //        isCancelable = false
 
         //if buttonCloseJustWatchAd onclick, dismiss the userSignUp alert dialog
@@ -43,6 +46,14 @@ class UserLoginDialog(val callback: (willSignUpOrSignIn: Boolean) -> Unit) : App
         binding.buttonSignUpOrIn.setOnClickListener{
             callback(true)
             dismiss()
+
+
+
+//          1.  binding.buttonCloseJustWatchAd.setOnClickListener{
+//                callback(false)
+//            }
+//          2.  callback(true)
+//          3.  userLogin?.show(supportFragmentManager, "tag")
         }
 
         binding.lifecycleOwner = this

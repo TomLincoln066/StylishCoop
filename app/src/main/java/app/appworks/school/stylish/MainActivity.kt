@@ -21,6 +21,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import app.appworks.school.stylish.ad.AdFragment
 import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 import app.appworks.school.stylish.databinding.*
 import app.appworks.school.stylish.dialog.MessageDialog
@@ -117,6 +118,8 @@ class MainActivity : BaseActivity() {
 
     private var userLogin:UserLoginDialog? = null
 
+    private var userLoginAndShowAd: AdFragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -144,7 +147,9 @@ class MainActivity : BaseActivity() {
                 findNavController(R.id.myNavHostFragment).navigate(
                     NavigationDirections.navigateToMessageDialog(MessageDialog.MessageType.LOGIN_SUCCESS)
                 )
+                
                 viewModel.onLoginSuccessNavigated()
+
 
                 // navigate to profile after login success
                 when (viewModel.currentFragmentType.value) {
@@ -609,7 +614,19 @@ class MainActivity : BaseActivity() {
                     if (shouldSignInOrSignUp) {
                         // show dialog for signin/signup
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())
+//                        if(UserManager.isLoggedIn){
 
+//                            userLoginAndShowAd =  AdFragment{shouldShowAd:Boolean ->
+//                                if(shouldShowAd==true) {
+//                                    findNavController(R.id.myNavHostFragment).navigate(
+//                                        NavigationDirections.actionGlobalAdFragment()
+//                                    )
+//                                }
+//
+//
+//                            }
+//                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
+//                        }
                     } else {
                         // fetch ad and displays it
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
