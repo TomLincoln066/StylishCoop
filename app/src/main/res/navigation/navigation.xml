@@ -117,7 +117,7 @@
             app:destination="@id/adFragment" />
     <dialog
             android:id="@+id/userLoginDialog"
-            android:name="app.appworks.school.stylish.userlogin.userLoginDialog"
+            android:name="app.appworks.school.stylish.userlogin.UserLoginDialog"
             android:label="userLoginDialog" />
     <action
             android:id="@+id/action_global_userLoginDialog"

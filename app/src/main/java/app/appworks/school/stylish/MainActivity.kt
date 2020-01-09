@@ -26,10 +26,12 @@ import app.appworks.school.stylish.data.source.remote.StylishRemoteDataSource
 import app.appworks.school.stylish.databinding.*
 import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
+import app.appworks.school.stylish.login.LoginDialog
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.StylishApiFilter
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
+import app.appworks.school.stylish.userlogin.UserLoginDialog
 import app.appworks.school.stylish.util.CurrentFragmentType
 import app.appworks.school.stylish.util.DrawerToggleType
 import app.appworks.school.stylish.util.Logger
@@ -109,6 +111,8 @@ class MainActivity : BaseActivity() {
             }
         }
 
+    private var userLogin:UserLoginDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -119,10 +123,9 @@ class MainActivity : BaseActivity() {
         binding.viewModel = viewModel
 
 
-        //when app oncreate, show adFragment.
-        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
-        //when app oncreate, show UserLoginDialog.
-        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalUserLoginDialog())
+
+
+
 
 
         // observe current fragment change, only for show info
@@ -469,8 +472,36 @@ class MainActivity : BaseActivity() {
 //            }
 //        }
 
+    } //fun onCreate
+
+    var isFirstTime = true
+    override fun onResume() {
+        super.onResume()
+
+        if (isFirstTime) {
+            if(UserManager.isLoggedIn) {
+                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
+            } else {
+                userLogin = UserLoginDialog{shouldSignInOrSignUp ->
+                    if (shouldSignInOrSignUp) {
+                        // show dialog for signin/signup
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
+                    } else {
+                        // fetch ad and displays it
+                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
+                    }
+                }
+
+                // FragmentManager is a Interface for interacting with Fragment objects inside of an Activity
+                userLogin?.show(supportFragmentManager, "tag")
+
+            }
+        }
+
+        isFirstTime = false
 
     }
+
 
     /**
      * Set up [BottomNavigationView], add badge view through [BottomNavigationMenuView] and [BottomNavigationItemView]

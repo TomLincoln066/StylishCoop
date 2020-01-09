@@ -10,7 +10,7 @@ import app.appworks.school.stylish.databinding.DialogUserLoginAlertBinding
 import app.appworks.school.stylish.ext.getVmFactory
 
 
-class userLoginDialog : AppCompatDialogFragment() {
+class UserLoginDialog(val callback: (willSignUpOrSignIn: Boolean) -> Unit) : AppCompatDialogFragment() {
 
     /**
      * Lazily initialize our [ProfileViewModel].
@@ -29,7 +29,12 @@ class userLoginDialog : AppCompatDialogFragment() {
 
         //if buttonCloseJustWatchAd onclick, dismiss the userSignUp alert dialog
         binding.buttonCloseJustWatchAd.setOnClickListener{
+            callback(false)
             dismiss()
+        }
+
+        binding.buttonSignUpOrIn.setOnClickListener{
+            callback(true)
         }
 
         binding.lifecycleOwner = this

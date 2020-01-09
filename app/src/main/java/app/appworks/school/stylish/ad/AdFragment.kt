@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.databinding.DialogCommercialAdBinding
+import app.appworks.school.stylish.databinding.DialogUserLoginAlertBinding
 import app.appworks.school.stylish.ext.getVmFactory
 
 
@@ -29,6 +30,9 @@ class AdFragment : AppCompatDialogFragment() {
     ): View? {
 //        init()
         val binding = DialogCommercialAdBinding.inflate(inflater, container, false)
+
+        val bindingUserSignInAlert = DialogUserLoginAlertBinding.inflate(inflater,container,false)
+
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -65,8 +69,10 @@ class AdFragment : AppCompatDialogFragment() {
 //            })
 //        }
 
-        viewModel.fetchAD()
 
+//        if(bindingUserSignInAlert.buttonCloseJustWatchAd.click == true) {
+            viewModel.fetchAD()
+//        }
         return binding.root
 
     }
