@@ -10,6 +10,7 @@ import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.home.HomeViewModel
 import app.appworks.school.stylish.login.LoginViewModel
 import app.appworks.school.stylish.payment.PaymentViewModel
+import app.appworks.school.stylish.userlogin.UserLoginDialogViewModel
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -44,6 +45,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(AdViewModel::class.java) ->
                     AdViewModel(stylishRepository)
+
+                isAssignableFrom(UserLoginDialogViewModel::class.java) ->
+                    UserLoginDialogViewModel(stylishRepository)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
