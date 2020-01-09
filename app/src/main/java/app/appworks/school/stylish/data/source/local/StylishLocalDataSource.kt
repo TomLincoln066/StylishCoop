@@ -16,6 +16,21 @@ import kotlinx.coroutines.withContext
  */
 class StylishLocalDataSource(val context: Context) : StylishDataSource {
 
+    override suspend fun createGroupBuy(addGroupBuyBody: AddGroupBuyBody): Result<AddGroupBuyResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getGroupBuys(token: String): Result<GetGroupBuyResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun updateGroupBuy(
+        token: String,
+        productID: Long
+    ): Result<JoinGroupBuyResult> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

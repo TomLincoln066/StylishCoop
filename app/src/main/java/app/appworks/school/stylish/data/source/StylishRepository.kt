@@ -65,4 +65,13 @@ interface StylishRepository {
      */
 
     suspend fun getReplyFromChatbot(question: ChatbotBody):Result<ChatbotReplyMultiTypeResult>
+
+    /**
+     * Groupon
+     */
+    suspend fun getGroupBuys(token: String): Result<GetGroupBuyResult>
+
+    suspend fun createGroupBuy(addGroupBuyBody: AddGroupBuyBody): Result<AddGroupBuyResult>
+
+    suspend fun updateGroupBuy(token: String, productID: Long): Result<JoinGroupBuyResult>
 }
