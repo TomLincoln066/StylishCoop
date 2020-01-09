@@ -117,4 +117,11 @@
     <action
             android:id="@+id/action_navigate_to_payment_fragment"
             app:destination="@id/paymentFragment" />
+    <dialog
+            android:id="@+id/heightWeightDialog"
+            android:name="app.appworks.school.stylish.dialog.HeightWeightDialog"
+            android:label="HeightWeightDialog" />
+    <action
+            android:id="@+id/action_global_heightWeightDialog"
+            app:destination="@id/heightWeightDialog" />
 </navigation>

@@ -35,6 +35,7 @@ import app.appworks.school.stylish.util.Util.getColor
 import com.bumptech.glide.request.RequestOptions
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -126,7 +127,7 @@ fun bindChatbotItemRecyclerView(recyclerView: RecyclerView, chatbotItems: List<C
     adapter?.submitList(chatbotItems)
     chatbotItems?.size?.let {size ->
         if (size > 0) {
-            recyclerView.smoothScrollToPosition(size - 1)
+            recyclerView.smoothScrollBy(0, abs(recyclerView.computeVerticalScrollOffset()))
         }
     }
 }

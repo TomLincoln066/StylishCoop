@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class ChatbotBody(
     val question: Int,
     val productId: Long,
-    val height: Double?,
-    val weight: Double?
+    val height: Double? = null,
+    val weight: Double? = null
 ): Parcelable

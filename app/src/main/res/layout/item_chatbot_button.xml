@@ -20,7 +20,8 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@{chatbotButton.title}"
-                android:onClick="@{() -> viewModel.userSelectedAPI(chatbotButton.api)}"
+                android:onClick="@{() -> viewModel.userSelectedAPI(chatbotButton.api, chatbotButton.question, viewModel.weight, viewModel.height)}"
+                android:background="@drawable/bg_login_button"
                 />
 
     </LinearLayout>

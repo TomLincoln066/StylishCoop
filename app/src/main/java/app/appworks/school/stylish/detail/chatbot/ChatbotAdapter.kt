@@ -27,7 +27,12 @@ class ChatbotAdapter(val chatbotViewModel: ChatbotViewModel): ListAdapter<Chatbo
         }
 
         override fun areItemsTheSame(oldItem: ChatbotItem, newItem: ChatbotItem): Boolean {
-            return oldItem === newItem
+            if (oldItem is ChatbotItem.ChatbotDialogItem && newItem is ChatbotItem.ChatbotDialogItem) {
+                return oldItem.chatbotDialogItem == newItem.chatbotDialogItem
+            } else if (oldItem is ChatbotItem.UserDialogItem && newItem is ChatbotItem.UserDialogItem) {
+                return oldItem.userDialog == newItem.userDialog
+            }
+            return false
         }
     }
 

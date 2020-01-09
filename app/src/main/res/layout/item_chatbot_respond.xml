@@ -48,6 +48,8 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="10dp"
+                    android:textSize="18dp"
+                    android:textColor="@android:color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     android:text="@{chatbotDialog.message}"
                     tools:text="dsaflkdsjanjljlkdjsldkjfdjflsajflk jlkja skjlsak jlkasjflk dsajlf"

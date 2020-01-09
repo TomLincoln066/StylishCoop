@@ -6,4 +6,5 @@ package app.appworks.school.stylish.data
 
 data class ChatbotButton(
     val title: String,
-    val api: String)
+    val api: String,
+    val question: Int)

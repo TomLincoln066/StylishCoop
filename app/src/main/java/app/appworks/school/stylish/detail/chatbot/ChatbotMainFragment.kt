@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.databinding.FragmentChatbotBinding
 import app.appworks.school.stylish.detail.DetailViewModel
+import app.appworks.school.stylish.dialog.HeightWeightDialog
 import app.appworks.school.stylish.ext.getVmFactory
 
 class ChatbotMainFragment : Fragment() {
@@ -18,6 +19,7 @@ class ChatbotMainFragment : Fragment() {
     var detailViewModel: DetailViewModel? = null
     private var viewModel: ChatbotViewModel? = null
     private lateinit var chatbotAdapter: ChatbotAdapter
+    private var heightWeightDialog: HeightWeightDialog? = null
 
     lateinit var binding: FragmentChatbotBinding
 
@@ -41,13 +43,32 @@ class ChatbotMainFragment : Fragment() {
 
         detailViewModel?.chatbotStatus?.observe(this, Observer {
             when (it) {
-                DetailViewModel.ChatbotStatus.DONESHOWING -> {
-                    if (viewModel?.chatbotDialogItem?.value == null) {
+                DetailViewModel.ChatbotStatus.SHOWING -> {
+                    if (viewModel?.chatItems?.value == null || viewModel?.chatItems?.value?.size == 0) {
                         viewModel?.fetchDialogFor("")
+                    } else {
+                        // Scroll to bottom
                     }
                 }
             }
         })
+
+
+        viewModel?.askForHeightAndWeight?.observe(this, Observer {
+            it?.let {shouldAskForHeightAndWeight ->
+                if (shouldAskForHeightAndWeight) {
+                    // Display dialog
+
+                    heightWeightDialog = HeightWeightDialog{height, weight ->
+                        viewModel?.sentHeightAndWeight(height, weight)
+                        heightWeightDialog?.dismiss()
+                    }
+                    heightWeightDialog?.show(fragmentManager!!, "tag")
+                }
+            }
+        })
+
+
 
 
         return binding.root
