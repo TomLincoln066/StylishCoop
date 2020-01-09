@@ -204,17 +204,21 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
 
                             _advertisePicture.value = ads.images!![index]
 
-
+                            //handle countdown
                             _advertiseCountDown.value = ads.displayTime ?: 0
 
                             if (timer == null){
-
+                                Log.d("10seconds","timer == null")
                                 timer = object: CountDownTimer((_advertiseCountDown.value!! * 1000).toLong(), 1000) {
                                     override fun onTick(millisUntilFinished: Long) {
+                                        Log.d("10seconds","onTick,  millisUntilFinished=$millisUntilFinished")
                                         countDown()
+
+
                                     }
 
                                     override fun onFinish() {
+                                        Log.d("10seconds","onFinish")
                                         _advertiseCountDown.value = 0
                                     }
                                 }
@@ -252,8 +256,13 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
         get() = _advertiseCountDown
 
 
+
     fun countDown() {
-        _advertiseCountDown.value = _advertiseCountDown.value ?: 1 - 1
+        Log.d("10seconds","countDown")
+        Log.d("10seconds","before ${_advertiseCountDown.value}")
+        _advertiseCountDown.value = _advertiseCountDown.value?.minus(1)
+        Log.d("10seconds","after ${_advertiseCountDown.value}")
+
     }
 
     //handle ad close button
@@ -266,6 +275,24 @@ class AdViewModel(private val stylishRepository: StylishRepository) : ViewModel(
     fun doneLeaving() {
         _leave.value = null
     }
+
+
+    //timer not related to API liveData
+
+
+
+//    val timer2 = object: CountDownTimer(10000, 1000) {
+//        override fun onTick(millisUntilFinished: Long) {
+//            countDown()
+//        }
+//
+//        override fun onFinish() {
+//
+//        }
+//
+//    }
+
+
 
 
 }

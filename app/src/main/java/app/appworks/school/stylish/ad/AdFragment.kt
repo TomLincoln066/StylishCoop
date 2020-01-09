@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.ad
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,8 +47,9 @@ class AdFragment : AppCompatDialogFragment() {
 
         // observe  countdown and have progressBarAd ascend
         viewModel.advertiseCountDown.observe(this, Observer {
+            Log.d("10seconds","viewModel.advertiseCountDown.observe,it = $it")
             it?.let {
-                binding.progressBarAd.setProgress(it)
+                binding.progressBarAd.progress = it * 10
             }
         })
 
