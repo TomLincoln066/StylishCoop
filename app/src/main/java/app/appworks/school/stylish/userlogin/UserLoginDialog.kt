@@ -42,6 +42,7 @@ class UserLoginDialog(val callback: (willSignUpOrSignIn: Boolean) -> Unit) : App
 
         binding.buttonSignUpOrIn.setOnClickListener{
             callback(true)
+            dismiss()
         }
 
         binding.lifecycleOwner = this

@@ -153,7 +153,11 @@ class MainActivity : BaseActivity() {
                             viewModel.navigateToProfileByBottomNav(it)
                         }
                     }
-                    else -> viewModel.navigateToProfileByBottomNav(it)
+                    else -> {
+                        if(targetID == R.id.navigation_profile) {
+                            viewModel.navigateToProfileByBottomNav(it)
+                        }
+                    }
                 }
             }
         })
@@ -605,6 +609,7 @@ class MainActivity : BaseActivity() {
                     if (shouldSignInOrSignUp) {
                         // show dialog for signin/signup
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())
+
                     } else {
                         // fetch ad and displays it
                         findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalAdFragment())
