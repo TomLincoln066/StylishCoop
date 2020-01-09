@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.appworks.school.stylish.R
+import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.data.HomeItem
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
@@ -87,7 +89,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
             if (isInitial) _status.value = LoadApiStatus.LOADING
             // It will return Result object after Deferred flow
-            val result = stylishRepository.getMarketingHots()
+            val result = stylishRepository.getProductAll(UserManager.userToken, UserManager.userCurrency)
 
             _homeItems.value = when (result) {
                 is Result.Success -> {
@@ -122,7 +124,32 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
     }
 
     fun navigateToDetail(product: Product) {
-        _navigateToDetail.value = product
+        if (_status.value != LoadApiStatus.DONE) {return}
+        _status.value = LoadApiStatus.LOADING
+
+        coroutineScope.launch {
+            val result = stylishRepository
+                .getProductDetail(UserManager.userToken ?: "TWD",
+                    UserManager.userCurrency, product.id.toString())
+
+            when(result) {
+                is Result.Success -> {
+                    if (result.data.error == null) {
+                        _navigateToDetail.value = result.data.product
+                        _status.value = LoadApiStatus.DONE
+                    } else {
+                        _navigateToDetail.value = null
+                        _status.value = LoadApiStatus.ERROR
+                    }
+                }
+
+                else -> {
+                    _navigateToDetail.value = null
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+
+        }
     }
 
     fun onDetailNavigated() {

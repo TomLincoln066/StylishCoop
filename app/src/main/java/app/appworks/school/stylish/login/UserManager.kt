@@ -8,19 +8,41 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.util.Util.getString
+import java.util.*
 
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
+
+
 object UserManager {
 
     private const val USER_DATA = "user_data"
     private const val USER_TOKEN = "user_token"
+    private const val USER_CURRENCY = "user_currency"
+    private const val USER_LAST_VISIT_TIME = "user_last_visit_time"
 
     private val _user = MutableLiveData<User>()
 
     val user: LiveData<User>
         get() = _user
+
+//    var lastLoginDate: Long? = null
+//        get() = StylishApplication.instance
+//            .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+//            .getLong(USER_LAST_VISIT_TIME)
+//        set(value) {
+//            field = when (value) {
+//                null -> {
+//
+//                }
+//
+//                else -> {
+//
+//                }
+//            }
+//        }
+
 
     var userToken: String? = null
         get() = StylishApplication.instance
@@ -45,6 +67,30 @@ object UserManager {
             }
         }
 
+    var userCurrency: String = "TWD"
+        get() = StylishApplication.instance.getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+            .getString(USER_CURRENCY, "TWD") ?: "TWD"
+        set(value) {
+            field = when (value) {
+                null -> {
+                    StylishApplication.instance
+                        .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+                        .edit()
+                        .remove(USER_CURRENCY)
+                        .apply()
+                    "TWD"
+                }
+                else -> {
+                    StylishApplication.instance
+                        .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+                        .edit()
+                        .putString(USER_CURRENCY, value)
+                        .apply()
+                    value
+                }
+            }
+        }
+
     /**
      * It can be use to check login status directly
      */
@@ -61,7 +107,7 @@ object UserManager {
 
     private var lastChallengeTime: Long = 0
     private var challengeCount: Int = 0
-    private const val CHALLENGE_LIMIT = 23
+    private const val CHALLENGE_LIMIT = 3
 
     /**
      * Winter is coming

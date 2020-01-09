@@ -21,6 +21,7 @@ import javax.net.ssl.X509TrustManager
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
+
 //private const val HOST_NAME = "stuarrrt.com"
 private const val HOST_NAME = "api.appworks-school.tw"//stuarrrt.com"//"api.appworks-school.tw"
 private const val API_VERSION = "1.0"
@@ -42,57 +43,6 @@ private val client = OkHttpClient.Builder()
         }
     })
     .build()
-
-/**
- * API
- */
-
-//class MyOkHTTPClientBuilder {
-//    companion object {
-//        fun unSafeOkHttpClient() :OkHttpClient.Builder {
-//
-//            val okHttpClient = OkHttpClient.Builder()
-//            try {
-//                // Create a trust manager that does not validate certificate chains
-//                val trustAllCerts: Array<TrustManager> = arrayOf(object : X509TrustManager {
-//                    override fun checkClientTrusted(
-//                        chain: Array<out X509Certificate>?,
-//                        authType: String?
-//                    ) {
-//                    }
-//
-//                    override fun checkServerTrusted(
-//                        chain: Array<out X509Certificate>?,
-//                        authType: String?
-//                    ) {
-//                    }
-//
-//                    override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-//                })
-//
-//                // Install the all-trusting trust manager
-//                val sslContext = SSLContext.getInstance("SSL")
-//                sslContext.init(null, trustAllCerts, SecureRandom())
-//
-//                // Create an ssl socket factory with our all-trusting manager
-//                val sslSocketFactory = sslContext.socketFactory
-//                if (trustAllCerts.isNotEmpty() && trustAllCerts.first() is X509TrustManager) {
-//                    okHttpClient.sslSocketFactory(
-//                        sslSocketFactory,
-//                        trustAllCerts.first() as X509TrustManager
-//                    )
-//                    okHttpClient.hostnameVerifier(HostnameVerifier { hostname, session ->
-//                        hostname == HOST_NAME
-//                    })
-//                }
-//
-//                return okHttpClient
-//            } catch (e: Exception) {
-//                return okHttpClient
-//            }
-//        }
-//    }
-//}
 
 /**
  * Use the Retrofit builder to build a retrofit object using a Moshi converter with our Moshi
@@ -147,6 +97,21 @@ interface StylishApiService {
         @Field("provider") provider: String = "facebook",
         @Field("access_token") fbToken: String):
             Deferred<UserSignInResult>
+
+    /**
+     * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
+     * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
+     * The @Field annotation indicates that it will be added "provider", "access_token" key-pairs to the body of
+     * the POST HTTP method, and it have to use @FormUrlEncoded to support @Field
+     */
+    @FormUrlEncoded
+    @POST("user/signin")
+    fun userSignIn(
+        @Field("provider") provider: String = "native",
+        @Field("email") email: String,
+        @Field("password") password: String):
+            Deferred<UserSignInResult>
+
     /**
      * Returns a Coroutine [Deferred] [CheckoutOrderResult] which can be fetched with await() if in a Coroutine scope.
      * The @POST annotation indicates that the "user/signin" endpoint will be requested with the POST HTTP method
@@ -156,6 +121,14 @@ interface StylishApiService {
     @POST("order/checkout")
     fun checkoutOrder(@Header("Authorization") token: String, @Body orderDetail: OrderDetail):
             Deferred<CheckoutOrderResult>
+
+    @FormUrlEncoded
+    @POST("user/signup")
+    fun userSignUp(
+        @Field("name") name: String = "",
+        @Field("email") email: String,
+        @Field("password") password: String?):
+            Deferred<UserSignUpResult>
 }
 
 /**
@@ -163,4 +136,14 @@ interface StylishApiService {
  */
 object StylishApi {
     val retrofitService : StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
+}
+
+//filter-enum class
+enum class StylishApiFilter(val valueFilter: String) {
+    SHOW_POPULARITY_ASCENDING("popularity_ascending"),
+    SHOW_POPULARITY_DESCENDING("popularity_descending"),
+    SHOW_PRICE_ASCENDING("price_ascending"),
+    SHOW_PRICE_DESCENDING("price_descending"),
+    SHOW_PRICE_RANGE("price_range"),
+    SHOW_ALL("all")
 }

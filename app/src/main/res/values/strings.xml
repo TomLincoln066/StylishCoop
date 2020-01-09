@@ -93,6 +93,8 @@
 
     <!-- General -->
     <string name="nt_dollars_">NT$%d</string>
+    <string name="us_dollars_">US$%.2f</string>
+    <string name="jp_yen_">\u00A5%d</string>
     <string name="_dash_">%s - %s</string>
     <string name="catalog">型錄</string>
     <string name="cart">購物車</string>
@@ -111,4 +113,33 @@
     <string name="afternoon">afternoon</string>
     <string name="anytime">anytime</string>
     <string name="chatbot_name">Chatbot</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="hint_password_required">請輸入密碼</string>
+    <string name="hint_email_required">請輸入電子郵箱</string>
+    <string name="confirmation_text">登入</string>
+    <string name="cancel_text">取消</string>
+
+
+    <!-- CURRENCY -->
+    <string name="currency_twd">TWD</string>
+    <string name="currency_usd">USD</string>
+    <string name="currency_jpy">JPY</string>
+
+    <!-- filter spinner-->
+
+    <string-array name="arrayFilter">
+
+        <item>按人氣從低到高</item>
+        <item>按人氣從高到低</item>
+        <item>按價錢從低到高</item>
+        <item>按價錢從高到低</item>
+
+
+    </string-array>
+
+    <string name ="textView_popularity">按照人氣高低排序</string>
+    <string name ="textView_price">按照價錢高低排序</string>
+    <string name="hint_username">請輸入帳號名稱</string>
+
 </resources>

@@ -78,7 +78,7 @@ class ChatbotViewModel (private val stylishRepository: StylishRepository,
         when(ChatbotQuery.valueOf(api)) {
             ChatbotQuery.SIZE -> {
                 coroutineScope.launch {
-//                    val result = stylishRepository
+                    val result = stylishRepository
                 }
             }
             ChatbotQuery.EVENTS -> {

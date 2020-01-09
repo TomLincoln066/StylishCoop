@@ -11,12 +11,17 @@ import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.component.GridSpacingItemDecoration
 import app.appworks.school.stylish.data.Product
+import app.appworks.school.stylish.data.UserRecord
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -25,10 +30,20 @@ import kotlinx.coroutines.Job
  */
 class CatalogItemViewModel(
     private val stylishRepository: StylishRepository,
-    catalogType: CatalogTypeFilter // Handle the type for each catalog item
+    catalogType: CatalogTypeFilter, // Handle the type for each catalog item
+    sort: Sort, // add sort property
+    order: Order // add order property
 ) : ViewModel() {
 
-    private val sourceFactory = PagingDataSourceFactory(catalogType)
+    // factory have three properties catalogType, sort and order.
+    private val sourceFactory = PagingDataSourceFactory(catalogType, sort, order)
+
+    //
+    fun refreshWithSortAndOrder(sort: Sort, order: Order) {
+        sourceFactory.sort = sort
+        sourceFactory.order = order
+        refresh()
+    }
 
     val pagingDataProducts: LiveData<PagedList<Product>> = sourceFactory.toLiveData(6, null)
 
@@ -81,6 +96,17 @@ class CatalogItemViewModel(
     }
 
     fun navigateToDetail(product: Product) {
+
+        if (UserManager.isLoggedIn) {
+            coroutineScope.launch {
+                stylishRepository.getProductDetail(UserManager.userToken ?: "", UserManager.userCurrency, product.id.toString())
+            }
+        } else {
+            coroutineScope.launch {
+                stylishRepository.insert(UserRecord(product.id, product.title, product.price, product.mainImage))
+            }
+        }
+
         _navigateToDetail.value = product
     }
 

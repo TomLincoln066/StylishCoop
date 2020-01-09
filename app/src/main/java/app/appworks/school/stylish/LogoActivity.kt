@@ -60,7 +60,7 @@ class LogoActivity : BaseActivity() {
         binding.imageLogo.startAnimation(AnimationSet(false).apply {
             addAnimation(rotateAnimation)
             addAnimation(scaleAnimation)
-            fillAfter = true
+            fillAfter =  true
         })
 
         val alphaAnimation = AlphaAnimation(1f, 0f).apply {

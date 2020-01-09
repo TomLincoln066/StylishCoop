@@ -96,7 +96,7 @@ class ProfileViewModel(private val stylishRepository: StylishRepository, private
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
-                    result.data
+                    result.data.user
                 }
                 is Result.Fail -> {
                     _error.value = result.error

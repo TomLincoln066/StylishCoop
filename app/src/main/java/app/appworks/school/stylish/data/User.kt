@@ -2,6 +2,7 @@ package app.appworks.school.stylish.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.lang.Error
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -12,5 +13,7 @@ data class User(
     val provider: String,
     val name: String,
     val email: String,
-    val picture: String
+    val picture: String?,
+    val viewedProduct: String?,
+    val coupons: List<Coupon>?
 ) : Parcelable

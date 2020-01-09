@@ -1,12 +1,16 @@
 package app.appworks.school.stylish.ext
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Rect
 import android.util.DisplayMetrics
 import android.view.TouchDelegate
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Transformation
+import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.OrderProduct
 import app.appworks.school.stylish.data.Product
@@ -188,4 +192,17 @@ fun ChatBotLayout.chatbotExpand() {
 
 fun ChatBotLayout.chatbotCollapse() {
 
+}
+
+fun Fragment.hideKeyboard() {
+    view?.let { activity?.hideKeyboard(it) }
+}
+
+fun Activity.hideKeyboard() {
+    hideKeyboard(currentFocus ?: View(this))
+}
+
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }

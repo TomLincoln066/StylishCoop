@@ -2,6 +2,8 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -15,15 +17,64 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
                                private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StylishRepository {
 
+    override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
+        return stylishRemoteDataSource.getReplyFromChatbot(question)
+    }
+
+    override fun getUserViewRecords(): LiveData<List<UserRecord>> {
+        return stylishLocalDataSource.getUserViewRecords()
+    }
+
+    override suspend fun addNewCoupons(token: String, couponID: Int):
+            Result<CouponMultitypeResult> {
+        return stylishRemoteDataSource.addNewCoupons(token, couponID)
+    }
+
+    override suspend fun getAvaliableCoupons(token: String): Result<CouponMultitypeResult> {
+        return stylishRemoteDataSource.getAvaliableCoupons(token)
+    }
+
+    override suspend fun getUserViewingRecord(token: String): Result<UserRecordsResult> {
+        return stylishRemoteDataSource.getUserViewingRecord(token)
+    }
+
+    override suspend fun getProductDetail( token: String, currency: String, productId: String):
+            Result<ProductDetailResult> {
+        return stylishRemoteDataSource.getProductDetail(token, currency, productId)
+    }
+
+    override suspend fun userSignUp(name: String, email: String, password: String
+    ): Result<UserSignUpResult> {
+        return stylishRemoteDataSource.userSignUp(name, email, password)
+    }
+
+    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
+        return stylishRemoteDataSource.userSignIn(email, password)
+    }
+
+    override suspend fun userRefreshToken(token: String): Result<UserSignInResult> {
+        return stylishRemoteDataSource.userSignIn(token)
+    }
+
+    override suspend fun getProductAll(token: String?, currency: String): Result<List<HomeItem>> {
+        return stylishRemoteDataSource.getProductAll(token, currency)
+    }
+
+    override suspend fun deleteAllViewRecords() {
+        return stylishLocalDataSource.deleteAllViewRecords()
+    }
+
     override suspend fun getMarketingHots(): Result<List<HomeItem>> {
         return stylishRemoteDataSource.getMarketingHots()
     }
 
-    override suspend fun getProductList(type: String, paging: String?): Result<ProductListResult> {
-        return stylishRemoteDataSource.getProductList(type = type, paging = paging)
+    override suspend fun getProductList(token: String, currency: String,
+                                        type: String, paging: String?,
+                                        sort: Sort?, order: Order?): Result<ProductListResult> {
+        return stylishRemoteDataSource.getProductList(token, currency, type, paging, sort, order)
     }
 
-    override suspend fun getUserProfile(token: String): Result<User> {
+    override suspend fun getUserProfile(token: String): Result<UserProfileResult> {
         return stylishRemoteDataSource.getUserProfile(token)
     }
 
@@ -73,6 +124,15 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
 
     override suspend fun insertChat(chat: Chat) {
         stylishLocalDataSource.insertChat(chat)
+    }
+
+
+    override suspend fun getAd(): Result<AdResult> {
+        return stylishRemoteDataSource.getAd()
+    }
+
+    override suspend fun insert(userRecord: UserRecord) {
+        stylishLocalDataSource.insert(userRecord)
     }
 
 

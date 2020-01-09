@@ -13,16 +13,31 @@ import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.databinding.FragmentCatalogItemBinding
 import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.Order
+import app.appworks.school.stylish.network.Sort
 
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
-class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment() {
+//define more properties of CatalogItemFragment class, referring to  sort, order, and set their initial values as Sort.POPULARITY and Order.DESCEND in respective.
+class CatalogItemFragment(private val catalogType: CatalogTypeFilter, private var sort: Sort = Sort.POPULARITY, private var order:Order = Order.DESCEND) : Fragment() {
 
     /**
      * Lazily initialize our [CatalogItemViewModel].
      */
-    private val viewModel by viewModels<CatalogItemViewModel> { getVmFactory(catalogType) }
+
+    // (1) what does by  means??
+    // (2) viewModels<CatalogItemViewModel> ??
+    // (3){ getVmFactory(catalogType, sort, order) }
+    private val viewModel by viewModels<CatalogItemViewModel> { getVmFactory(catalogType, sort, order) }
+
+
+    //If you’re completely certain that you can’t assign an initial value to a property when you call
+    //the class constructor, you can prefix it with lateinit. This tells the compiler that you’re aware
+    //that the property hasn’t been initialized yet, and you’ll handle it later.
+    //(1) why need lateinit??
+    //(2) initialize vs define??
+    private lateinit var adapter: PagingAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -32,9 +47,12 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
 
         binding.viewModel = viewModel
 
-        binding.recyclerCatalogItem.adapter = PagingAdapter(PagingAdapter.OnClickListener {
+
+        adapter = PagingAdapter(PagingAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
+
+        binding.recyclerCatalogItem.adapter = adapter
 
         viewModel.navigateToDetail.observe(this, Observer {
             it?.let {
@@ -59,5 +77,14 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
         })
 
         return binding.root
+    }
+
+    //what 's the difference between this fun update and the one in CatalogFragment.kt ( fun setSort )
+    fun update(sort: Sort, order: Order) {
+        this.sort = sort
+        this.order = order
+        //viewModel = CatalogItemViewModel / Call viewModel's property, which is fun refreshWithSortAndOrder(sort, order)
+        //but why??
+        viewModel.refreshWithSortAndOrder(sort, order)
     }
 }
