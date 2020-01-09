@@ -17,6 +17,19 @@ class DefaultStylishRepository(private val stylishRemoteDataSource: StylishDataS
                                private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : StylishRepository {
 
+    override suspend fun getGroupBuys(token: String): Result<GetGroupBuyResult> {
+        return stylishRemoteDataSource.getGroupBuys(token)
+    }
+
+    override suspend fun createGroupBuy(addGroupBuyBody: AddGroupBuyBody): Result<AddGroupBuyResult> {
+        return stylishRemoteDataSource.createGroupBuy(addGroupBuyBody)
+    }
+
+    override suspend fun updateGroupBuy(token: String,
+                                        productID: Long): Result<JoinGroupBuyResult> {
+        return stylishRemoteDataSource.updateGroupBuy(token, productID)
+    }
+
     override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
         return stylishRemoteDataSource.getReplyFromChatbot(question)
     }

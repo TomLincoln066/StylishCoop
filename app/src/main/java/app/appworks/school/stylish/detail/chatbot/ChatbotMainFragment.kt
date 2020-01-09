@@ -57,8 +57,8 @@ class ChatbotMainFragment : Fragment() {
         viewModel?.askForHeightAndWeight?.observe(this, Observer {
             it?.let {shouldAskForHeightAndWeight ->
                 if (shouldAskForHeightAndWeight) {
-                    // Display dialog
 
+                    // Display dialog
                     heightWeightDialog = HeightWeightDialog{height, weight ->
                         viewModel?.sentHeightAndWeight(height, weight)
                         heightWeightDialog?.dismiss()

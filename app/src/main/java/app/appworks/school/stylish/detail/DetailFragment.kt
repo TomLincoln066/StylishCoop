@@ -78,6 +78,8 @@ class DetailFragment : Fragment() {
         }
 
 
+
+
         // set the initial position to the center of infinite gallery
         viewModel.product.value?.let { product ->
             binding.recyclerDetailGallery
@@ -104,6 +106,8 @@ class DetailFragment : Fragment() {
         /**
          * USERRECORD
          */
+
+        viewModel.saveRecord()
 
         if (UserManager.isLoggedIn) {
             viewModel.record.observe(this, Observer {

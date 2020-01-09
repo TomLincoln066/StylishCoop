@@ -176,6 +176,16 @@ class DetailViewModel(
     val record: LiveData<List<UserRecord>>
         get() = _record
 
+    fun saveRecord() {
+        if (!UserManager.isLoggedIn) {
+            // save record at local
+
+            coroutineScope.launch {
+                stylishRepository.insert(UserRecord(arguments.id, arguments.title, arguments.price, arguments.mainImage))
+            }
+        }
+    }
+
     fun fetchUserRecord() {
         if (UserManager.isLoggedIn) {
             // fetch Online
@@ -204,6 +214,11 @@ class DetailViewModel(
                 }
             }
 
+        } else {
+            // fetch database
+            coroutineScope.launch {
+
+            }
         }
     }
 

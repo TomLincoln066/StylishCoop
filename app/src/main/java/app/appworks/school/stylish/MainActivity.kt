@@ -192,6 +192,94 @@ class MainActivity : BaseActivity() {
         val testtoken = "9c9ddeea44206d5eb1ec1827a4e55efe3e221cbcca6abc089ef6ba9bb37e740e"
         val dummyToken = "2f7c7900c565ae05f9e8cae6b87828778d98b494b36b8db2f361e041c243a72a"
 
+        /**
+         * GROUPBUY
+         */
+
+        /**
+         * FETCH GROUPBUY
+         */
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "JOIN GROUP BUY"
+//            val result = StylishRemoteDataSource.getGroupBuys("11022fcae1ee7cc9097c24eecd60950839fc467762ae78a433441acdb0c8ecbb")
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.data}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
+        /**
+         * JOIN GROUPBUY
+         */
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val tag = "JOIN GROUP BUY"
+//            val result = StylishRemoteDataSource.updateGroupBuy("11022fcae1ee7cc9097c24eecd60950839fc467762ae78a433441acdb0c8ecbb", 201902191245)
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.success}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
+
+        /**
+         * CREATE GROUPBUY
+         */
+//                CoroutineScope(Dispatchers.Main).launch {
+//                        val tag = "GROUP BUY"
+//            val result = StylishRemoteDataSource.createGroupBuy(AddGroupBuyBody("11022fcae1ee7cc9097c24eecd60950839fc467762ae78a433441acdb0c8ecbb", 201807201824, "test12@test.com", "test13@test.com"))
+//
+//            when (result) {
+//                is Result.Success -> {
+//                    if (result.data.error != null) {
+//                        Log.i(tag, "ERROR : ${result.data.error}")
+//                    } else {
+//                        Log.i(tag, "RESULT : ${result.data.groupID}")
+//                    }
+//                }
+//
+//                is Result.Error -> {
+//                    Log.i(tag, "ERROR : ${result.exception.message}")
+//                }
+//
+//                is Result.Fail -> {
+//                    Log.i(tag, "FAIL : ${result.error}")
+//                }
+//            }
+//
+//        }
+
         /***
          * CHATBOT
          */

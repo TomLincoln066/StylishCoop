@@ -14,7 +14,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import java.util.*
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -238,6 +237,20 @@ interface StylishApiServiceV2 {
     @Headers("Content-Type: application/json")
     @POST("chatbot")
     fun getChatbotReplyFor(@Body questionBody: ChatbotBody): Deferred<ChatbotReplyMultiTypeResult>
+
+
+    /**
+     * GROUPON
+     */
+    @GET("group")
+    fun fetchMyGroupBuy(@Header("token") token: String): Deferred<GetGroupBuyResult>
+
+    @Headers("Content-Type: application/json")
+    @POST("group")
+    fun createGroupBuy(@Body groupBuyBody: AddGroupBuyBody): Deferred<AddGroupBuyResult>
+
+    @PUT("group")
+    fun updateGroupBuy(@Header("token") token: String, @Header("productid") productID: Long): Deferred<JoinGroupBuyResult>
 }
 
 /**

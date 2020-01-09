@@ -127,7 +127,8 @@ fun bindChatbotItemRecyclerView(recyclerView: RecyclerView, chatbotItems: List<C
     adapter?.submitList(chatbotItems)
     chatbotItems?.size?.let {size ->
         if (size > 0) {
-            recyclerView.smoothScrollBy(0, abs(recyclerView.computeVerticalScrollOffset()))
+//            recyclerView.smoothScrollBy(0, abs(recyclerView.computeVerticalScrollOffset()))
+            recyclerView.smoothScrollToPosition(size)
         }
     }
 }

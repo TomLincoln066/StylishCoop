@@ -24,6 +24,70 @@ import retrofit2.http.HTTP
  */
 object StylishRemoteDataSource : StylishDataSource {
 
+    override suspend fun updateGroupBuy(token: String, productID: Long
+    ): Result<JoinGroupBuyResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.updateGroupBuy(token, productID)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun createGroupBuy(addGroupBuyBody: AddGroupBuyBody): Result<AddGroupBuyResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.createGroupBuy(addGroupBuyBody)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getGroupBuys(token: String): Result<GetGroupBuyResult> {
+        if (!isInternetConnected()) {
+            return Result.Fail(getString(R.string.internet_not_connected))
+        }
+
+        val getResultDeferred = StylishApiV2.retrofitService.fetchMyGroupBuy(token)
+
+        return try {
+            val result = getResultDeferred.await()
+
+            result.error?.let {
+                return Result.Fail(it)
+            }
+
+            Result.Success(result)
+        } catch (e: Exception) {
+            Logger.w("[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getReplyFromChatbot(question: ChatbotBody): Result<ChatbotReplyMultiTypeResult> {
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
