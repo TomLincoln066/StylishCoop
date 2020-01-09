@@ -124,4 +124,13 @@
     <action
             android:id="@+id/action_global_heightWeightDialog"
             app:destination="@id/heightWeightDialog" />
+    <fragment
+            android:id="@+id/groupbuyFragment"
+            android:name="app.appworks.school.stylish.groupon.GroupbuyFragment"
+            android:label="GroupbuyFragment" />
+    <action
+            android:id="@+id/action_global_groupbuyFragment"
+            app:destination="@id/groupbuyFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
 </navigation>

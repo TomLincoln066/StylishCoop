@@ -95,6 +95,20 @@ class MainActivity : BaseActivity() {
                     }
                     return@OnNavigationItemSelectedListener true
                 }
+
+                R.id.navigation_groupon -> {
+                    targetID = R.id.navigation_groupon
+                    when (viewModel.isLoggedIn) {
+                        true -> {
+                            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalGroupbuyFragment())
+                        }
+                        false -> {
+                            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())
+                            return@OnNavigationItemSelectedListener false
+                        }
+                    }
+                    return@OnNavigationItemSelectedListener true
+                }
             }
             false
         }
@@ -139,7 +153,23 @@ class MainActivity : BaseActivity() {
                             viewModel.navigateToProfileByBottomNav(it)
                         }
                     }
-                    else -> viewModel.navigateToProfileByBottomNav(it)
+
+                    else -> {
+                        if (targetID == R.id.navigation_groupon) {
+                            viewModel.navigateToGroupBuy()
+                        } else {
+                            viewModel.navigateToProfileByBottomNav(it)
+                        }
+                    }
+                }
+            }
+        })
+
+        viewModel.navigateToGroupBuy.observe(this, Observer {
+            it?.let { shouldNavigate ->
+                if(shouldNavigate) {
+                    binding.bottomNavView.selectedItemId = R.id.navigation_groupon
+                    viewModel.onGroupBuyNavigated()
                 }
             }
         })
@@ -604,6 +634,7 @@ class MainActivity : BaseActivity() {
                 R.id.detailFragment -> CurrentFragmentType.DETAIL
                 R.id.paymentFragment -> CurrentFragmentType.PAYMENT
                 R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
+                R.id.groupbuyFragment -> CurrentFragmentType.GROUP_BUY
                 else -> viewModel.currentFragmentType.value
             }
         }

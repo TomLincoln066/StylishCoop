@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import app.appworks.school.stylish.databinding.FragmentGrouponBinding
+import app.appworks.school.stylish.databinding.FragmentGroupbuyBinding
 
-class GrouponFragment : Fragment() {
+class GroupbuyFragment : Fragment() {
 
-    private lateinit var binding: FragmentGrouponBinding
+    private lateinit var binding: FragmentGroupbuyBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentGrouponBinding.inflate(inflater)
+        binding = FragmentGroupbuyBinding.inflate(inflater)
+
 
         return binding.root
     }

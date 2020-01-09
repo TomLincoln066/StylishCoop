@@ -150,6 +150,18 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
         _navigateToHomeByBottomNav.value = null
     }
 
+    private val _navigateToGroupBuy = MutableLiveData<Boolean>()
+    val navigateToGroupBuy: LiveData<Boolean>
+        get() = _navigateToGroupBuy
+
+    fun navigateToGroupBuy() {
+        _navigateToGroupBuy.value = true
+    }
+
+    fun onGroupBuyNavigated() {
+        _navigateToGroupBuy.value = null
+    }
+
     /**
      * track [StylishRepository.getUserProfile]: -> [DefaultStylishRepository] : [StylishRepository] -> [StylishRemoteDataSource] : [StylishDataSource]
      * @param token: Stylish token
