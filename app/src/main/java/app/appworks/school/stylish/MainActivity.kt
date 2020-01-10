@@ -147,7 +147,7 @@ class MainActivity : BaseActivity() {
                 findNavController(R.id.myNavHostFragment).navigate(
                     NavigationDirections.navigateToMessageDialog(MessageDialog.MessageType.LOGIN_SUCCESS)
                 )
-                
+
                 viewModel.onLoginSuccessNavigated()
 
 
