@@ -440,7 +440,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+                android:orientation="horizontal"
                 android:id="@+id/layout_detail_bottom"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_all_bottom_layout"
@@ -453,7 +454,7 @@
             <Button
                     android:id="@+id/button_detail_add"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
@@ -468,8 +469,29 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_weight="0.5"/>
+            <Button
+                    android:id="@+id/button_detail_groupbuy"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:letterSpacing="0.15"
+                    android:text="創立團購"
+                    android:onClick="@{()->viewModel.navigateToAdd2GroupBuy(viewModel.product)}"
+                    android:background="@drawable/button_add2cart_black_ripple"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

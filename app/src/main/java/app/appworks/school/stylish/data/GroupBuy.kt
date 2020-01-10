@@ -8,10 +8,16 @@ import kotlinx.android.parcel.Parcelize
 data class GroupBuy(
     @Json(name = "group_id") val groupID: Int,
     @Json(name = "product_id") val productID: Long,
-    @Json(name = "users_id") val users: List<Long>?,
+    @Json(name = "users") val users: List<MemberBuy>?,
+    val product: Product? = null,
     val status: Int
 ): Parcelable
 
+@Parcelize
+data class MemberBuy(
+    @Json(name = "user_id") val userId: Int?,
+    val confirm: Int?
+): Parcelable
 
 @Parcelize
 data class GetGroupBuyResult(

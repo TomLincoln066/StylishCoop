@@ -7,6 +7,7 @@ import app.appworks.school.stylish.ad.AdViewModel
 import app.appworks.school.stylish.cart.CartViewModel
 import app.appworks.school.stylish.checkout.CheckoutSuccessViewModel
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.groupon.GrouponFragmentViewModel
 import app.appworks.school.stylish.home.HomeViewModel
 import app.appworks.school.stylish.login.EmailLoginViewModel
 import app.appworks.school.stylish.login.LoginViewModel
@@ -54,6 +55,11 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(EmailLoginViewModel::class.java) ->
                     EmailLoginViewModel(stylishRepository)
+
+
+                isAssignableFrom(GrouponFragmentViewModel::class.java) ->
+                    GrouponFragmentViewModel(stylishRepository)
+
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

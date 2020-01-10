@@ -144,4 +144,25 @@
             android:id="@+id/action_global_heightWeightDialog"
             app:destination="@id/heightWeightDialog" />
 
+    <fragment
+            android:id="@+id/groupbuyFragment"
+            android:name="app.appworks.school.stylish.groupon.GroupbuyFragment"
+            android:label="GroupbuyFragment" />
+    <action
+            android:id="@+id/action_global_groupbuyFragment"
+            app:destination="@id/groupbuyFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+    <dialog
+            android:id="@+id/add2GroupBuyDialog"
+            android:name="app.appworks.school.stylish.detail.Add2GroupBuyDialog"
+            android:label="Add2GroupBuyDialog" >
+        <argument
+                android:name="productKey"
+                app:argType="app.appworks.school.stylish.data.Product" />
+    </dialog>
+    <action
+            android:id="@+id/action_global_add2GroupBuyDialog"
+            app:destination="@id/add2GroupBuyDialog" />
+
 </navigation>

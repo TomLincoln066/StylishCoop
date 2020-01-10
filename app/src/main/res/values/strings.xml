@@ -142,10 +142,15 @@
     <string name ="textView_price">按照價錢高低排序</string>
     <string name="hint_username">請輸入帳號名稱</string>
 
+
     <string name="textView_close_get_coupon">Watch Full Ad To Get Coupons</string>
     <string name="textView_login_to_get_coupons">Sign Up/In To Get Coupons</string>
     <string name="button_sign_up_or_in">Sign Up/In</string>
     <string name="button_close_just_watch_ad">Another Time</string>
+
+
+    <!--GROUP BUY-->
+    <string name="group_buy_title">團購</string>
 
 
 </resources>

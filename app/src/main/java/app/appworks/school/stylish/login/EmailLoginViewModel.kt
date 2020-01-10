@@ -194,6 +194,8 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
                                 passwordErrorMessage.value = result.data.error
                             } else {
                                 UserManager.userToken = result.data.userSignUp?.accessToken
+                                UserManager.userEmail = email
+                                UserManager.userID = -1
                                 _user.value = result.data.userSignUp?.user
                                 _navigateToLoginSuccess.value = user.value
                             }
@@ -226,6 +228,8 @@ class EmailLoginViewModel(private val stylishRepository: StylishRepository) : Vi
                             passwordErrorMessage.value = result.data.error
                             _status.value = LoadApiStatus.DONE
                             UserManager.userToken = result.data.userSignIn?.accessToken
+                            UserManager.userEmail = email
+                            UserManager.userID = result.data.userSignIn?.user?.id ?: -1
                             _user.value = result.data.userSignIn?.user
                             _navigateToLoginSuccess.value = user.value
                         }

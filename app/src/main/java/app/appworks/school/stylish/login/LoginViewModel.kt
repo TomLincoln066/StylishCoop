@@ -99,7 +99,11 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
+
                     UserManager.userToken = result.data.userSignIn?.accessToken
+                    UserManager.userID = result.data.userSignIn?.user?.id ?: -1
+                    UserManager.userEmail = result.data.userSignIn?.user?.email
+
                     _user.value = result.data.userSignIn?.user
                     _navigateToLoginSuccess.value = user.value
                 }

@@ -8,13 +8,11 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -29,6 +27,7 @@ import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.login.LoginDialog
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.StylishApiFilter
+
 import app.appworks.school.stylish.network.Order
 import app.appworks.school.stylish.network.Sort
 import app.appworks.school.stylish.userlogin.UserLoginDialog
@@ -41,7 +40,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -94,6 +92,20 @@ class MainActivity : BaseActivity() {
                                     viewModel.user.value
                                 )
                             )
+                        }
+                        false -> {
+                            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())
+                            return@OnNavigationItemSelectedListener false
+                        }
+                    }
+                    return@OnNavigationItemSelectedListener true
+                }
+
+                R.id.navigation_groupon -> {
+                    targetID = R.id.navigation_groupon
+                    when (viewModel.isLoggedIn) {
+                        true -> {
+                            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalGroupbuyFragment())
                         }
                         false -> {
                             findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEmailLoginDialog())
@@ -158,11 +170,27 @@ class MainActivity : BaseActivity() {
                             viewModel.navigateToProfileByBottomNav(it)
                         }
                     }
+
+
+
+
                     else -> {
-                        if(targetID == R.id.navigation_profile) {
+                        if (targetID == R.id.navigation_groupon) {
+                            viewModel.navigateToGroupBuy()
+                        } else {
                             viewModel.navigateToProfileByBottomNav(it)
                         }
                     }
+                }
+            }
+        })
+
+        viewModel.navigateToGroupBuy.observe(this, Observer {
+            it?.let { shouldNavigate ->
+                if(shouldNavigate) {
+                    binding.bottomNavView.selectedItemId = R.id.navigation_groupon
+                    viewModel.onGroupBuyNavigated()
+
                 }
             }
         })
@@ -232,7 +260,7 @@ class MainActivity : BaseActivity() {
 //            val result = StylishRemoteDataSource.getGroupBuys("11022fcae1ee7cc9097c24eecd60950839fc467762ae78a433441acdb0c8ecbb")
 //
 //            when (result) {
-//                is Result.Success -> {
+//                is app.appworks.school.stylish.data.Result.Success -> {
 //                    if (result.data.error != null) {
 //                        Log.i(tag, "ERROR : ${result.data.error}")
 //                    } else {
@@ -240,11 +268,11 @@ class MainActivity : BaseActivity() {
 //                    }
 //                }
 //
-//                is Result.Error -> {
+//                is app.appworks.school.stylish.data.Result.Error -> {
 //                    Log.i(tag, "ERROR : ${result.exception.message}")
 //                }
 //
-//                is Result.Fail -> {
+//                is app.appworks.school.stylish.data.Result.Fail -> {
 //                    Log.i(tag, "FAIL : ${result.error}")
 //                }
 //            }
@@ -672,6 +700,7 @@ class MainActivity : BaseActivity() {
                 R.id.detailFragment -> CurrentFragmentType.DETAIL
                 R.id.paymentFragment -> CurrentFragmentType.PAYMENT
                 R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
+                R.id.groupbuyFragment -> CurrentFragmentType.GROUP_BUY
                 else -> viewModel.currentFragmentType.value
             }
         }

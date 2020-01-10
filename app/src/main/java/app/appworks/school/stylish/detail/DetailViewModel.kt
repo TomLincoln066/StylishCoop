@@ -134,6 +134,21 @@ class DetailViewModel(
         _leaveDetail.value = true
     }
 
+    /**
+     * GROUPBUY
+     */
+    private val _navigateToAdd2GroupBuy = MutableLiveData<Product>()
+    val navigateToAdd2GroupBuy: LiveData<Product>
+        get() = _navigateToAdd2GroupBuy
+
+    fun navigateToAdd2GroupBuy(product: Product) {
+        _navigateToAdd2GroupBuy.value = product
+    }
+
+    fun onAdd2GroupBuy() {
+        _navigateToAdd2GroupBuy.value = null
+    }
+
 
     /**
      * CHATBOT

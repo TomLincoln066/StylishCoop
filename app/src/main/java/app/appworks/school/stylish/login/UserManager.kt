@@ -21,28 +21,44 @@ object UserManager {
     private const val USER_TOKEN = "user_token"
     private const val USER_CURRENCY = "user_currency"
     private const val USER_LAST_VISIT_TIME = "user_last_visit_time"
+    private const val USER_EMAIL = "user_email"
+    private const val USER_ID = "user_id"
 
     private val _user = MutableLiveData<User>()
 
     val user: LiveData<User>
         get() = _user
 
-//    var lastLoginDate: Long? = null
-//        get() = StylishApplication.instance
-//            .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
-//            .getLong(USER_LAST_VISIT_TIME)
-//        set(value) {
-//            field = when (value) {
-//                null -> {
-//
-//                }
-//
-//                else -> {
-//
-//                }
-//            }
-//        }
+    val sharedPreference = StylishApplication.instance
+        .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
 
+    var userID: Int = -1
+        get() = sharedPreference.getInt(USER_ID, -1)
+        set(value) {
+            field = value
+            sharedPreference.edit().putInt(USER_ID, value).apply()
+        }
+
+
+    var userEmail: String? = null
+        get() = StylishApplication.instance
+            .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+            .getString(USER_EMAIL, null)
+        set(value) {
+            field = when(value) {
+                null -> {
+                    sharedPreference.edit()
+                        .remove(USER_EMAIL)
+                        .apply()
+                    null
+                }
+                else -> {
+                    sharedPreference.edit().putString(USER_EMAIL, value)
+                        .apply()
+                    value
+                }
+            }
+        }
 
     var userToken: String? = null
         get() = StylishApplication.instance
