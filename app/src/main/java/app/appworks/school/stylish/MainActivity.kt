@@ -52,10 +52,12 @@ class MainActivity : BaseActivity() {
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
 
+// An android Manifest file that defines essential app details so the OS can launch your app
+// Gradle scripts, for building and running your app
 
-//    private lateinit var binding1:FragmentCatalogBinding
 
-//    private lateinit var binding2:DialogCommercialAdBinding
+
+
 
 
     private lateinit var binding: ActivityMainBinding
@@ -137,6 +139,7 @@ class MainActivity : BaseActivity() {
 
         startActivity(Intent(this, LogoActivity::class.java))
 
+        //setContentView: Set the activity content from a layout resource. The resource will be inflated, adding all top-level views to the activity.
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel

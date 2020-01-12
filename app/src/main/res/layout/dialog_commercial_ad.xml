@@ -80,3 +80,5 @@
 </layout>
 
         <!--        android:src ="@drawable/krispy_kreme"-->
+
+        <!--sp : scale independent pixels -->
